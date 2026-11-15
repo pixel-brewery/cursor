@@ -40,6 +40,11 @@
               "link": "packages/cursor-browser/api/functions/attachCursorSurface.md"
             },
             {
+              "name": "cursorPalette",
+              "kind": "Variable",
+              "link": "packages/cursor-browser/api/variables/cursorPalette.md"
+            },
+            {
               "name": "ICursorSurface",
               "kind": "Interface",
               "link": "packages/cursor-browser/api/interfaces/ICursorSurface.md"

@@ -2,6 +2,7 @@
 
 import { randomUUID } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
+import { cursorPalette } from '@pixel-brewery/cursor-browser';
 import {
     parsePointerUpdate,
     type CursorTransportEvent,
@@ -16,6 +17,7 @@ import { createChatHandler } from './createChatHandler.js';
 // #endregion
 
 const root = fileURLToPath(new URL('../../../', import.meta.url));
+const participantColors = Object.values(cursorPalette);
 
 /**
  * Serves the built renderer, local chat and reference view's pointer relay on loopback.
@@ -55,6 +57,7 @@ export async function startReferenceServer(port: number): Promise<IReferenceServ
     const peers = new Map<WebSocket, ICursorParticipant>();
     let browserCount = 0;
     let electronCount = 0;
+    let participantCount = 0;
 
     server.httpServer.on('upgrade', (request, socket, head) => {
         const url = URL.parse(request.url ?? '/', origin);
@@ -71,7 +74,10 @@ export async function startReferenceServer(port: number): Promise<IReferenceServ
                 url.searchParams.get('host') === 'electron'
                     ? `Electron ${++electronCount}`
                     : `Browser ${++browserCount}`;
-            const participant = { id: randomUUID(), label, source: 'human' as const };
+            const color =
+                participantColors[participantCount++ % participantColors.length] ??
+                cursorPalette.blue;
+            const participant = { id: randomUUID(), label, color, source: 'human' as const };
             peers.set(connection, participant);
             connection.send(JSON.stringify({ kind: 'welcome', participant }));
             broadcast({ kind: 'participants', count: peers.size });

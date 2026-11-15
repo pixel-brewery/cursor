@@ -1,6 +1,11 @@
 // #region Imports
 
-import type { ChatElement, ChatPromptBoxElement } from '@pixel-brewery/mosaik-elements-foundation';
+import {
+    SelectElementIntl,
+    type ChatElement,
+    type ChatPromptBoxElement,
+    type SelectElement,
+} from '@pixel-brewery/mosaik-elements-foundation';
 import { attachCursorSurface } from '@pixel-brewery/cursor-browser';
 import {
     createCursorController,
@@ -70,6 +75,23 @@ export class ReferenceView {
         this.getElement('#close-settings').addEventListener('click', () => {
             this._panel.hidden = true;
             this._settings.setAttribute('aria-expanded', 'false');
+        });
+        const pointerStyle = this.getElement<SelectElement>('#cursor-style');
+        const selectIntl = new SelectElementIntl('de');
+        selectIntl.toggleLabel = 'Zeigerstile öffnen';
+        pointerStyle.intl = selectIntl;
+        pointerStyle.addEventListener('changed', (event: Event) => {
+            const detail: unknown = event instanceof CustomEvent ? event.detail : undefined;
+            if (
+                detail &&
+                typeof detail === 'object' &&
+                'propertyName' in detail &&
+                detail.propertyName === 'value'
+            ) {
+                // The Select also clears on Escape when its menu is already closed.
+                pointerStyle.value ??= this._surface.dataset.cursorStyle ?? 'pill';
+                this._surface.dataset.cursorStyle = pointerStyle.value;
+            }
         });
         const anotherView = this.getElement('[data-testid="another-view"]');
         anotherView.hidden = host === 'electron';

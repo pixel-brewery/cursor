@@ -2,6 +2,10 @@
 
 import type { IPointerMarker } from '../interfaces/IPointerMarker.js';
 import type { IPointerVisual } from '../interfaces/IPointerVisual.js';
+import { cursorPalette } from '../models/cursorPalette.js';
+import { pointerColors } from '../models/pointerColors.js';
+import { pointerStyles } from '../models/pointerStyles.js';
+import { readPointerLabelColor } from '../models/readPointerLabelColor.js';
 
 // #endregion
 
@@ -15,6 +19,7 @@ export class PointerOverlay {
 
     private readonly _element: HTMLElement;
     private readonly _markers = new Map<string, IPointerMarker>();
+    private _style: keyof typeof pointerStyles = 'pill';
 
     // #endregion
 
@@ -58,6 +63,18 @@ export class PointerOverlay {
     // #endregion
 
     // #region Methods
+
+    /** Restyles the markers in place using the current surface attribute. */
+    public setStyle(value: string | null): void {
+        const style =
+            value && Object.hasOwn(pointerStyles, value)
+                ? (value as keyof typeof pointerStyles)
+                : 'pill';
+        if (style === this._style) return;
+
+        this._style = style;
+        for (const marker of this._markers.values()) this.applyStyle(marker);
+    }
 
     /**
      * Creates or updates the marker for one participant or assistant.
@@ -124,7 +141,10 @@ export class PointerOverlay {
         const document = this._document;
         const root = document.createElement('div');
         const tip = document.createElement('span');
+        const outline = document.createElement('span');
+        const fill = document.createElement('span');
         const label = document.createElement('span');
+        tip.className = 'cursor-pointer-tip';
         label.className = 'cursor-pointer-label';
 
         Object.assign(root.style, {
@@ -136,27 +156,72 @@ export class PointerOverlay {
             maxWidth: '250px',
             pointerEvents: 'none',
         });
-        Object.assign(tip.style, {
-            width: '17px',
-            height: '21px',
-            flexShrink: '0',
-            clipPath: 'polygon(0 0, 99% 52%, 61% 59%, 76% 91%, 61% 100%, 45% 69%, 23% 93%)',
-        });
+        Object.assign(tip.style, { position: 'absolute', top: '0', left: '0' });
+        for (const layer of [outline, fill]) {
+            Object.assign(layer.style, { position: 'absolute', inset: '0' });
+        }
+        outline.style.backgroundColor = '#fff';
         Object.assign(label.style, {
             display: 'block',
+            boxSizing: 'border-box',
+            height: '30px',
+            alignContent: 'center',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
-            font: '600 11px/1.2 system-ui, sans-serif',
-            color: 'var(--cursor-label-color, #fff)',
-            backgroundColor: 'var(--cursor-label-background, #19243a)',
-            borderRadius: 'var(--cursor-label-radius, 4px)',
-            padding: '3px 5px',
-            margin: '11px 0 0 -1px',
+            font: '500 13px/16px var(--cursor-label-font-family, system-ui, sans-serif)',
+            color: 'var(--cursor-label-color, var(--cursor-marker-text))',
+            padding: '0 12px',
         });
 
+        tip.append(outline, fill);
         root.append(tip, label);
-        return { root, tip, label };
+        const marker = { root, tip, outline, fill, label };
+        this.applyStyle(marker);
+        return marker;
+    }
+
+    private applyStyle(marker: IPointerMarker): void {
+        const { root, tip, outline, fill, label } = marker;
+        const style = pointerStyles[this._style];
+        root.dataset.cursorStyle = this._style;
+        Object.assign(tip.style, {
+            width: style.width,
+            height: style.height,
+            filter: style.shadow,
+        });
+        outline.hidden = style.inset === undefined;
+        outline.style.clipPath = style.arrow;
+        fill.style.clipPath = style.inset ?? style.arrow;
+        fill.style.backgroundColor = style.tipColor;
+        Object.assign(label.style, {
+            margin: style.labelMargin,
+            borderRadius: `var(--cursor-label-radius, ${style.labelRadius})`,
+            border: style.labelBorder,
+            boxShadow: style.labelShadow,
+            backgroundColor:
+                this._style === 'outline'
+                    ? 'var(--cursor-label-background, var(--cursor-marker-light))'
+                    : 'var(--cursor-label-background, var(--cursor-marker-accent))',
+        });
+    }
+
+    private applyColors(marker: IPointerMarker, visual: IPointerVisual): void {
+        const paletteKey = visual.color?.toLowerCase() ?? visual.kind;
+        if (marker.paletteKey === paletteKey) return;
+
+        const { style } = marker.root;
+        const color =
+            visual.color?.toLowerCase() ??
+            (visual.kind === 'assistant' ? '#6929d9' : cursorPalette.blue);
+        const palette = pointerColors.get(color);
+        const hostColor = (fallback: string) =>
+            visual.color ? fallback : `var(--cursor-${visual.kind}-color, ${fallback})`;
+        style.setProperty('--cursor-marker-accent', hostColor(color));
+        style.setProperty('--cursor-marker-light', hostColor(palette?.light ?? color));
+        style.setProperty('--cursor-marker-border', hostColor(palette?.border ?? color));
+        style.setProperty('--cursor-marker-text', palette?.text ?? readPointerLabelColor(color));
+        marker.paletteKey = paletteKey;
     }
 
     /**
@@ -168,7 +233,7 @@ export class PointerOverlay {
      * @private
      */
     private updateMarker(marker: IPointerMarker, visual: IPointerVisual): void {
-        const { root, tip, label } = marker;
+        const { root, label } = marker;
         root.dataset.cursorId = visual.id;
         root.dataset.cursorKind = visual.kind;
         root.toggleAttribute('data-cursor-local', visual.local === true);
@@ -179,11 +244,7 @@ export class PointerOverlay {
             root.dataset.cursorTarget = visual.targetId;
         }
         root.style.transform = `translate3d(${visual.position.x}px, ${visual.position.y}px, 0)`;
-        tip.style.backgroundColor =
-            visual.kind === 'assistant'
-                ? 'var(--cursor-assistant-color, #6929d9)'
-                : 'var(--cursor-human-color, #067e77)';
-        if (visual.color) tip.style.backgroundColor = visual.color;
+        this.applyColors(marker, visual);
         if (label.textContent !== visual.label) label.textContent = visual.label;
     }
 

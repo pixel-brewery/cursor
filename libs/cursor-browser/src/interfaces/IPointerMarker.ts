@@ -6,5 +6,8 @@
 export interface IPointerMarker {
     readonly root: HTMLElement;
     readonly tip: HTMLElement;
+    readonly outline: HTMLElement;
+    readonly fill: HTMLElement;
     readonly label: HTMLElement;
+    paletteKey?: string;
 }

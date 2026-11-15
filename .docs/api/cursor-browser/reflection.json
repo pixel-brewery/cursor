@@ -102,6 +102,178 @@
       ]
     },
     {
+      "id": 18,
+      "name": "cursorPalette",
+      "variant": "declaration",
+      "kind": 32,
+      "flags": {
+        "isPublic": true,
+        "isConst": true
+      },
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Reference accent colors for host-assigned participant identities."
+          }
+        ],
+        "blockTags": [
+          {
+            "tag": "@remarks",
+            "content": [
+              {
+                "kind": "text",
+                "text": "Pass a color as the participant's six-digit hexadecimal "
+              },
+              {
+                "kind": "code",
+                "text": "`color`"
+              },
+              {
+                "kind": "text",
+                "text": ".\nCursor uses the matching badge colors for each pointer style."
+              }
+            ]
+          }
+        ]
+      },
+      "type": {
+        "type": "reflection",
+        "declaration": {
+          "id": 19,
+          "name": "__type",
+          "variant": "declaration",
+          "kind": 65536,
+          "flags": {},
+          "children": [
+            {
+              "id": 20,
+              "name": "blue",
+              "variant": "declaration",
+              "kind": 1024,
+              "flags": {
+                "isReadonly": true
+              },
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Blue accent with a white label."
+                  }
+                ]
+              },
+              "type": {
+                "type": "literal",
+                "value": "#1770ef"
+              },
+              "defaultValue": "'#1770ef'"
+            },
+            {
+              "id": 24,
+              "name": "cyan",
+              "variant": "declaration",
+              "kind": 1024,
+              "flags": {
+                "isReadonly": true
+              },
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Pale cyan accent with a dark label."
+                  }
+                ]
+              },
+              "type": {
+                "type": "literal",
+                "value": "#7cd4fd"
+              },
+              "defaultValue": "'#7cd4fd'"
+            },
+            {
+              "id": 21,
+              "name": "green",
+              "variant": "declaration",
+              "kind": 1024,
+              "flags": {
+                "isReadonly": true
+              },
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Green accent with a white label."
+                  }
+                ]
+              },
+              "type": {
+                "type": "literal",
+                "value": "#019855"
+              },
+              "defaultValue": "'#019855'"
+            },
+            {
+              "id": 22,
+              "name": "orange",
+              "variant": "declaration",
+              "kind": 1024,
+              "flags": {
+                "isReadonly": true
+              },
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Orange accent with a white label."
+                  }
+                ]
+              },
+              "type": {
+                "type": "literal",
+                "value": "#dc6903"
+              },
+              "defaultValue": "'#dc6903'"
+            },
+            {
+              "id": 23,
+              "name": "pink",
+              "variant": "declaration",
+              "kind": 1024,
+              "flags": {
+                "isReadonly": true
+              },
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Pink accent with a white label."
+                  }
+                ]
+              },
+              "type": {
+                "type": "literal",
+                "value": "#dd2590"
+              },
+              "defaultValue": "'#dd2590'"
+            }
+          ],
+          "groups": [
+            {
+              "title": "Properties",
+              "children": [
+                20,
+                24,
+                21,
+                22,
+                23
+              ]
+            }
+          ]
+        }
+      },
+      "defaultValue": "..."
+    },
+    {
       "id": 4,
       "name": "ICursorSurface",
       "variant": "declaration",
@@ -411,7 +583,55 @@
             "summary": [
               {
                 "kind": "text",
-                "text": "Connected DOM root that receives pointer input and contains registered targets."
+                "text": "Connected DOM root that receives pointer input and contains registered targets.\nSet "
+              },
+              {
+                "kind": "code",
+                "text": "`data-cursor-style`"
+              },
+              {
+                "kind": "text",
+                "text": " on this element to "
+              },
+              {
+                "kind": "code",
+                "text": "`outline`"
+              },
+              {
+                "kind": "text",
+                "text": ", "
+              },
+              {
+                "kind": "code",
+                "text": "`pill`"
+              },
+              {
+                "kind": "text",
+                "text": ", "
+              },
+              {
+                "kind": "code",
+                "text": "`square`"
+              },
+              {
+                "kind": "text",
+                "text": " or\n"
+              },
+              {
+                "kind": "code",
+                "text": "`square-outline`"
+              },
+              {
+                "kind": "text",
+                "text": ". The default is "
+              },
+              {
+                "kind": "code",
+                "text": "`pill`"
+              },
+              {
+                "kind": "text",
+                "text": ". The style can change while attached."
               }
             ]
           },
@@ -446,6 +666,12 @@
       "children": [
         4,
         13
+      ]
+    },
+    {
+      "title": "Variables",
+      "children": [
+        18
       ]
     },
     {
@@ -546,6 +772,41 @@
       "packageName": "@pixel-brewery/cursor-browser",
       "packagePath": "src/interfaces/ICursorSurfaceOptions.ts",
       "qualifiedName": "ICursorSurfaceOptions.allowSurfaceProjection"
+    },
+    "18": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/models/cursorPalette.ts",
+      "qualifiedName": "cursorPalette"
+    },
+    "19": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/models/cursorPalette.ts",
+      "qualifiedName": "__object"
+    },
+    "20": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/models/cursorPalette.ts",
+      "qualifiedName": "__object.blue"
+    },
+    "21": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/models/cursorPalette.ts",
+      "qualifiedName": "__object.green"
+    },
+    "22": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/models/cursorPalette.ts",
+      "qualifiedName": "__object.orange"
+    },
+    "23": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/models/cursorPalette.ts",
+      "qualifiedName": "__object.pink"
+    },
+    "24": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/models/cursorPalette.ts",
+      "qualifiedName": "__object.cyan"
     }
   },
   "files": {

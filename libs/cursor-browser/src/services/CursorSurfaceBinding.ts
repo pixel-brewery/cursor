@@ -203,6 +203,7 @@ export class CursorSurfaceBinding implements ICursorSurface {
 
     private paintPointers(): void {
         if (!this._controller.isConnected) return;
+        this._overlay.setStyle(this._surface.getAttribute('data-cursor-style'));
         const bounds = this._surface.getBoundingClientRect();
         const visible = new Set<string>();
 

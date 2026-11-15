@@ -44,3 +44,5 @@ publishes local moves regardless of this setting.
 > `readonly` **surface**: `HTMLElement`
 
 Connected DOM root that receives pointer input and contains registered targets.
+Set `data-cursor-style` on this element to `outline`, `pill`, `square` or
+`square-outline`. The default is `pill`. The style can change while attached.

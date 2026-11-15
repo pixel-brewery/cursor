@@ -12,6 +12,19 @@ Create one controller per mounted view and attach the browser renderer to a conn
 
 See [ICursorTransport](../packages/cursor-core/api/interfaces/ICursorTransport.md), [CursorTransportEvent](../packages/cursor-core/api/type-aliases/CursorTransportEvent.md) and [IPointerUpdate](../packages/cursor-core/api/type-aliases/IPointerUpdate.md) for signatures and wire fields.
 
+## Set the pointer appearance
+
+Set `data-cursor-style` on the attached surface. The browser and Electron render the active style for local and remote participants and for the assistant. Changing the attribute updates visible pointers in the receiving view while their positions and target registrations stay active.
+
+| Attribute value  | Tip and name tag                                                                        |
+| ---------------- | --------------------------------------------------------------------------------------- |
+| `outline`        | Black tip with a white outline and an asymmetrically rounded tag with a colored border. |
+| `pill`           | Rounded colored tip and pill tag. This is the default.                                  |
+| `square`         | Sharp colored tip and rectangular tag.                                                  |
+| `square-outline` | Sharp colored tip with a white keyline and shadow, paired with a rectangular tag.       |
+
+Pass a color from `cursorPalette` in the participant identity to use the reference blue, green, orange, pink or cyan. The cyan tag uses dark text. Host-defined colors still use a six-digit hexadecimal RGB value. Set `--cursor-label-color` on the document or overlay to override the tag foreground for a host theme. All framework adapters use the same surface attribute.
+
 ## Register a target and its action
 
 Use the same stable target ID on all layouts that represent the same control. The receiving view projects a known anchor onto its own control geometry. The renderer clips the anchor to the visible part of the control and updates it after scrolling and resizing. Set `allowSurfaceProjection: false` when layouts differ and only registered target positions should be shown. The default is `true`. Set `showLocalPointer: true` to show a label for the local pointer alongside remote pointers. The local label is hidden by default.

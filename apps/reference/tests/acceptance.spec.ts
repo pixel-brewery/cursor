@@ -260,6 +260,14 @@ test('Electron and a reduced-motion browser share target positions and each acts
             await expect(remote).not.toHaveAttribute('data-cursor-target', 'settings');
             await showAndOpenSettings(desktop);
             await takeScreenshot(desktop, 'electron.png');
+            await desktop.getByTestId('cursor-style').locator('button').click();
+            await desktop.getByTestId('cursor-style-square-outline').click();
+            await expect(remote).toHaveAttribute('data-cursor-style', 'square-outline');
+            await expect(desktop.locator(arrived)).toHaveAttribute(
+                'data-cursor-style',
+                'square-outline',
+            );
+            await expectTargetAlignment(desktop, desktop.locator(arrived));
 
             await web.close();
             await expectParticipants(desktop, 1);
@@ -371,6 +379,77 @@ test('a disconnected browser clears stale pointers and can use chat after rejoin
         expect(reference.completions?.prompts).toEqual([showPrompt, openPrompt]);
     } finally {
         resume.resolve();
+        await peer.close();
+    }
+});
+
+test('cursor presets restyle the pointers in one view without losing assistant guidance', async ({
+    page,
+    browser,
+    reference,
+}) => {
+    test.skip(live, 'The completion fixture deterministically presents the Settings target.');
+    const peer = await browser.newPage({ viewport: { width: 900, height: 740 } });
+    try {
+        await Promise.all([page.goto(reference.origin), peer.goto(reference.origin)]);
+        await Promise.all([expectParticipants(page, 2), expectParticipants(peer, 2)]);
+        await showSettings(page);
+        await page.getByTestId('settings').click();
+        await moveInside(peer);
+
+        const remote = page.locator(remoteHuman);
+        const label = remote.locator('.cursor-pointer-label');
+        const tip = remote.locator('.cursor-pointer-tip');
+        const settled = page.locator(arrived);
+        const togglePreset = page
+            .getByTestId('cursor-style')
+            .locator('[part="caret"]')
+            .locator('button');
+        await expect(remote).toHaveAttribute('data-cursor-style', 'pill');
+        const remoteId = await remote.getAttribute('data-cursor-id');
+        assert(remoteId);
+        const tipAppearances = new Set<string>();
+
+        for (const style of ['outline', 'square', 'square-outline', 'pill'] as const) {
+            await test.step(`Select the ${style} preset in this view`, async () => {
+                await togglePreset.click();
+                await page.getByTestId(`cursor-style-${style}`).click();
+                await expect(remote).toHaveAttribute('data-cursor-style', style);
+                await expect(remote).toHaveAttribute('data-cursor-id', remoteId);
+                await expect(settled).toHaveAttribute('data-cursor-style', style);
+                await expectTargetAlignment(page, settled);
+
+                const shape = await label.evaluate((element) => {
+                    const { borderTopRightRadius, borderTopWidth } = getComputedStyle(element);
+                    return {
+                        rounded: Number.parseFloat(borderTopRightRadius) > 0,
+                        outlined: Number.parseFloat(borderTopWidth) > 0,
+                    };
+                });
+                expect(shape).toEqual({
+                    rounded: !style.startsWith('square'),
+                    outlined: style === 'outline',
+                });
+
+                const silhouette = await tip.evaluate((element) =>
+                    [element, ...element.querySelectorAll('*')].map((part) => {
+                        const { clipPath, backgroundColor, filter } = getComputedStyle(part);
+                        return [clipPath, backgroundColor, filter];
+                    }),
+                );
+                tipAppearances.add(JSON.stringify(silhouette));
+                await moveInside(page, 0.35);
+                await expect(peer.locator(remoteHuman)).toHaveAttribute(
+                    'data-cursor-style',
+                    'pill',
+                );
+                await takeScreenshot(page, `cursor-style-${style}.png`);
+            });
+        }
+
+        expect(tipAppearances.size).toBe(4);
+        await expect(page.getByTestId('settings-panel')).toHaveAttribute('data-open-count', '1');
+    } finally {
         await peer.close();
     }
 });

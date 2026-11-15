@@ -45,6 +45,8 @@ Controller state is transient. Closing a view, disconnecting or disposing the co
 
 In the reference application, the model returns one validated suggestion. The view resolves `show-settings` to a registered target and `open-settings` to its authorized handler. The `none` suggestion returns the conversational reply alone. Incoming pointer updates remain on the rendering path. The renderer reports the observed result from the controller after guidance.
 
+The shared browser renderer draws four [pointer appearances](guides/integrate-cursor.md#set-the-pointer-appearance) for local, remote and assistant markers. Each surface chooses its own style. Styling changes repaint the existing overlay and keep its live target bindings.
+
 ## Framework integration
 
 Use one browser implementation. Framework entry points take the host-created controller and pointer options and provide target registration for their component model. Use a directive with destruction handling for Angular, a hook with cleanup for React, a composable with scope disposal for Vue and an action with destroy handling for Svelte. Verify that replacing the surface or its inputs releases the previous registration. The [integration guide](guides/integrate-cursor.md#choose-a-framework-adapter) shows how each adapter binds these inputs.

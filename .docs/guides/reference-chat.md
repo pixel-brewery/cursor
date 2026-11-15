@@ -39,6 +39,10 @@ When the local model is ready, run `yarn demo:web` in the same shell. Open [the 
 
 The prompt box supports Enter to send, Shift+Enter to insert a line break, and **Abbrechen** while waiting.
 
+## Switch pointer styles
+
+Open **Einstellungen** and choose **Zeigerstil** to switch between the four [pointer styles](integrate-cursor.md#set-the-pointer-appearance). The same setting is available in the browser and Electron. The relay assigns reference accent colors in join order. The receiver applies its selected style to the human and assistant pointers in its own view.
+
 ## Browser model environment
 
 | Environment variable   | Default                    | Purpose                                                                        |
@@ -78,8 +82,12 @@ The installed Mosaik 0.1.205 catalog supplied `template-ai-chat`, `recipe-chat-c
 
 The desktop connection panel follows the form sections in `template-settings` and `recipe-profile-settings`, with the compact authentication prompt from `recipe-dialog-form--phone-code`. The same catalog supplied the recipe options and the native Card, Select, Select Item, Textbox, Password Box, Button and Message APIs and anatomy. The app uses those controls from Mosaik Foundation 0.1.205 and registers the matching Reicon aliases, including the dropdown, chat and password field icons.
 
+The Cursor style picker uses the pinned Mosaik 0.1.205 catalog's Select and Select Item APIs and anatomy. `template-settings`, `recipe-dialog-preferences` and `recipe-dropdown-menu--appearance` informed its placement and interaction. The catalog's nearest visual example, `recipe-bento-card--live-cursor`, uses a decorative hover effect. The shared Cursor renderer owns the positioned, noninteractive participant and assistant overlays and their screenshot-derived geometry and colors.
+
 ## Verify
 
 `yarn test:demo` runs the TypeScript Playwright browser and Electron specs. The browser uses an OpenAI-compatible HTTP fixture through the real AI SDK connection. Electron uses the real Synapse driver against an isolated CLI executable fixture. `CURSOR_LIVE_CHAT=1 yarn test:demo` uses the configured real model for browser chat turns. The [testing guide](testing.md) lists the Vitest contracts and framework checks.
 
 A Chromium run at 448 and 1200 CSS pixels exercised the desktop connection markup with a fixture for the preload bridge. It covered saving and checking an OpenCode selection, explicitly opening the login page, displaying a device code, submitting and clearing a native response field, keyboard selection and cancellation. The same run confirmed the controls stay hidden in the browser when the preload bridge is absent.
+
+For the pointer styles, Chromium and Electron acceptance tests switch styles with a settled assistant at the Settings target. The browser test exercises all four styles and verifies that the other window keeps its own selection. Manual Chromium checks covered the picker at 390 and 1280 CSS pixels and all five accents across the four styles. The application source checker covers the Mosaik selector. The framework-neutral pointer overlay constructs inert DOM nodes with text content and CSS through the browser API, so its appearance is inspected in the actual renderer.

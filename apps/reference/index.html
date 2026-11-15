@@ -77,7 +77,7 @@
                 </template>
             </section>
 
-            <section id="surface" class="surface" aria-label="Gemeinsame Ansicht" data-testid="surface">
+            <section id="surface" class="surface" aria-label="Gemeinsame Ansicht" data-testid="surface" data-cursor-style="pill">
                 <mosaik-card appearance="outline">
                     <mosaik-card-header>
                         <mosaik-card-title text="Gemeinsame Ansicht"></mosaik-card-title>
@@ -97,7 +97,14 @@
                             <mosaik-card-header>
                                 <mosaik-card-title text="Einstellungen"></mosaik-card-title>
                             </mosaik-card-header>
-                            <mosaik-card-content text="Die Zeiger sind in dieser Ansicht sichtbar."></mosaik-card-content>
+                            <mosaik-card-content>
+                                <mosaik-select id="cursor-style" data-testid="cursor-style" label="Zeigerstil" value="pill">
+                                    <mosaik-select-item data-testid="cursor-style-outline" value="outline" label="Rund mit Kontur"></mosaik-select-item>
+                                    <mosaik-select-item data-testid="cursor-style-pill" value="pill" label="Rund"></mosaik-select-item>
+                                    <mosaik-select-item data-testid="cursor-style-square" value="square" label="Eckig"></mosaik-select-item>
+                                    <mosaik-select-item data-testid="cursor-style-square-outline" value="square-outline" label="Eckig mit Zeigerkontur"></mosaik-select-item>
+                                </mosaik-select>
+                            </mosaik-card-content>
                             <mosaik-card-actions>
                                 <mosaik-button id="close-settings" label="Einstellungen schließen" appearance="plain"></mosaik-button>
                             </mosaik-card-actions>
