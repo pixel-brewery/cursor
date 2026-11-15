@@ -42,7 +42,7 @@ Edit the canonical guidance and registry, then run `yarn agents:sync`. Run `yarn
 | `@pixel-brewery/cursor-vue`     | `useCursorSurface` and `useCursorTarget` bind Vue components.                     | [Vue API](packages/cursor-vue/api/index.md)         |
 | `@pixel-brewery/cursor-svelte`  | `cursorSurface` and `cursorTarget` bind Svelte actions.                           | [Svelte API](packages/cursor-svelte/api/index.md)   |
 
-The [reference view](../apps/reference/src/renderer/views/ReferenceView.ts) shows how the host registers a target and invokes its action. Its [transport](../apps/reference/src/renderer/transport/connectReference.ts) implements the `ICursorTransport` boundary for the demo relay.
+The [reference view](../apps/reference/src/renderer/views/ReferenceView.tsx) shows how a Preact host binds cursor targets to mounted DOM elements and invokes registered actions. Browser and Electron use the same view and render Mosaik Web Components directly. Its [transport](../apps/reference/src/renderer/transport/connectReference.ts) implements the `ICursorTransport` boundary for the demo relay.
 
 ## Runtime verification
 
