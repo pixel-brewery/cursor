@@ -7,6 +7,7 @@ import {
     localConnectionSchema,
     type DesktopConnectionBridge,
     type DesktopConnectionState,
+    type LocalConnection,
 } from '../../contracts/DesktopConnection.js';
 
 // #endregion
@@ -43,6 +44,12 @@ const statusLabels: Record<DesktopConnectionState['status'], string> = {
     'signed-out': 'Die CLI ist verfügbar. Melde dich an, um den Assistenten zu verwenden.',
     ready: 'Die Modellverbindung ist bereit.',
     error: 'Die Modellverbindung konnte nicht geprüft werden.',
+};
+
+const providerLabels: Record<LocalConnection['provider'], string> = {
+    codex: 'Codex',
+    claude: 'Claude Code',
+    opencode: 'OpenCode',
 };
 
 const loading = 'Verbindung wird geladen …';
@@ -273,15 +280,32 @@ export function DesktopConnectionView(props: IDesktopConnectionViewProps): JSX.E
     const variant = notice || loginState === 'failed' || state?.status === 'error'
         ? 'warning'
         : state?.status === 'ready' && !busy && !login ? 'success' : 'info';
+    const summary = login ? 'Anmeldung läuft' :
+        busy ? pending :
+        state?.status === 'ready' ? 'Verbunden' :
+        state?.status === 'signed-out' ? 'Anmeldung erforderlich' :
+        selection ? 'Aktion erforderlich' : 'Keine CLI verbunden';
 
     return (
         <section id="desktop-connection" class="desktop-connection" aria-label="Lokale Modellverbindung">
-            <div>
+            <div class="connection-toolbar">
+                <div class="connection-summary">
+                    <mosaik-text text="Lokales Modell" />
+                    {!expanded && (
+                        <mosaik-badge
+                            label={selection ? `${providerLabels[selection.provider]} · ${summary}` : summary}
+                            appearance="soft"
+                            variant={variant === 'success' ? 'success' : 'neutral'}
+                            aria-live="polite"
+                        />
+                    )}
+                </div>
                 <mosaik-button
                     id="config-open"
                     data-testid="config-open"
-                    label="Modellverbindung"
-                    appearance="outline"
+                    label={expanded ? 'Schließen' : 'Verwalten'}
+                    appearance="plain"
+                    variant="neutral"
                     aria-controls="config-panel"
                     aria-expanded={expanded}
                     onClick={() => setExpanded((previous) => !previous)}
@@ -289,95 +313,18 @@ export function DesktopConnectionView(props: IDesktopConnectionViewProps): JSX.E
             </div>
             <mosaik-card id="config-panel" data-testid="config-panel" appearance="outline" hidden={!expanded}>
                 <mosaik-card-header>
-                    <mosaik-card-title text="Lokale Modellverbindung" />
+                    <mosaik-card-title slot="header" text={login ? 'CLI-Anmeldung' : 'Modellzugang'} />
+                    <mosaik-card-sub-title
+                        slot="subHeader"
+                        text={login && selection
+                            ? providerLabels[selection.provider]
+                            : 'Wähle die lokale CLI für den Assistenten.'}
+                    />
                 </mosaik-card-header>
                 <mosaik-card-content>
-                    <div class="connection-fields">
-                        <mosaik-select
-                            id="config-provider"
-                            data-testid="config-provider"
-                            label="CLI"
-                            placeholder="CLI auswählen"
-                            required
-                            intl={intl}
-                            value={draft.provider}
-                            disabled={locked}
-                            onchanged={(event) => {
-                                if (event.detail.propertyName === 'value') {
-                                    const { value } = event.currentTarget;
-                                    setDraft((previous) => previous.provider === value
-                                        ? previous
-                                        : { ...previous, provider: value });
-                                }
-                            }}
-                        >
-                            <mosaik-select-item data-testid="config-provider-codex" value="codex" label="Codex" />
-                            <mosaik-select-item data-testid="config-provider-claude" value="claude" label="Claude Code" />
-                            <mosaik-select-item data-testid="config-provider-opencode" value="opencode" label="OpenCode" />
-                        </mosaik-select>
-                        <mosaik-textbox
-                            id="config-model"
-                            data-testid="config-model"
-                            label={openCode ? 'Modell-ID (Anbieter/Modell)' : 'Modell (optional)'}
-                            maxlength={120}
-                            value={draft.model}
-                            disabled={locked}
-                            required={openCode}
-                            onInput={(event) => {
-                                const { value } = event.currentTarget;
-                                setDraft((previous) => ({ ...previous, model: value }));
-                            }}
-                        />
-                        <div id="config-opencode-fields" class="connection-fields connection-fields-wide" hidden={!openCode}>
-                            <mosaik-textbox
-                                id="config-opencode-provider"
-                                data-testid="config-opencode-provider"
-                                label="OpenCode-Anbieter-ID"
-                                maxlength={120}
-                                value={draft.providerId}
-                                disabled={locked}
-                                required
-                                onInput={(event) => {
-                                    const { value } = event.currentTarget;
-                                    setDraft((previous) => ({ ...previous, providerId: value }));
-                                }}
-                            />
-                            <mosaik-textbox
-                                id="config-opencode-method"
-                                data-testid="config-opencode-method"
-                                label="Native OpenCode-Anmeldemethode"
-                                maxlength={120}
-                                value={draft.authMethod}
-                                disabled={locked}
-                                required
-                                onInput={(event) => {
-                                    const { value } = event.currentTarget;
-                                    setDraft((previous) => ({ ...previous, authMethod: value }));
-                                }}
-                            />
-                        </div>
-                        <div class="connection-actions connection-fields-wide">
-                            <mosaik-button
-                                id="config-save"
-                                data-testid="config-save"
-                                label="Speichern"
-                                variant="primary"
-                                appearance="solid"
-                                disabled={locked || !draft.provider || saved}
-                                onClick={save}
-                            />
-                            <mosaik-button
-                                id="config-check"
-                                data-testid="config-check"
-                                label="Verbindung prüfen"
-                                appearance="outline"
-                                disabled={locked || !saved}
-                                onClick={() => void perform(checking, () => bridge.check())}
-                            />
-                        </div>
+                    <div class="connection-panel">
                         <mosaik-message
                             id="config-status"
-                            class="connection-fields-wide"
                             data-testid="config-status"
                             data-status={state?.status}
                             appearance="soft"
@@ -385,123 +332,205 @@ export function DesktopConnectionView(props: IDesktopConnectionViewProps): JSX.E
                             header={status}
                             variant={variant}
                         />
-                    </div>
-                </mosaik-card-content>
-                <mosaik-card-content id="config-login-choices" hidden={!saved || !!login || !state?.methods.length}>
-                    <div class="connection-fields">
-                        <mosaik-select
-                            id="config-login-method"
-                            data-testid="config-login-method"
-                            label="Anmeldemethode"
-                            placeholder="Methode auswählen"
-                            intl={intl}
-                            value={loginMethod}
-                            disabled={locked}
-                            onchanged={(event) => {
-                                if (event.detail.propertyName === 'value') {
-                                    setLoginMethod(event.currentTarget.value);
-                                }
-                            }}
-                        >
-                            {state?.methods.map((method) => (
-                                <mosaik-select-item
-                                    key={method.id}
-                                    value={method.id}
-                                    label={method.label}
-                                    data-testid={`config-login-method-${method.id}`}
-                                />
-                            ))}
-                        </mosaik-select>
-                        <div class="connection-actions">
-                            <mosaik-button
-                                id="config-login"
-                                data-testid="config-login"
-                                label="Anmelden"
-                                appearance="outline"
-                                disabled={locked || !loginMethod}
-                                onClick={() => {
-                                    if (saved && loginMethod) {
-                                        void perform('Anmeldung wird gestartet …', () => bridge.startLogin(loginMethod));
+                        <div class="connection-fields" hidden={!!login}>
+                            <mosaik-select
+                                id="config-provider"
+                                data-testid="config-provider"
+                                label="CLI"
+                                placeholder="CLI auswählen"
+                                required
+                                intl={intl}
+                                value={draft.provider}
+                                disabled={locked}
+                                onchanged={(event) => {
+                                    if (event.detail.propertyName === 'value') {
+                                        const { value } = event.currentTarget;
+                                        setDraft((previous) => previous.provider === value
+                                            ? previous
+                                            : { ...previous, provider: value });
                                     }
                                 }}
+                            >
+                                <mosaik-select-item data-testid="config-provider-codex" value="codex" label={providerLabels.codex} />
+                                <mosaik-select-item data-testid="config-provider-claude" value="claude" label={providerLabels.claude} />
+                                <mosaik-select-item data-testid="config-provider-opencode" value="opencode" label={providerLabels.opencode} />
+                            </mosaik-select>
+                            <mosaik-textbox
+                                id="config-model"
+                                data-testid="config-model"
+                                label={openCode ? 'Modell-ID (Anbieter/Modell)' : 'Modell (optional)'}
+                                maxlength={120}
+                                value={draft.model}
+                                disabled={locked}
+                                required={openCode}
+                                onInput={(event) => {
+                                    const { value } = event.currentTarget;
+                                    setDraft((previous) => ({ ...previous, model: value }));
+                                }}
                             />
-                        </div>
-                    </div>
-                </mosaik-card-content>
-                <mosaik-card-content id="config-login-flow" hidden={!login}>
-                    <div class="connection-fields">
-                        <p
-                            id="config-login-instructions"
-                            class="connection-fields-wide"
-                            data-testid="config-login-instructions"
-                            aria-live="polite"
-                        >
-                            {interaction?.message ?? 'Warte auf die Anweisungen der CLI.'}
-                        </p>
-                        <p id="config-login-code-row" class="connection-fields-wide" hidden={!interaction?.code}>
-                            Anmeldecode <code id="config-login-code" data-testid="config-login-code">{interaction?.code}</code>
-                        </p>
-                        <div
-                            key={interactionKey}
-                            id="config-login-fields"
-                            ref={bindFields}
-                            class="connection-fields connection-fields-wide"
-                            hidden={!needsInput}
-                        >
-                            {interaction?.fields.map((field) => field.secret ? (
-                                <mosaik-passwordbox
-                                    key={field.id}
-                                    data-login-field={field.id}
-                                    data-testid={`config-login-field-${field.id}`}
-                                    label={field.label}
-                                    required={field.required ?? false}
-                                    autocomplete={false}
-                                    disabled={busy}
-                                />
-                            ) : (
+                            <div id="config-opencode-fields" class="connection-fields connection-fields-wide" hidden={!openCode}>
                                 <mosaik-textbox
-                                    key={field.id}
-                                    data-login-field={field.id}
-                                    data-testid={`config-login-field-${field.id}`}
-                                    label={field.label}
-                                    required={field.required ?? false}
-                                    autocomplete={false}
-                                    disabled={busy}
-                                    maxlength={4096}
+                                    id="config-opencode-provider"
+                                    data-testid="config-opencode-provider"
+                                    label="OpenCode-Anbieter-ID"
+                                    maxlength={120}
+                                    value={draft.providerId}
+                                    disabled={locked}
+                                    required
+                                    onInput={(event) => {
+                                        const { value } = event.currentTarget;
+                                        setDraft((previous) => ({ ...previous, providerId: value }));
+                                    }}
                                 />
-                            ))}
+                                <mosaik-textbox
+                                    id="config-opencode-method"
+                                    data-testid="config-opencode-method"
+                                    label="Native OpenCode-Anmeldemethode"
+                                    maxlength={120}
+                                    value={draft.authMethod}
+                                    disabled={locked}
+                                    required
+                                    onInput={(event) => {
+                                        const { value } = event.currentTarget;
+                                        setDraft((previous) => ({ ...previous, authMethod: value }));
+                                    }}
+                                />
+                            </div>
+                            <div class="connection-actions connection-fields-wide">
+                                <mosaik-button
+                                    id="config-save"
+                                    data-testid="config-save"
+                                    label="Speichern"
+                                    variant={saved ? 'neutral' : 'primary'}
+                                    appearance={saved ? 'outline' : 'solid'}
+                                    disabled={locked || !draft.provider || saved}
+                                    onClick={save}
+                                />
+                                <mosaik-button
+                                    id="config-check"
+                                    data-testid="config-check"
+                                    label="Verbindung prüfen"
+                                    appearance="outline"
+                                    disabled={locked || !saved}
+                                    onClick={() => void perform(checking, () => bridge.check())}
+                                />
+                            </div>
                         </div>
-                        <div class="connection-actions connection-fields-wide">
-                            <mosaik-button
-                                id="config-login-open"
-                                data-testid="config-login-open"
-                                label="Anmeldeseite im Browser öffnen"
-                                appearance="outline"
-                                hidden={!interaction?.hasUrl}
-                                disabled={busy}
-                                onClick={() => void perform('Anmeldeseite wird geöffnet …', () => bridge.openLogin())}
-                            />
-                            <mosaik-button
-                                id="config-login-submit"
-                                data-testid="config-login-submit"
-                                label="Anmeldeantwort senden"
-                                variant="primary"
-                                appearance="solid"
+                        <div class="connection-fields" id="config-login-choices" hidden={!saved || !!login || !state?.methods.length}>
+                            <mosaik-select
+                                id="config-login-method"
+                                data-testid="config-login-method"
+                                label="Anmeldemethode"
+                                placeholder="Methode auswählen"
+                                intl={intl}
+                                value={loginMethod}
+                                disabled={locked}
+                                onchanged={(event) => {
+                                    if (event.detail.propertyName === 'value') {
+                                        setLoginMethod(event.currentTarget.value);
+                                    }
+                                }}
+                            >
+                                {state?.methods.map((method) => (
+                                    <mosaik-select-item
+                                        key={method.id}
+                                        value={method.id}
+                                        label={method.label}
+                                        data-testid={`config-login-method-${method.id}`}
+                                    />
+                                ))}
+                            </mosaik-select>
+                            <div class="connection-actions">
+                                <mosaik-button
+                                    id="config-login"
+                                    data-testid="config-login"
+                                    label="Anmelden"
+                                    variant="primary"
+                                    appearance="solid"
+                                    disabled={locked || !loginMethod}
+                                    onClick={() => {
+                                        if (saved && loginMethod) {
+                                            void perform('Anmeldung wird gestartet …', () => bridge.startLogin(loginMethod));
+                                        }
+                                    }}
+                                />
+                            </div>
+                        </div>
+                        <div class="connection-fields" id="config-login-flow" hidden={!login}>
+                            <p
+                                id="config-login-instructions"
+                                class="connection-fields-wide"
+                                data-testid="config-login-instructions"
+                                aria-live="polite"
+                            >
+                                {interaction?.message ?? 'Warte auf die Anweisungen der CLI.'}
+                            </p>
+                            <p id="config-login-code-row" class="connection-fields-wide" hidden={!interaction?.code}>
+                                Anmeldecode <code id="config-login-code" data-testid="config-login-code">{interaction?.code}</code>
+                            </p>
+                            <div
+                                key={interactionKey}
+                                id="config-login-fields"
+                                ref={bindFields}
+                                class="connection-fields connection-fields-wide"
                                 hidden={!needsInput}
-                                disabled={busy}
-                                onClick={respond}
-                            />
-                            <mosaik-button
-                                id="config-login-cancel"
-                                data-testid="config-login-cancel"
-                                label="Anmeldung abbrechen"
-                                appearance="plain"
-                                disabled={busy}
-                                onClick={() => void perform('Anmeldung wird abgebrochen …', () => {
-                                    clearLoginInputs(fields.current);
-                                    return bridge.cancelLogin();
-                                })}
-                            />
+                            >
+                                {interaction?.fields.map((field) => field.secret ? (
+                                    <mosaik-passwordbox
+                                        key={field.id}
+                                        data-login-field={field.id}
+                                        data-testid={`config-login-field-${field.id}`}
+                                        label={field.label}
+                                        required={field.required ?? false}
+                                        autocomplete={false}
+                                        disabled={busy}
+                                    />
+                                ) : (
+                                    <mosaik-textbox
+                                        key={field.id}
+                                        data-login-field={field.id}
+                                        data-testid={`config-login-field-${field.id}`}
+                                        label={field.label}
+                                        required={field.required ?? false}
+                                        autocomplete={false}
+                                        disabled={busy}
+                                        maxlength={4096}
+                                    />
+                                ))}
+                            </div>
+                            <div class="connection-actions connection-fields-wide">
+                                <mosaik-button
+                                    id="config-login-open"
+                                    data-testid="config-login-open"
+                                    label="Anmeldeseite im Browser öffnen"
+                                    variant={needsInput ? 'neutral' : 'primary'}
+                                    appearance={needsInput ? 'outline' : 'solid'}
+                                    hidden={!interaction?.hasUrl}
+                                    disabled={busy}
+                                    onClick={() => void perform('Anmeldeseite wird geöffnet …', () => bridge.openLogin())}
+                                />
+                                <mosaik-button
+                                    id="config-login-submit"
+                                    data-testid="config-login-submit"
+                                    label="Anmeldeantwort senden"
+                                    variant="primary"
+                                    appearance="solid"
+                                    hidden={!needsInput}
+                                    disabled={busy}
+                                    onClick={respond}
+                                />
+                                <mosaik-button
+                                    id="config-login-cancel"
+                                    data-testid="config-login-cancel"
+                                    label="Anmeldung abbrechen"
+                                    appearance="plain"
+                                    disabled={busy}
+                                    onClick={() => void perform('Anmeldung wird abgebrochen …', () => {
+                                        clearLoginInputs(fields.current);
+                                        return bridge.cancelLogin();
+                                    })}
+                                />
+                            </div>
                         </div>
                     </div>
                 </mosaik-card-content>

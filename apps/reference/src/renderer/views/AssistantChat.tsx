@@ -186,10 +186,19 @@ export function AssistantChat(props: IAssistantChatProps): JSX.Element {
         }
     }
 
+    function choosePrompt(content: string): void {
+        const input = prompt.current;
+        if (!connected || !input) return;
+
+        if (!input.value) input.value = content;
+        input.focus();
+    }
+
     return (
         <mosaik-card appearance="outline">
             <mosaik-card-header>
                 <mosaik-card-title text="Assistent" />
+                <mosaik-card-sub-title text="Aktionen in dieser Ansicht" />
             </mosaik-card-header>
             <mosaik-card-content>
                 <mosaik-chat
@@ -202,13 +211,38 @@ export function AssistantChat(props: IAssistantChatProps): JSX.Element {
                     begin="end"
                     scrollToEnd
                 >
+                    <mosaik-empty-state
+                        slot="empty"
+                        class="assistant-empty"
+                        header="Erste Nachricht"
+                        content="Wähle einen Vorschlag."
+                        icon="chat"
+                        iconSize="large"
+                    >
+                        <div slot="actions" class="assistant-suggestions">
+                            <mosaik-button
+                                data-testid="assistant-suggest-show"
+                                label="Einstellungen zeigen"
+                                appearance="outline"
+                                disabled={!connected}
+                                onClick={() => choosePrompt('Zeig mir die Einstellungen')}
+                            />
+                            <mosaik-button
+                                data-testid="assistant-suggest-style"
+                                label="Zeigerstil wechseln"
+                                appearance="outline"
+                                disabled={!connected}
+                                onClick={() => choosePrompt('Wechsle zum nächsten Zeigerstil')}
+                            />
+                        </div>
+                    </mosaik-empty-state>
                     <mosaik-chat-prompt-box
                         ref={prompt}
                         id="assistant-input"
                         slot="input"
                         data-testid="assistant-input"
                         aria-label="Nachricht"
-                        placeholder="Zeig mir die Einstellungen"
+                        placeholder="Nachricht eingeben …"
                         maxlength={700}
                         maxRows={3}
                         intl={promptIntl}
@@ -239,7 +273,7 @@ export function AssistantChat(props: IAssistantChatProps): JSX.Element {
                     ))}
                 </mosaik-chat>
             </mosaik-card-content>
-            <mosaik-card-footer>
+            <mosaik-card-footer hidden={!status}>
                 <mosaik-message
                     id="assistant-status"
                     data-testid="assistant-status"
@@ -247,7 +281,6 @@ export function AssistantChat(props: IAssistantChatProps): JSX.Element {
                     aria-live="polite"
                     header={status?.header ?? ''}
                     variant={status?.variant ?? 'neutral'}
-                    hidden={!status}
                 />
             </mosaik-card-footer>
         </mosaik-card>
