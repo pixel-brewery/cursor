@@ -1,0 +1,31 @@
+{
+    "schemaVersion": 1,
+    "language": "en",
+    "project": {
+        "name": "Cursor",
+        "slug": "cursor",
+        "website": "https://github.com/pixel-brewery/cursor",
+        "repository": "https://github.com/pixel-brewery/cursor"
+    },
+    "description": "Pixel Brewery Cursor is a planned TypeScript SDK for showing human and assistant pointers and guiding people through web and Electron applications.",
+    "image": {
+        "file": "project-card.webp",
+        "format": "webp",
+        "width": 960,
+        "height": 540,
+        "alt": "Cursor’s petrol double-pointer mark beside two ivory and glass pointers aimed at one dot."
+    },
+    "icon": {
+        "file": "cursor-icon.png",
+        "format": "png",
+        "width": 512,
+        "height": 512,
+        "alt": "Two offset petrol pointer arrows."
+    },
+    "artwork": {
+        "kind": "illustration",
+        "generator": "Built-in ImageGen",
+        "generatedOn": "2026-11-15",
+        "prompt": "Create a 16:9 portfolio card with a warm white studio background, a black Cursor wordmark and a flat deep petrol mark formed by two offset mouse pointers on the left. On the right, two large ivory ceramic and frosted glass pointers direct attention toward one small petrol dot. Use the Synapse card for the series composition, materials and light."
+    }
+}

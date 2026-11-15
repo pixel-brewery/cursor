@@ -1,0 +1,17 @@
+{
+    "$schema": "https://opencode.ai/config.json",
+    "instructions": [
+        "AGENTS.md"
+    ],
+    "mcp": {
+        "mosaik": {
+            "type": "local",
+            "command": [
+                "yarn",
+                "exec",
+                "mosaik-mcp"
+            ],
+            "enabled": true
+        }
+    }
+}

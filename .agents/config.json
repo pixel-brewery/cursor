@@ -1,0 +1,12 @@
+{
+    "roles": {
+        "architect": {
+            "skill": "cursor-architect",
+            "description": "Design and review Cursor interfaces, runtime boundaries and implementation plans."
+        },
+        "designer": {
+            "skill": "cursor-designer",
+            "description": "Design and review Cursor surfaces with the shared Mosaik design contract."
+        }
+    }
+}

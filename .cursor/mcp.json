@@ -1,0 +1,11 @@
+{
+    "mcpServers": {
+        "mosaik": {
+            "command": "yarn",
+            "args": [
+                "exec",
+                "mosaik-mcp"
+            ]
+        }
+    }
+}

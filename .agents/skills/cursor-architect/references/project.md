@@ -1,0 +1,7 @@
+# Cursor project contract
+
+- Use the primary checkout and the fixed toolchain declared in the workspace manifest. Synapse is the reference for explicit package composition, reproducible verification and maintainable documentation.
+- Keep the TypeScript core independent of browser globals, UI frameworks, Electron APIs and AI providers. The browser renderer owns DOM life cycles, projection and live geometry. Framework adapters compose that same renderer. The Electron app uses it in its renderer.
+- The host owns participant identity, view membership, realtime delivery, AI credentials and authorization for commands. A remote pointer update changes display state only. A guided action resolves one current registered target and calls the host's explicit action handler.
+- Preserve public behavior across entry points. Verify removal of stale pointers, active view changes, disposal, target replacement and races around action execution. Run browser and Electron verification when those consumers are implemented.
+- Authored contracts live under `.docs/`. Follow the [implementation plan](../../../../.docs/plan.md) and record substantive changes there.
