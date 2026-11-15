@@ -1,0 +1,3749 @@
+{
+  "schemaVersion": "2.0",
+  "id": 0,
+  "name": "@pixel-brewery/cursor-core",
+  "variant": "project",
+  "kind": 1,
+  "flags": {},
+  "comment": {
+    "summary": [
+      {
+        "kind": "text",
+        "text": "Framework-neutral pointer transport and guided-action contracts for a host view."
+      }
+    ]
+  },
+  "children": [
+    {
+      "id": 1,
+      "name": "createCursorController",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {
+        "isPublic": true
+      },
+      "signatures": [
+        {
+          "id": 2,
+          "name": "createCursorController",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {
+            "isPublic": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Creates a controller and immediately subscribes to the host transport for one view."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@remarks",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "The host owns participant authentication, view membership and action\nauthorization. Dispose the returned controller when its view unmounts."
+                  }
+                ]
+              },
+              {
+                "tag": "@returns",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "A controller that owns the view's disposable runtime state."
+                  }
+                ]
+              },
+              {
+                "tag": "@throws",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "An error for invalid view or participant identifiers, display\nmetadata or generation. Synchronous transport subscription failures propagate."
+                  }
+                ]
+              },
+              {
+                "tag": "@example",
+                "content": [
+                  {
+                    "kind": "code",
+                    "text": "```ts\nconst controller = createCursorController({\n    viewId: 'settings',\n    participant: { id: 'local-user', label: 'Local user' },\n    transport,\n});\nconst unsubscribe = controller.subscribe(renderPointers);\ncontroller.move({ x: 0.5, y: 0.5 });\n// When the view unmounts:\nunsubscribe();\ncontroller.dispose();\n```"
+                  }
+                ]
+              }
+            ]
+          },
+          "parameters": [
+            {
+              "id": 3,
+              "name": "options",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "The active view, local participant and host capabilities."
+                  }
+                ]
+              },
+              "type": {
+                "type": "reference",
+                "target": 84,
+                "name": "ICursorControllerOptions",
+                "package": "@pixel-brewery/cursor-core"
+              }
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 40,
+            "name": "ICursorController",
+            "package": "@pixel-brewery/cursor-core"
+          }
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "CursorCommand",
+      "variant": "declaration",
+      "kind": 2097152,
+      "flags": {
+        "isPublic": true
+      },
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Request to present a registered target or invoke its bound host action."
+          }
+        ],
+        "blockTags": [
+          {
+            "tag": "@remarks",
+            "content": [
+              {
+                "kind": "text",
+                "text": "Requests address the controller's active view. Only an invoke\nrequest enters the host action policy."
+              }
+            ]
+          }
+        ]
+      },
+      "type": {
+        "type": "union",
+        "types": [
+          {
+            "type": "reflection",
+            "declaration": {
+              "id": 8,
+              "name": "__type",
+              "variant": "declaration",
+              "kind": 65536,
+              "flags": {},
+              "children": [
+                {
+                  "id": 9,
+                  "name": "kind",
+                  "variant": "declaration",
+                  "kind": 1024,
+                  "flags": {
+                    "isReadonly": true
+                  },
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Present the target as a visual guide."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "literal",
+                    "value": "show"
+                  }
+                },
+                {
+                  "id": 10,
+                  "name": "targetId",
+                  "variant": "declaration",
+                  "kind": 1024,
+                  "flags": {
+                    "isReadonly": true
+                  },
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Target identifier from the current view's registrations."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                }
+              ],
+              "groups": [
+                {
+                  "title": "Properties",
+                  "children": [
+                    9,
+                    10
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "type": "reflection",
+            "declaration": {
+              "id": 11,
+              "name": "__type",
+              "variant": "declaration",
+              "kind": 65536,
+              "flags": {},
+              "children": [
+                {
+                  "id": 14,
+                  "name": "actionId",
+                  "variant": "declaration",
+                  "kind": 1024,
+                  "flags": {
+                    "isReadonly": true
+                  },
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Identifier of the host action to execute."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                },
+                {
+                  "id": 15,
+                  "name": "input",
+                  "variant": "declaration",
+                  "kind": 1024,
+                  "flags": {
+                    "isOptional": true,
+                    "isReadonly": true
+                  },
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Optional payload passed to the host for validation."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "unknown"
+                  }
+                },
+                {
+                  "id": 12,
+                  "name": "kind",
+                  "variant": "declaration",
+                  "kind": 1024,
+                  "flags": {
+                    "isReadonly": true
+                  },
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Present the target, authorize the action and invoke its handler."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "literal",
+                    "value": "invoke"
+                  }
+                },
+                {
+                  "id": 13,
+                  "name": "targetId",
+                  "variant": "declaration",
+                  "kind": 1024,
+                  "flags": {
+                    "isReadonly": true
+                  },
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Target identifier that must match the action registration."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                }
+              ],
+              "groups": [
+                {
+                  "title": "Properties",
+                  "children": [
+                    14,
+                    15,
+                    12,
+                    13
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 16,
+      "name": "CursorResult",
+      "variant": "declaration",
+      "kind": 2097152,
+      "flags": {
+        "isPublic": true
+      },
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Observed outcome of a guided command."
+          }
+        ]
+      },
+      "type": {
+        "type": "union",
+        "types": [
+          {
+            "type": "reflection",
+            "declaration": {
+              "id": 17,
+              "name": "__type",
+              "variant": "declaration",
+              "kind": 65536,
+              "flags": {},
+              "children": [
+                {
+                  "id": 18,
+                  "name": "status",
+                  "variant": "declaration",
+                  "kind": 1024,
+                  "flags": {
+                    "isReadonly": true
+                  },
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Completion or refusal without an exception."
+                      }
+                    ],
+                    "blockTags": [
+                      {
+                        "tag": "@remarks",
+                        "content": [
+                          {
+                            "kind": "text",
+                            "text": "Shown means the target was presented. Invoked means the\nauthorized handler completed. Denied means policy did not allow\nthe invocation. Unavailable means a registration, live target or\nexecution slot was missing. Cancelled means the request stopped\nbefore completion."
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "union",
+                    "types": [
+                      {
+                        "type": "literal",
+                        "value": "shown"
+                      },
+                      {
+                        "type": "literal",
+                        "value": "invoked"
+                      },
+                      {
+                        "type": "literal",
+                        "value": "denied"
+                      },
+                      {
+                        "type": "literal",
+                        "value": "unavailable"
+                      },
+                      {
+                        "type": "literal",
+                        "value": "cancelled"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "groups": [
+                {
+                  "title": "Properties",
+                  "children": [
+                    18
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "type": "reflection",
+            "declaration": {
+              "id": 19,
+              "name": "__type",
+              "variant": "declaration",
+              "kind": 65536,
+              "flags": {},
+              "children": [
+                {
+                  "id": 21,
+                  "name": "error",
+                  "variant": "declaration",
+                  "kind": 1024,
+                  "flags": {
+                    "isReadonly": true
+                  },
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Original exception for host-side diagnostics. Host code decides\nwhat to report to users and how to recover."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "unknown"
+                  }
+                },
+                {
+                  "id": 20,
+                  "name": "status",
+                  "variant": "declaration",
+                  "kind": 1024,
+                  "flags": {
+                    "isReadonly": true
+                  },
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Presentation, authorization or action execution raised an error."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "literal",
+                    "value": "failed"
+                  }
+                }
+              ],
+              "groups": [
+                {
+                  "title": "Properties",
+                  "children": [
+                    21,
+                    20
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 22,
+      "name": "CursorTransportEvent",
+      "variant": "declaration",
+      "kind": 2097152,
+      "flags": {
+        "isPublic": true
+      },
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "An authenticated update or lifecycle event supplied by the host transport."
+          }
+        ]
+      },
+      "type": {
+        "type": "union",
+        "types": [
+          {
+            "type": "reference",
+            "target": 123,
+            "name": "IPointerUpdate",
+            "package": "@pixel-brewery/cursor-core"
+          },
+          {
+            "type": "reflection",
+            "declaration": {
+              "id": 23,
+              "name": "__type",
+              "variant": "declaration",
+              "kind": 65536,
+              "flags": {},
+              "children": [
+                {
+                  "id": 24,
+                  "name": "kind",
+                  "variant": "declaration",
+                  "kind": 1024,
+                  "flags": {
+                    "isReadonly": true
+                  },
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Activate delivery and guided commands after a disconnect."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "literal",
+                    "value": "connected"
+                  }
+                }
+              ],
+              "groups": [
+                {
+                  "title": "Properties",
+                  "children": [
+                    24
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "type": "reflection",
+            "declaration": {
+              "id": 25,
+              "name": "__type",
+              "variant": "declaration",
+              "kind": 65536,
+              "flags": {},
+              "children": [
+                {
+                  "id": 26,
+                  "name": "kind",
+                  "variant": "declaration",
+                  "kind": 1024,
+                  "flags": {
+                    "isReadonly": true
+                  },
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Clear visible pointers and cancel pending guidance until reconnect."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "literal",
+                    "value": "disconnected"
+                  }
+                }
+              ],
+              "groups": [
+                {
+                  "title": "Properties",
+                  "children": [
+                    26
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "type": "reflection",
+            "declaration": {
+              "id": 27,
+              "name": "__type",
+              "variant": "declaration",
+              "kind": 65536,
+              "flags": {},
+              "children": [
+                {
+                  "id": 30,
+                  "name": "actorId",
+                  "variant": "declaration",
+                  "kind": 1024,
+                  "flags": {
+                    "isReadonly": true
+                  },
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Host-authenticated participant identifier."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                },
+                {
+                  "id": 31,
+                  "name": "generation",
+                  "variant": "declaration",
+                  "kind": 1024,
+                  "flags": {
+                    "isOptional": true,
+                    "isReadonly": true
+                  },
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Retired attachment generation. Omit only when the host\npermanently retires the participant identifier."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "number"
+                  }
+                },
+                {
+                  "id": 28,
+                  "name": "kind",
+                  "variant": "declaration",
+                  "kind": 1024,
+                  "flags": {
+                    "isReadonly": true
+                  },
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Remove the participant and reject subsequent updates from the\ndeparted generation."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "literal",
+                    "value": "departure"
+                  }
+                },
+                {
+                  "id": 29,
+                  "name": "viewId",
+                  "variant": "declaration",
+                  "kind": 1024,
+                  "flags": {
+                    "isReadonly": true
+                  },
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "View the participant left."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                }
+              ],
+              "groups": [
+                {
+                  "title": "Properties",
+                  "children": [
+                    30,
+                    31,
+                    28,
+                    29
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 32,
+      "name": "ICursorAction",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {
+        "isPublic": true
+      },
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "An explicit host action bound to one registered target."
+          }
+        ],
+        "blockTags": [
+          {
+            "tag": "@remarks",
+            "content": [
+              {
+                "kind": "text",
+                "text": "Register an action only if a host policy may authorize it. The\ncontroller checks that policy immediately before calling the handler."
+              }
+            ]
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 35,
+          "name": "handler",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Performs the action after presentation and authorization."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@throws",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "An error reported to the caller as a failed command. Retry and\nrecovery after an uncertain side effect belong to the host."
+                  }
+                ]
+              }
+            ]
+          },
+          "type": {
+            "type": "reflection",
+            "declaration": {
+              "id": 36,
+              "name": "__type",
+              "variant": "declaration",
+              "kind": 65536,
+              "flags": {},
+              "signatures": [
+                {
+                  "id": 37,
+                  "name": "__type",
+                  "variant": "signature",
+                  "kind": 4096,
+                  "flags": {},
+                  "comment": {
+                    "summary": [],
+                    "blockTags": [
+                      {
+                        "tag": "@returns",
+                        "content": [
+                          {
+                            "kind": "text",
+                            "text": "The host operation, which may be a promise. Its value is ignored."
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "parameters": [
+                    {
+                      "id": 38,
+                      "name": "input",
+                      "variant": "param",
+                      "kind": 32768,
+                      "flags": {},
+                      "comment": {
+                        "summary": [
+                          {
+                            "kind": "text",
+                            "text": "Input from the invocation. The host must validate it before\napplying any changes."
+                          }
+                        ]
+                      },
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "unknown"
+                      }
+                    },
+                    {
+                      "id": 39,
+                      "name": "signal",
+                      "variant": "param",
+                      "kind": 32768,
+                      "flags": {},
+                      "comment": {
+                        "summary": [
+                          {
+                            "kind": "text",
+                            "text": "Cooperative cancellation for the current invocation."
+                          }
+                        ]
+                      },
+                      "type": {
+                        "type": "reference",
+                        "target": {
+                          "packageName": "typescript",
+                          "packagePath": "lib/lib.dom.d.ts",
+                          "qualifiedName": "AbortSignal"
+                        },
+                        "name": "AbortSignal",
+                        "package": "typescript"
+                      }
+                    }
+                  ],
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "unknown"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": 33,
+          "name": "id",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Stable action identifier, unique within the controller."
+              }
+            ]
+          },
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        },
+        {
+          "id": 34,
+          "name": "targetId",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Identifier of the UI target that must remain available at execution."
+              }
+            ]
+          },
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            35,
+            33,
+            34
+          ]
+        }
+      ]
+    },
+    {
+      "id": 40,
+      "name": "ICursorController",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {
+        "isPublic": true
+      },
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Tracks remote pointers and coordinates guided actions for one view."
+          }
+        ],
+        "blockTags": [
+          {
+            "tag": "@remarks",
+            "content": [
+              {
+                "kind": "text",
+                "text": "The host owns participant authentication and action authorization.\nInbound pointer updates affect presentation only."
+              }
+            ]
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 82,
+          "name": "dispose",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "signatures": [
+            {
+              "id": 83,
+              "name": "dispose",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Cancels guidance, withdraws the local pointer and releases the transport\nsubscription, registrations and subscribers."
+                  }
+                ],
+                "blockTags": [
+                  {
+                    "tag": "@throws",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "Propagates host callback errors while still releasing controller\nresources."
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "@remarks",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "Disposal is idempotent. A final disconnected transition is\nemitted to current subscribers when the controller was connected."
+                      }
+                    ]
+                  }
+                ]
+              },
+              "type": {
+                "type": "intrinsic",
+                "name": "void"
+              }
+            }
+          ]
+        },
+        {
+          "id": 43,
+          "name": "getPointers",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "signatures": [
+            {
+              "id": 44,
+              "name": "getPointers",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Reads the currently visible remote pointers."
+                  }
+                ],
+                "blockTags": [
+                  {
+                    "tag": "@returns",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "The immutable snapshot, empty when no remote pointer is visible."
+                      }
+                    ]
+                  }
+                ]
+              },
+              "type": {
+                "type": "typeOperator",
+                "operator": "readonly",
+                "target": {
+                  "type": "array",
+                  "elementType": {
+                    "type": "reference",
+                    "target": 119,
+                    "name": "IPointer",
+                    "package": "@pixel-brewery/cursor-core"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": 42,
+          "name": "isConnected",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Whether the controller accepts pointer updates and guided commands."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@remarks",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "The controller starts connected and follows transport lifecycle\nevents. Disconnect and disposal suspend both capabilities."
+                  }
+                ]
+              }
+            ]
+          },
+          "type": {
+            "type": "intrinsic",
+            "name": "boolean"
+          }
+        },
+        {
+          "id": 57,
+          "name": "leave",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "signatures": [
+            {
+              "id": 58,
+              "name": "leave",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Withdraws the local pointer from this view."
+                  }
+                ],
+                "blockTags": [
+                  {
+                    "tag": "@throws",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "Propagates a synchronous transport publishing error."
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "@remarks",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "Has no effect when the pointer is already absent or the\ncontroller is disconnected or disposed."
+                      }
+                    ]
+                  }
+                ]
+              },
+              "type": {
+                "type": "intrinsic",
+                "name": "void"
+              }
+            }
+          ]
+        },
+        {
+          "id": 53,
+          "name": "move",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "signatures": [
+            {
+              "id": 54,
+              "name": "move",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Publishes the local pointer's position to the host transport."
+                  }
+                ],
+                "blockTags": [
+                  {
+                    "tag": "@throws",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "Propagates a synchronous transport publishing error."
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "@remarks",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "Invalid values and calls after disconnection or disposal are\nignored."
+                      }
+                    ]
+                  }
+                ]
+              },
+              "parameters": [
+                {
+                  "id": 55,
+                  "name": "position",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Finite normalized surface coordinates between zero and\none inclusive."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "reference",
+                    "target": 104,
+                    "name": "ICursorPosition",
+                    "package": "@pixel-brewery/cursor-core"
+                  }
+                },
+                {
+                  "id": 56,
+                  "name": "targetId",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {
+                    "isOptional": true
+                  },
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Optional registered UI anchor. A compatible receiving\nsurface can resolve it using its own layout."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                }
+              ],
+              "type": {
+                "type": "intrinsic",
+                "name": "void"
+              }
+            }
+          ]
+        },
+        {
+          "id": 41,
+          "name": "participant",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Immutable identity and display metadata for the local participant."
+              }
+            ]
+          },
+          "type": {
+            "type": "reference",
+            "target": 99,
+            "name": "ICursorParticipant",
+            "package": "@pixel-brewery/cursor-core"
+          }
+        },
+        {
+          "id": 73,
+          "name": "registerAction",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "signatures": [
+            {
+              "id": 74,
+              "name": "registerAction",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Registers a host action for a target."
+                  }
+                ],
+                "blockTags": [
+                  {
+                    "tag": "@returns",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "An idempotent cleanup for this action. Cleanup cancels any\npending invocation of it."
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "@throws",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "An error for an invalid identifier, a duplicate action\nidentifier or a disposed controller."
+                      }
+                    ]
+                  }
+                ]
+              },
+              "parameters": [
+                {
+                  "id": 75,
+                  "name": "action",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "The action identifier, target identifier and handler."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "reference",
+                    "target": 32,
+                    "name": "ICursorAction",
+                    "package": "@pixel-brewery/cursor-core"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reflection",
+                "declaration": {
+                  "id": 76,
+                  "name": "__type",
+                  "variant": "declaration",
+                  "kind": 65536,
+                  "flags": {},
+                  "signatures": [
+                    {
+                      "id": 77,
+                      "name": "__type",
+                      "variant": "signature",
+                      "kind": 4096,
+                      "flags": {},
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "void"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": 59,
+          "name": "registerTarget",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "signatures": [
+            {
+              "id": 60,
+              "name": "registerTarget",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Registers the presentation callback for a live UI target."
+                  }
+                ],
+                "blockTags": [
+                  {
+                    "tag": "@returns",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "An idempotent cleanup for this registration. Cleanup cancels\nany pending command that targets it."
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "@throws",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "An error for an invalid or duplicate identifier or a disposed\ncontroller."
+                      }
+                    ]
+                  }
+                ]
+              },
+              "parameters": [
+                {
+                  "id": 61,
+                  "name": "targetId",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Stable identifier unique within the controller."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                },
+                {
+                  "id": 62,
+                  "name": "presenter",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Called with a context containing the command's\ncancellation signal. Return true when the target was presented, or\nfalse when it could not be shown. The callback may return a promise."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "reflection",
+                    "declaration": {
+                      "id": 63,
+                      "name": "__type",
+                      "variant": "declaration",
+                      "kind": 65536,
+                      "flags": {},
+                      "signatures": [
+                        {
+                          "id": 64,
+                          "name": "__type",
+                          "variant": "signature",
+                          "kind": 4096,
+                          "flags": {},
+                          "parameters": [
+                            {
+                              "id": 65,
+                              "name": "context",
+                              "variant": "param",
+                              "kind": 32768,
+                              "flags": {},
+                              "type": {
+                                "type": "reflection",
+                                "declaration": {
+                                  "id": 66,
+                                  "name": "__type",
+                                  "variant": "declaration",
+                                  "kind": 65536,
+                                  "flags": {},
+                                  "children": [
+                                    {
+                                      "id": 67,
+                                      "name": "signal",
+                                      "variant": "declaration",
+                                      "kind": 1024,
+                                      "flags": {
+                                        "isReadonly": true
+                                      },
+                                      "comment": {
+                                        "summary": [
+                                          {
+                                            "kind": "text",
+                                            "text": "Cancels pending presentation work when its command is interrupted."
+                                          }
+                                        ]
+                                      },
+                                      "type": {
+                                        "type": "reference",
+                                        "target": {
+                                          "packageName": "typescript",
+                                          "packagePath": "lib/lib.dom.d.ts",
+                                          "qualifiedName": "AbortSignal"
+                                        },
+                                        "name": "AbortSignal",
+                                        "package": "typescript"
+                                      }
+                                    }
+                                  ],
+                                  "groups": [
+                                    {
+                                      "title": "Properties",
+                                      "children": [
+                                        67
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          ],
+                          "type": {
+                            "type": "union",
+                            "types": [
+                              {
+                                "type": "intrinsic",
+                                "name": "boolean"
+                              },
+                              {
+                                "type": "reference",
+                                "target": {
+                                  "packageName": "typescript",
+                                  "packagePath": "lib/lib.es5.d.ts",
+                                  "qualifiedName": "Promise"
+                                },
+                                "typeArguments": [
+                                  {
+                                    "type": "intrinsic",
+                                    "name": "boolean"
+                                  }
+                                ],
+                                "name": "Promise",
+                                "package": "typescript"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "id": 68,
+                  "name": "isAvailable",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {
+                    "isOptional": true
+                  },
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Optional synchronous check of the live target,\nevaluated before presentation and before action invocation. Defaults\nto true while this registration exists."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "reflection",
+                    "declaration": {
+                      "id": 69,
+                      "name": "__type",
+                      "variant": "declaration",
+                      "kind": 65536,
+                      "flags": {},
+                      "signatures": [
+                        {
+                          "id": 70,
+                          "name": "__type",
+                          "variant": "signature",
+                          "kind": 4096,
+                          "flags": {},
+                          "type": {
+                            "type": "intrinsic",
+                            "name": "boolean"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ],
+              "type": {
+                "type": "reflection",
+                "declaration": {
+                  "id": 71,
+                  "name": "__type",
+                  "variant": "declaration",
+                  "kind": 65536,
+                  "flags": {},
+                  "signatures": [
+                    {
+                      "id": 72,
+                      "name": "__type",
+                      "variant": "signature",
+                      "kind": 4096,
+                      "flags": {},
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "void"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": 78,
+          "name": "run",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "signatures": [
+            {
+              "id": 79,
+              "name": "run",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Presents a registered target and, on request, authorizes and invokes its\nbound action."
+                  }
+                ],
+                "blockTags": [
+                  {
+                    "tag": "@returns",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "The observed result. Disconnection and disposal cancel pending\nwork. A non-true host policy denies invocation."
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "@remarks",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "A new valid command cancels a pending presentation or policy\ncheck. Once a handler starts, subsequent requests are unavailable until\nit settles. The host owns recovery from an uncertain side effect."
+                      }
+                    ]
+                  }
+                ]
+              },
+              "parameters": [
+                {
+                  "id": 80,
+                  "name": "command",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "A show or invoke request for the active view."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "reference",
+                    "target": 7,
+                    "name": "CursorCommand",
+                    "package": "@pixel-brewery/cursor-core"
+                  }
+                },
+                {
+                  "id": 81,
+                  "name": "signal",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {
+                    "isOptional": true
+                  },
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Optional cancellation from the caller."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "typescript",
+                      "packagePath": "lib/lib.dom.d.ts",
+                      "qualifiedName": "AbortSignal"
+                    },
+                    "name": "AbortSignal",
+                    "package": "typescript"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "typescript",
+                  "packagePath": "lib/lib.es5.d.ts",
+                  "qualifiedName": "Promise"
+                },
+                "typeArguments": [
+                  {
+                    "type": "reference",
+                    "target": 16,
+                    "name": "CursorResult",
+                    "package": "@pixel-brewery/cursor-core"
+                  }
+                ],
+                "name": "Promise",
+                "package": "typescript"
+              }
+            }
+          ]
+        },
+        {
+          "id": 45,
+          "name": "subscribe",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "signatures": [
+            {
+              "id": 46,
+              "name": "subscribe",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Observes pointer snapshots and connection transitions."
+                  }
+                ],
+                "blockTags": [
+                  {
+                    "tag": "@returns",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "An idempotent unsubscribe function. Subscribing after disposal\nreturns a no-op cleanup."
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "@remarks",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "Use "
+                      },
+                      {
+                        "kind": "inline-tag",
+                        "tag": "@link",
+                        "text": "ICursorController.getPointers",
+                        "target": 43
+                      },
+                      {
+                        "kind": "text",
+                        "text": " to read the initial\nsnapshot. Subscribing does not trigger an initial callback."
+                      }
+                    ]
+                  }
+                ]
+              },
+              "parameters": [
+                {
+                  "id": 47,
+                  "name": "listener",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Called synchronously with the current immutable pointer\nsnapshot after a change. Read "
+                      },
+                      {
+                        "kind": "inline-tag",
+                        "tag": "@link",
+                        "text": "ICursorController.isConnected",
+                        "target": 42
+                      },
+                      {
+                        "kind": "text",
+                        "text": " in\nthe callback to distinguish a connection transition."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "reflection",
+                    "declaration": {
+                      "id": 48,
+                      "name": "__type",
+                      "variant": "declaration",
+                      "kind": 65536,
+                      "flags": {},
+                      "signatures": [
+                        {
+                          "id": 49,
+                          "name": "__type",
+                          "variant": "signature",
+                          "kind": 4096,
+                          "flags": {},
+                          "parameters": [
+                            {
+                              "id": 50,
+                              "name": "pointers",
+                              "variant": "param",
+                              "kind": 32768,
+                              "flags": {},
+                              "type": {
+                                "type": "typeOperator",
+                                "operator": "readonly",
+                                "target": {
+                                  "type": "array",
+                                  "elementType": {
+                                    "type": "reference",
+                                    "target": 119,
+                                    "name": "IPointer",
+                                    "package": "@pixel-brewery/cursor-core"
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "type": {
+                            "type": "intrinsic",
+                            "name": "void"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ],
+              "type": {
+                "type": "reflection",
+                "declaration": {
+                  "id": 51,
+                  "name": "__type",
+                  "variant": "declaration",
+                  "kind": 65536,
+                  "flags": {},
+                  "signatures": [
+                    {
+                      "id": 52,
+                      "name": "__type",
+                      "variant": "signature",
+                      "kind": 4096,
+                      "flags": {},
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "void"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            42,
+            41
+          ]
+        },
+        {
+          "title": "Methods",
+          "children": [
+            82,
+            43,
+            57,
+            53,
+            73,
+            59,
+            78,
+            45
+          ]
+        }
+      ]
+    },
+    {
+      "id": 84,
+      "name": "ICursorControllerOptions",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {
+        "isPublic": true
+      },
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "The scope and host capabilities for one mounted view."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 89,
+          "name": "authorize",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true,
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Authorizes an invocation against current host state."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@throws",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "An error reported as a failed command. The handler is not called."
+                  }
+                ]
+              }
+            ]
+          },
+          "type": {
+            "type": "reflection",
+            "declaration": {
+              "id": 90,
+              "name": "__type",
+              "variant": "declaration",
+              "kind": 65536,
+              "flags": {},
+              "signatures": [
+                {
+                  "id": 91,
+                  "name": "__type",
+                  "variant": "signature",
+                  "kind": 4096,
+                  "flags": {},
+                  "comment": {
+                    "summary": [],
+                    "blockTags": [
+                      {
+                        "tag": "@returns",
+                        "content": [
+                          {
+                            "kind": "text",
+                            "text": "True to allow the handler to run. False or an omitted policy\ndenies the action."
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "parameters": [
+                    {
+                      "id": 92,
+                      "name": "command",
+                      "variant": "param",
+                      "kind": 32768,
+                      "flags": {},
+                      "comment": {
+                        "summary": [
+                          {
+                            "kind": "text",
+                            "text": "The request with the bound target, action and input."
+                          }
+                        ]
+                      },
+                      "type": {
+                        "type": "reflection",
+                        "declaration": {
+                          "id": 93,
+                          "name": "__type",
+                          "variant": "declaration",
+                          "kind": 65536,
+                          "flags": {},
+                          "children": [
+                            {
+                              "id": 96,
+                              "name": "actionId",
+                              "variant": "declaration",
+                              "kind": 1024,
+                              "flags": {
+                                "isReadonly": true
+                              },
+                              "comment": {
+                                "summary": [
+                                  {
+                                    "kind": "text",
+                                    "text": "Identifier of the host action to execute."
+                                  }
+                                ]
+                              },
+                              "type": {
+                                "type": "intrinsic",
+                                "name": "string"
+                              }
+                            },
+                            {
+                              "id": 97,
+                              "name": "input",
+                              "variant": "declaration",
+                              "kind": 1024,
+                              "flags": {
+                                "isOptional": true,
+                                "isReadonly": true
+                              },
+                              "comment": {
+                                "summary": [
+                                  {
+                                    "kind": "text",
+                                    "text": "Optional payload passed to the host for validation."
+                                  }
+                                ]
+                              },
+                              "type": {
+                                "type": "intrinsic",
+                                "name": "unknown"
+                              }
+                            },
+                            {
+                              "id": 94,
+                              "name": "kind",
+                              "variant": "declaration",
+                              "kind": 1024,
+                              "flags": {
+                                "isReadonly": true
+                              },
+                              "comment": {
+                                "summary": [
+                                  {
+                                    "kind": "text",
+                                    "text": "Present the target, authorize the action and invoke its handler."
+                                  }
+                                ]
+                              },
+                              "type": {
+                                "type": "literal",
+                                "value": "invoke"
+                              }
+                            },
+                            {
+                              "id": 95,
+                              "name": "targetId",
+                              "variant": "declaration",
+                              "kind": 1024,
+                              "flags": {
+                                "isReadonly": true
+                              },
+                              "comment": {
+                                "summary": [
+                                  {
+                                    "kind": "text",
+                                    "text": "Target identifier that must match the action registration."
+                                  }
+                                ]
+                              },
+                              "type": {
+                                "type": "intrinsic",
+                                "name": "string"
+                              }
+                            }
+                          ],
+                          "groups": [
+                            {
+                              "title": "Properties",
+                              "children": [
+                                96,
+                                97,
+                                94,
+                                95
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "id": 98,
+                      "name": "signal",
+                      "variant": "param",
+                      "kind": 32768,
+                      "flags": {},
+                      "comment": {
+                        "summary": [
+                          {
+                            "kind": "text",
+                            "text": "Cooperative cancellation while authorization is pending."
+                          }
+                        ]
+                      },
+                      "type": {
+                        "type": "reference",
+                        "target": {
+                          "packageName": "typescript",
+                          "packagePath": "lib/lib.dom.d.ts",
+                          "qualifiedName": "AbortSignal"
+                        },
+                        "name": "AbortSignal",
+                        "package": "typescript"
+                      }
+                    }
+                  ],
+                  "type": {
+                    "type": "union",
+                    "types": [
+                      {
+                        "type": "intrinsic",
+                        "name": "boolean"
+                      },
+                      {
+                        "type": "reference",
+                        "target": {
+                          "packageName": "typescript",
+                          "packagePath": "lib/lib.es5.d.ts",
+                          "qualifiedName": "Promise"
+                        },
+                        "typeArguments": [
+                          {
+                            "type": "intrinsic",
+                            "name": "boolean"
+                          }
+                        ],
+                        "name": "Promise",
+                        "package": "typescript"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": 88,
+          "name": "generation",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true,
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Positive safe integer for this attachment. Supply increasing values\nacross reattachments when the host reuses a participant identifier.\nOmission uses a process-local increasing value."
+              }
+            ]
+          },
+          "type": {
+            "type": "intrinsic",
+            "name": "number"
+          }
+        },
+        {
+          "id": 86,
+          "name": "participant",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Identity and display metadata of the participant authenticated by the host."
+              }
+            ]
+          },
+          "type": {
+            "type": "reference",
+            "target": 99,
+            "name": "ICursorParticipant",
+            "package": "@pixel-brewery/cursor-core"
+          }
+        },
+        {
+          "id": 87,
+          "name": "transport",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Host-owned transport for authenticated pointer and lifecycle events."
+              }
+            ]
+          },
+          "type": {
+            "type": "reference",
+            "target": 107,
+            "name": "ICursorTransport",
+            "package": "@pixel-brewery/cursor-core"
+          }
+        },
+        {
+          "id": 85,
+          "name": "viewId",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Identifier of the shared surface and resource. Updates for other views\nare ignored."
+              }
+            ]
+          },
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            89,
+            88,
+            86,
+            87,
+            85
+          ]
+        }
+      ]
+    },
+    {
+      "id": 99,
+      "name": "ICursorParticipant",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {
+        "isPublic": true
+      },
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Display information for a participant authenticated by the host transport."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 102,
+          "name": "color",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true,
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Host-approved hexadecimal color in six-digit RGB notation. Omit it to\nlet the renderer choose a color."
+              }
+            ]
+          },
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        },
+        {
+          "id": 100,
+          "name": "id",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Stable identifier within the host's pointer stream."
+              }
+            ]
+          },
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        },
+        {
+          "id": 101,
+          "name": "label",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Non-blank display label for the participant."
+              }
+            ]
+          },
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        },
+        {
+          "id": 103,
+          "name": "source",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true,
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Actor category. Renderers treat an omitted source as human."
+              }
+            ]
+          },
+          "type": {
+            "type": "union",
+            "types": [
+              {
+                "type": "literal",
+                "value": "human"
+              },
+              {
+                "type": "literal",
+                "value": "assistant"
+              }
+            ]
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            102,
+            100,
+            101,
+            103
+          ]
+        }
+      ]
+    },
+    {
+      "id": 104,
+      "name": "ICursorPosition",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {
+        "isPublic": true
+      },
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "A point in a shared surface, normalized to the interval from zero to one."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 105,
+          "name": "x",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Horizontal coordinate from the left edge of the surface."
+              }
+            ]
+          },
+          "type": {
+            "type": "intrinsic",
+            "name": "number"
+          }
+        },
+        {
+          "id": 106,
+          "name": "y",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Vertical coordinate from the top edge of the surface."
+              }
+            ]
+          },
+          "type": {
+            "type": "intrinsic",
+            "name": "number"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            105,
+            106
+          ]
+        }
+      ]
+    },
+    {
+      "id": 107,
+      "name": "ICursorTransport",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {
+        "isPublic": true
+      },
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Connects a controller to a host-authenticated delivery channel."
+          }
+        ],
+        "blockTags": [
+          {
+            "tag": "@remarks",
+            "content": [
+              {
+                "kind": "text",
+                "text": "Authenticate participants and authorize view membership before\nforwarding updates. Cursor validates incoming data and isolates its view."
+              }
+            ]
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 108,
+          "name": "publish",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "signatures": [
+            {
+              "id": 109,
+              "name": "publish",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Publishes a pointer update for the local participant."
+                  }
+                ],
+                "blockTags": [
+                  {
+                    "tag": "@throws",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "A synchronous transport failure when the update cannot be sent."
+                      }
+                    ]
+                  }
+                ]
+              },
+              "parameters": [
+                {
+                  "id": 110,
+                  "name": "update",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "The move or leave event within the controller's view."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "reference",
+                    "target": 123,
+                    "name": "IPointerUpdate",
+                    "package": "@pixel-brewery/cursor-core"
+                  }
+                }
+              ],
+              "type": {
+                "type": "intrinsic",
+                "name": "void"
+              }
+            }
+          ]
+        },
+        {
+          "id": 111,
+          "name": "subscribe",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "signatures": [
+            {
+              "id": 112,
+              "name": "subscribe",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Subscribes to incoming wire data and transport lifecycle events."
+                  }
+                ],
+                "blockTags": [
+                  {
+                    "tag": "@returns",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "An unsubscribe operation. The controller calls it on disposal."
+                      }
+                    ]
+                  }
+                ]
+              },
+              "parameters": [
+                {
+                  "id": 113,
+                  "name": "listener",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "The callback that receives each incoming wire value.\nEmit a connected event after reconnecting to resume delivery."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "reflection",
+                    "declaration": {
+                      "id": 114,
+                      "name": "__type",
+                      "variant": "declaration",
+                      "kind": 65536,
+                      "flags": {},
+                      "signatures": [
+                        {
+                          "id": 115,
+                          "name": "__type",
+                          "variant": "signature",
+                          "kind": 4096,
+                          "flags": {},
+                          "parameters": [
+                            {
+                              "id": 116,
+                              "name": "event",
+                              "variant": "param",
+                              "kind": 32768,
+                              "flags": {},
+                              "type": {
+                                "type": "intrinsic",
+                                "name": "unknown"
+                              }
+                            }
+                          ],
+                          "type": {
+                            "type": "intrinsic",
+                            "name": "void"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ],
+              "type": {
+                "type": "reflection",
+                "declaration": {
+                  "id": 117,
+                  "name": "__type",
+                  "variant": "declaration",
+                  "kind": 65536,
+                  "flags": {},
+                  "signatures": [
+                    {
+                      "id": 118,
+                      "name": "__type",
+                      "variant": "signature",
+                      "kind": 4096,
+                      "flags": {},
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "void"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "groups": [
+        {
+          "title": "Methods",
+          "children": [
+            108,
+            111
+          ]
+        }
+      ]
+    },
+    {
+      "id": 119,
+      "name": "IPointer",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {
+        "isPublic": true
+      },
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "The latest visible position for a remote participant."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 120,
+          "name": "participant",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Authenticated participant identity and display information."
+              }
+            ]
+          },
+          "type": {
+            "type": "reference",
+            "target": 99,
+            "name": "ICursorParticipant",
+            "package": "@pixel-brewery/cursor-core"
+          }
+        },
+        {
+          "id": 121,
+          "name": "position",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Normalized position within the shared surface."
+              }
+            ]
+          },
+          "type": {
+            "type": "reference",
+            "target": 104,
+            "name": "ICursorPosition",
+            "package": "@pixel-brewery/cursor-core"
+          }
+        },
+        {
+          "id": 122,
+          "name": "targetId",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true,
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Optional anchor that a receiver can resolve in its own layout."
+              }
+            ]
+          },
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            120,
+            121,
+            122
+          ]
+        }
+      ]
+    },
+    {
+      "id": 123,
+      "name": "IPointerUpdate",
+      "variant": "declaration",
+      "kind": 2097152,
+      "flags": {
+        "isPublic": true
+      },
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Transient pointer data scoped to one participant and active view."
+          }
+        ]
+      },
+      "type": {
+        "type": "intersection",
+        "types": [
+          {
+            "type": "reflection",
+            "declaration": {
+              "id": 124,
+              "name": "__type",
+              "variant": "declaration",
+              "kind": 65536,
+              "flags": {},
+              "children": [
+                {
+                  "id": 127,
+                  "name": "generation",
+                  "variant": "declaration",
+                  "kind": 1024,
+                  "flags": {
+                    "isReadonly": true
+                  },
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Positive safe integer identifying the participant attachment.\nIncrease it when reusing the participant identifier."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "number"
+                  }
+                },
+                {
+                  "id": 126,
+                  "name": "participant",
+                  "variant": "declaration",
+                  "kind": 1024,
+                  "flags": {
+                    "isReadonly": true
+                  },
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Participant identity and display metadata verified by the host."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "reference",
+                    "target": 99,
+                    "name": "ICursorParticipant",
+                    "package": "@pixel-brewery/cursor-core"
+                  }
+                },
+                {
+                  "id": 128,
+                  "name": "sequence",
+                  "variant": "declaration",
+                  "kind": 1024,
+                  "flags": {
+                    "isReadonly": true
+                  },
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Positive safe integer that increases within the generation."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "number"
+                  }
+                },
+                {
+                  "id": 125,
+                  "name": "viewId",
+                  "variant": "declaration",
+                  "kind": 1024,
+                  "flags": {
+                    "isReadonly": true
+                  },
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Identifier of the shared surface and resource."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                }
+              ],
+              "groups": [
+                {
+                  "title": "Properties",
+                  "children": [
+                    127,
+                    126,
+                    128,
+                    125
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "type": "union",
+            "types": [
+              {
+                "type": "reflection",
+                "declaration": {
+                  "id": 129,
+                  "name": "__type",
+                  "variant": "declaration",
+                  "kind": 65536,
+                  "flags": {},
+                  "children": [
+                    {
+                      "id": 130,
+                      "name": "kind",
+                      "variant": "declaration",
+                      "kind": 1024,
+                      "flags": {
+                        "isReadonly": true
+                      },
+                      "comment": {
+                        "summary": [
+                          {
+                            "kind": "text",
+                            "text": "Publish the latest visible position."
+                          }
+                        ]
+                      },
+                      "type": {
+                        "type": "literal",
+                        "value": "move"
+                      }
+                    },
+                    {
+                      "id": 131,
+                      "name": "position",
+                      "variant": "declaration",
+                      "kind": 1024,
+                      "flags": {
+                        "isReadonly": true
+                      },
+                      "comment": {
+                        "summary": [
+                          {
+                            "kind": "text",
+                            "text": "Finite normalized surface coordinates."
+                          }
+                        ]
+                      },
+                      "type": {
+                        "type": "reference",
+                        "target": 104,
+                        "name": "ICursorPosition",
+                        "package": "@pixel-brewery/cursor-core"
+                      }
+                    },
+                    {
+                      "id": 132,
+                      "name": "targetId",
+                      "variant": "declaration",
+                      "kind": 1024,
+                      "flags": {
+                        "isOptional": true,
+                        "isReadonly": true
+                      },
+                      "comment": {
+                        "summary": [
+                          {
+                            "kind": "text",
+                            "text": "Optional anchor that a receiver can resolve in its own layout."
+                          }
+                        ]
+                      },
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "string"
+                      }
+                    }
+                  ],
+                  "groups": [
+                    {
+                      "title": "Properties",
+                      "children": [
+                        130,
+                        131,
+                        132
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "reflection",
+                "declaration": {
+                  "id": 133,
+                  "name": "__type",
+                  "variant": "declaration",
+                  "kind": 65536,
+                  "flags": {},
+                  "children": [
+                    {
+                      "id": 134,
+                      "name": "kind",
+                      "variant": "declaration",
+                      "kind": 1024,
+                      "flags": {
+                        "isReadonly": true
+                      },
+                      "comment": {
+                        "summary": [
+                          {
+                            "kind": "text",
+                            "text": "Withdraw the currently visible pointer from this view."
+                          }
+                        ]
+                      },
+                      "type": {
+                        "type": "literal",
+                        "value": "leave"
+                      }
+                    }
+                  ],
+                  "groups": [
+                    {
+                      "title": "Properties",
+                      "children": [
+                        134
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 4,
+      "name": "parsePointerUpdate",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {
+        "isPublic": true
+      },
+      "signatures": [
+        {
+          "id": 5,
+          "name": "parsePointerUpdate",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {
+            "isPublic": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Parses an untrusted wire value as a move or leave update."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@remarks",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "This validates the wire format. The host must authenticate the\nparticipant and authorize view membership before forwarding an update."
+                  }
+                ]
+              },
+              {
+                "tag": "@returns",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "A normalized copy when its fields are valid. Malformed values and\ntransport lifecycle events return undefined."
+                  }
+                ]
+              }
+            ]
+          },
+          "parameters": [
+            {
+              "id": 6,
+              "name": "value",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Untrusted update from the transport."
+                  }
+                ]
+              },
+              "type": {
+                "type": "intrinsic",
+                "name": "unknown"
+              }
+            }
+          ],
+          "type": {
+            "type": "union",
+            "types": [
+              {
+                "type": "reference",
+                "target": 123,
+                "name": "IPointerUpdate",
+                "package": "@pixel-brewery/cursor-core"
+              },
+              {
+                "type": "intrinsic",
+                "name": "undefined"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "title": "Interfaces",
+      "children": [
+        32,
+        40,
+        84,
+        99,
+        104,
+        107,
+        119
+      ]
+    },
+    {
+      "title": "Type Aliases",
+      "children": [
+        7,
+        16,
+        22,
+        123
+      ]
+    },
+    {
+      "title": "Functions",
+      "children": [
+        1,
+        4
+      ]
+    }
+  ],
+  "packageName": "@pixel-brewery/cursor-core",
+  "symbolIdMap": {
+    "0": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/index.ts",
+      "qualifiedName": ""
+    },
+    "1": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/services/CursorController.ts",
+      "qualifiedName": "createCursorController"
+    },
+    "2": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/services/CursorController.ts",
+      "qualifiedName": "createCursorController"
+    },
+    "3": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/services/CursorController.ts",
+      "qualifiedName": "options"
+    },
+    "4": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/parsePointerUpdate.ts",
+      "qualifiedName": "parsePointerUpdate"
+    },
+    "5": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/parsePointerUpdate.ts",
+      "qualifiedName": "parsePointerUpdate"
+    },
+    "6": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/parsePointerUpdate.ts",
+      "qualifiedName": "value"
+    },
+    "7": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/CursorCommand.ts",
+      "qualifiedName": "CursorCommand"
+    },
+    "8": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/CursorCommand.ts",
+      "qualifiedName": "__type"
+    },
+    "9": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/CursorCommand.ts",
+      "qualifiedName": "__type.kind"
+    },
+    "10": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/CursorCommand.ts",
+      "qualifiedName": "__type.targetId"
+    },
+    "11": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/CursorCommand.ts",
+      "qualifiedName": "__type"
+    },
+    "12": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/CursorCommand.ts",
+      "qualifiedName": "__type.kind"
+    },
+    "13": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/CursorCommand.ts",
+      "qualifiedName": "__type.targetId"
+    },
+    "14": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/CursorCommand.ts",
+      "qualifiedName": "__type.actionId"
+    },
+    "15": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/CursorCommand.ts",
+      "qualifiedName": "__type.input"
+    },
+    "16": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/CursorResult.ts",
+      "qualifiedName": "CursorResult"
+    },
+    "17": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/CursorResult.ts",
+      "qualifiedName": "__type"
+    },
+    "18": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/CursorResult.ts",
+      "qualifiedName": "__type.status"
+    },
+    "19": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/CursorResult.ts",
+      "qualifiedName": "__type"
+    },
+    "20": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/CursorResult.ts",
+      "qualifiedName": "__type.status"
+    },
+    "21": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/CursorResult.ts",
+      "qualifiedName": "__type.error"
+    },
+    "22": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/CursorTransportEvent.ts",
+      "qualifiedName": "CursorTransportEvent"
+    },
+    "23": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/CursorTransportEvent.ts",
+      "qualifiedName": "__type"
+    },
+    "24": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/CursorTransportEvent.ts",
+      "qualifiedName": "__type.kind"
+    },
+    "25": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/CursorTransportEvent.ts",
+      "qualifiedName": "__type"
+    },
+    "26": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/CursorTransportEvent.ts",
+      "qualifiedName": "__type.kind"
+    },
+    "27": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/CursorTransportEvent.ts",
+      "qualifiedName": "__type"
+    },
+    "28": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/CursorTransportEvent.ts",
+      "qualifiedName": "__type.kind"
+    },
+    "29": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/CursorTransportEvent.ts",
+      "qualifiedName": "__type.viewId"
+    },
+    "30": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/CursorTransportEvent.ts",
+      "qualifiedName": "__type.actorId"
+    },
+    "31": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/CursorTransportEvent.ts",
+      "qualifiedName": "__type.generation"
+    },
+    "32": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorAction.ts",
+      "qualifiedName": "ICursorAction"
+    },
+    "33": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorAction.ts",
+      "qualifiedName": "ICursorAction.id"
+    },
+    "34": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorAction.ts",
+      "qualifiedName": "ICursorAction.targetId"
+    },
+    "35": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorAction.ts",
+      "qualifiedName": "ICursorAction.handler"
+    },
+    "36": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorAction.ts",
+      "qualifiedName": "__type"
+    },
+    "37": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorAction.ts",
+      "qualifiedName": "__type"
+    },
+    "38": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorAction.ts",
+      "qualifiedName": "input"
+    },
+    "39": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorAction.ts",
+      "qualifiedName": "signal"
+    },
+    "40": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "ICursorController"
+    },
+    "41": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "ICursorController.participant"
+    },
+    "42": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "ICursorController.isConnected"
+    },
+    "43": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "ICursorController.getPointers"
+    },
+    "44": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "ICursorController.getPointers"
+    },
+    "45": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "ICursorController.subscribe"
+    },
+    "46": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "ICursorController.subscribe"
+    },
+    "47": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "listener"
+    },
+    "48": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "__type"
+    },
+    "49": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "__type"
+    },
+    "50": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "pointers"
+    },
+    "51": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "__type"
+    },
+    "52": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "__type"
+    },
+    "53": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "ICursorController.move"
+    },
+    "54": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "ICursorController.move"
+    },
+    "55": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "position"
+    },
+    "56": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "targetId"
+    },
+    "57": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "ICursorController.leave"
+    },
+    "58": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "ICursorController.leave"
+    },
+    "59": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "ICursorController.registerTarget"
+    },
+    "60": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "ICursorController.registerTarget"
+    },
+    "61": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "targetId"
+    },
+    "62": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "presenter"
+    },
+    "63": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "__type"
+    },
+    "64": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "__type"
+    },
+    "65": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "context"
+    },
+    "66": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "__type"
+    },
+    "67": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "__type.signal"
+    },
+    "68": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "isAvailable"
+    },
+    "69": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "__type"
+    },
+    "70": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "__type"
+    },
+    "71": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "__type"
+    },
+    "72": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "__type"
+    },
+    "73": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "ICursorController.registerAction"
+    },
+    "74": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "ICursorController.registerAction"
+    },
+    "75": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "action"
+    },
+    "76": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "__type"
+    },
+    "77": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "__type"
+    },
+    "78": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "ICursorController.run"
+    },
+    "79": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "ICursorController.run"
+    },
+    "80": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "command"
+    },
+    "81": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "signal"
+    },
+    "82": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "ICursorController.dispose"
+    },
+    "83": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorController.ts",
+      "qualifiedName": "ICursorController.dispose"
+    },
+    "84": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorControllerOptions.ts",
+      "qualifiedName": "ICursorControllerOptions"
+    },
+    "85": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorControllerOptions.ts",
+      "qualifiedName": "ICursorControllerOptions.viewId"
+    },
+    "86": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorControllerOptions.ts",
+      "qualifiedName": "ICursorControllerOptions.participant"
+    },
+    "87": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorControllerOptions.ts",
+      "qualifiedName": "ICursorControllerOptions.transport"
+    },
+    "88": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorControllerOptions.ts",
+      "qualifiedName": "ICursorControllerOptions.generation"
+    },
+    "89": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorControllerOptions.ts",
+      "qualifiedName": "ICursorControllerOptions.authorize"
+    },
+    "90": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorControllerOptions.ts",
+      "qualifiedName": "__type"
+    },
+    "91": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorControllerOptions.ts",
+      "qualifiedName": "__type"
+    },
+    "92": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorControllerOptions.ts",
+      "qualifiedName": "command"
+    },
+    "93": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/CursorCommand.ts",
+      "qualifiedName": "__type"
+    },
+    "94": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/CursorCommand.ts",
+      "qualifiedName": "__type.kind"
+    },
+    "95": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/CursorCommand.ts",
+      "qualifiedName": "__type.targetId"
+    },
+    "96": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/CursorCommand.ts",
+      "qualifiedName": "__type.actionId"
+    },
+    "97": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/CursorCommand.ts",
+      "qualifiedName": "__type.input"
+    },
+    "98": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorControllerOptions.ts",
+      "qualifiedName": "signal"
+    },
+    "99": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorParticipant.ts",
+      "qualifiedName": "ICursorParticipant"
+    },
+    "100": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorParticipant.ts",
+      "qualifiedName": "ICursorParticipant.id"
+    },
+    "101": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorParticipant.ts",
+      "qualifiedName": "ICursorParticipant.label"
+    },
+    "102": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorParticipant.ts",
+      "qualifiedName": "ICursorParticipant.color"
+    },
+    "103": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorParticipant.ts",
+      "qualifiedName": "ICursorParticipant.source"
+    },
+    "104": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorPosition.ts",
+      "qualifiedName": "ICursorPosition"
+    },
+    "105": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorPosition.ts",
+      "qualifiedName": "ICursorPosition.x"
+    },
+    "106": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorPosition.ts",
+      "qualifiedName": "ICursorPosition.y"
+    },
+    "107": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorTransport.ts",
+      "qualifiedName": "ICursorTransport"
+    },
+    "108": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorTransport.ts",
+      "qualifiedName": "ICursorTransport.publish"
+    },
+    "109": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorTransport.ts",
+      "qualifiedName": "ICursorTransport.publish"
+    },
+    "110": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorTransport.ts",
+      "qualifiedName": "update"
+    },
+    "111": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorTransport.ts",
+      "qualifiedName": "ICursorTransport.subscribe"
+    },
+    "112": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorTransport.ts",
+      "qualifiedName": "ICursorTransport.subscribe"
+    },
+    "113": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorTransport.ts",
+      "qualifiedName": "listener"
+    },
+    "114": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorTransport.ts",
+      "qualifiedName": "__type"
+    },
+    "115": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorTransport.ts",
+      "qualifiedName": "__type"
+    },
+    "116": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorTransport.ts",
+      "qualifiedName": "event"
+    },
+    "117": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorTransport.ts",
+      "qualifiedName": "__type"
+    },
+    "118": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/ICursorTransport.ts",
+      "qualifiedName": "__type"
+    },
+    "119": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/IPointer.ts",
+      "qualifiedName": "IPointer"
+    },
+    "120": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/IPointer.ts",
+      "qualifiedName": "IPointer.participant"
+    },
+    "121": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/IPointer.ts",
+      "qualifiedName": "IPointer.position"
+    },
+    "122": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/interfaces/IPointer.ts",
+      "qualifiedName": "IPointer.targetId"
+    },
+    "123": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/IPointerUpdate.ts",
+      "qualifiedName": "IPointerUpdate"
+    },
+    "124": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/IPointerUpdate.ts",
+      "qualifiedName": "__type"
+    },
+    "125": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/IPointerUpdate.ts",
+      "qualifiedName": "__type.viewId"
+    },
+    "126": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/IPointerUpdate.ts",
+      "qualifiedName": "__type.participant"
+    },
+    "127": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/IPointerUpdate.ts",
+      "qualifiedName": "__type.generation"
+    },
+    "128": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/IPointerUpdate.ts",
+      "qualifiedName": "__type.sequence"
+    },
+    "129": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/IPointerUpdate.ts",
+      "qualifiedName": "__type"
+    },
+    "130": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/IPointerUpdate.ts",
+      "qualifiedName": "__type.kind"
+    },
+    "131": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/IPointerUpdate.ts",
+      "qualifiedName": "__type.position"
+    },
+    "132": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/IPointerUpdate.ts",
+      "qualifiedName": "__type.targetId"
+    },
+    "133": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/IPointerUpdate.ts",
+      "qualifiedName": "__type"
+    },
+    "134": {
+      "packageName": "@pixel-brewery/cursor-core",
+      "packagePath": "src/models/IPointerUpdate.ts",
+      "qualifiedName": "__type.kind"
+    }
+  },
+  "files": {
+    "entries": {
+      "1": "libs/cursor-core/src/index.ts"
+    },
+    "reflections": {
+      "1": 0
+    }
+  }
+}

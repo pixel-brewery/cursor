@@ -70,4 +70,4 @@ The workspace provides configuration for Codex, Claude Code, OpenCode, GitHub Co
 
 ## Documentation and verification
 
-The [documentation index](.docs/README.md) links the repository setup, agent tooling and implementation plan. `yarn agents:check` checks reproducible agent configuration. `yarn agents:mcp-check` starts the pinned local Mosaik MCP and checks its tool inventory. The [runtime acceptance matrix](.docs/plan.md#acceptance) lists the core, browser, Electron and adapter scenarios. The [verification commands](.docs/README.md#runtime-verification) reproduce them.
+The [documentation index](.docs/README.md) links the repository setup, agent tooling and implementation plan. The [SDK API reference](.docs/README.md#runtime-entry-points) is generated from TypeScript declarations and TSDoc. Run `yarn docs` to update it and `yarn docs:check` to verify it. The [runtime acceptance matrix](.docs/plan.md#acceptance) lists the core, browser, Electron and adapter scenarios. The [verification commands](.docs/README.md#runtime-verification) reproduce them.

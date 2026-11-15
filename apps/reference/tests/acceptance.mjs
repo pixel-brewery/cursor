@@ -4,7 +4,7 @@ import { mkdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { _electron as electron, chromium } from 'playwright';
-import { startReferenceServer } from '../dist/node/server.js';
+import { startReferenceServer } from '../dist/node/services/startReferenceServer.js';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const screenshotDirectory = process.env.CURSOR_SCREENSHOT_DIR;

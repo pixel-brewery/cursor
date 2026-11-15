@@ -15,6 +15,6 @@
     },
     "scripts": {
         "build": "tsc -b",
-        "test": "node --test tests/*.test.mjs"
+        "test": "node --test src/services/*.spec.mjs"
     }
 }

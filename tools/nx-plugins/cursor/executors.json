@@ -1,0 +1,9 @@
+{
+    "executors": {
+        "api-docs": {
+            "implementation": "./src/executors/api-docs/executor",
+            "schema": "./src/executors/api-docs/schema.json",
+            "description": "Generate or check the Cursor SDK's TypeDoc reference."
+        }
+    }
+}

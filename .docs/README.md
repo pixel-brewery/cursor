@@ -2,12 +2,13 @@
 
 Cursor is Pixel Brewery’s TypeScript SDK for visible human and AI pointers in web and Electron applications. This workspace contains the runtime, framework adapters, reference demo and its implementation plan.
 
-| Goal                                              | Read                                           |
-| ------------------------------------------------- | ---------------------------------------------- |
-| Understand the product and set up a checkout      | [Repository README](../README.md)              |
-| Understand the pointer and action workflow       | [Runtime implementation plan](plan.md)         |
-| Prepare a coding agent to work in this repository | [Repository instructions](../AGENTS.md)        |
-| Inspect the shared MCP definition                 | [Mosaik catalog registry](../.vscode/mcp.json) |
+| Goal                                              | Read                                                   |
+| ------------------------------------------------- | ------------------------------------------------------ |
+| Understand the product and set up a checkout      | [Repository README](../README.md)                      |
+| Understand the pointer and action workflow        | [Runtime implementation plan](plan.md)                 |
+| Update package contracts and API documentation    | [API documentation guide](guides/api-documentation.md) |
+| Prepare a coding agent to work in this repository | [Repository instructions](../AGENTS.md)                |
+| Inspect the shared MCP definition                 | [Mosaik catalog registry](../.vscode/mcp.json)         |
 
 ## Agent configuration
 
@@ -27,16 +28,16 @@ Edit the canonical guidance and registry, then run `yarn agents:sync`. Run `yarn
 
 ## Runtime entry points
 
-| Package | Start here |
-| ------- | ---------- |
-| `@pixel-brewery/cursor-core` | `createCursorController` connects a view to the host transport and authorization. |
-| `@pixel-brewery/cursor-browser` | `attachCursorSurface` mounts the shared overlay and registers visible targets. |
-| `@pixel-brewery/cursor-angular` | `CursorSurfaceDirective` and `CursorTargetDirective` bind Angular views. |
-| `@pixel-brewery/cursor-react` | `useCursorSurface` and `useCursorTarget` bind React components. |
-| `@pixel-brewery/cursor-vue` | `useCursorSurface` and `useCursorTarget` bind Vue components. |
-| `@pixel-brewery/cursor-svelte` | `cursorSurface` and `cursorTarget` bind Svelte actions. |
+| Package                         | Start here                                                                        | Reference                                           |
+| ------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------- |
+| `@pixel-brewery/cursor-core`    | `createCursorController` connects a view to the host transport and authorization. | [Core API](packages/cursor-core/api/index.md)       |
+| `@pixel-brewery/cursor-browser` | `attachCursorSurface` mounts the shared overlay and registers visible targets.    | [Browser API](packages/cursor-browser/api/index.md) |
+| `@pixel-brewery/cursor-angular` | `CursorSurfaceDirective` and `CursorTargetDirective` bind Angular views.          | [Angular API](packages/cursor-angular/api/index.md) |
+| `@pixel-brewery/cursor-react`   | `useCursorSurface` and `useCursorTarget` bind React components.                   | [React API](packages/cursor-react/api/index.md)     |
+| `@pixel-brewery/cursor-vue`     | `useCursorSurface` and `useCursorTarget` bind Vue components.                     | [Vue API](packages/cursor-vue/api/index.md)         |
+| `@pixel-brewery/cursor-svelte`  | `cursorSurface` and `cursorTarget` bind Svelte actions.                           | [Svelte API](packages/cursor-svelte/api/index.md)   |
 
-The [reference renderer](../apps/reference/src/renderer/main.ts) shows how the host registers a target and invokes its action. Its [transport](../apps/reference/src/renderer/transport.ts) implements the `ICursorTransport` boundary for the demo relay.
+The [reference view](../apps/reference/src/renderer/views/ReferenceView.ts) shows how the host registers a target and invokes its action. Its [transport](../apps/reference/src/renderer/transport/connectReference.ts) implements the `ICursorTransport` boundary for the demo relay.
 
 ## Runtime verification
 
@@ -44,6 +45,7 @@ Run the workspace build and the focused core checks before opening the reference
 
 ```sh
 yarn build
+yarn docs:check
 yarn test
 yarn exec playwright install chromium
 yarn workspace @pixel-brewery/cursor-reference electron:install

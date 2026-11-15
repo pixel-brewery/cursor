@@ -1,0 +1,22 @@
+# Cursor Browser
+
+The browser package attaches a Cursor controller to a DOM surface. It publishes normalized local pointer positions and displays other participants. A host can register live elements for target-aware pointer projection and assistant guidance. The same package runs in browsers and Electron renderers.
+
+## Attach a surface
+
+Supply the controller for the current view and a connected element that contains its targets. The returned attachment owns the overlay, pointer listeners, observers and target registrations.
+
+```ts
+import { attachCursorSurface } from '@pixel-brewery/cursor-browser';
+
+const binding = attachCursorSurface({ surface, controller });
+const releaseSettings = binding.registerTarget('settings', settingsButton);
+
+// On removal of the control or the view:
+releaseSettings();
+binding.dispose();
+```
+
+The overlay normally draws only remote participant markers and the assistant. Set `showLocalPointer` to add a labeled marker for the local participant. Set `allowSurfaceProjection` to false when clients have different surface layouts and should use only registered target positions.
+
+The host owns the controller and any action handlers. Disposing an attachment removes its overlay and target registrations without disposing the host controller. Disconnect clears rendered pointers and cancels guidance. Pointer updates resume when the controller reconnects.

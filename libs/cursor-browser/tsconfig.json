@@ -1,13 +1,6 @@
 {
     "extends": "../../tsconfig.base.json",
-    "compilerOptions": {
-        "lib": ["ES2024", "DOM", "DOM.Iterable"],
-        "composite": true,
-        "declarationMap": true,
-        "rootDir": "./src",
-        "outDir": "./dist",
-        "tsBuildInfoFile": "./dist/.tsbuildinfo"
-    },
-    "include": ["src/**/*.ts"],
-    "references": [{ "path": "../cursor-core" }]
+    "files": [],
+    "include": [],
+    "references": [{ "path": "./tsconfig.lib.json" }]
 }

@@ -1,0 +1,19 @@
+{
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+        "composite": true,
+        "declaration": true,
+        "declarationMap": true,
+        "lib": ["ES2024", "DOM", "DOM.Iterable"],
+        "rootDir": "src",
+        "outDir": "dist",
+        "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo"
+    },
+    "include": ["src/**/*.ts"],
+    "references": [
+        {
+            "path": "../cursor-browser/tsconfig.lib.json"
+        }
+    ],
+    "exclude": ["src/**/*.spec.ts"]
+}

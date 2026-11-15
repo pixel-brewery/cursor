@@ -1,0 +1,448 @@
+{
+  "schemaVersion": "2.0",
+  "id": 0,
+  "name": "@pixel-brewery/cursor-vue",
+  "variant": "project",
+  "kind": 1,
+  "flags": {},
+  "comment": {
+    "summary": [
+      {
+        "kind": "text",
+        "text": "Vue composables for attaching a Cursor surface and registering template refs."
+      }
+    ]
+  },
+  "children": [
+    {
+      "id": 1,
+      "name": "useCursorSurface",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {
+        "isPublic": true
+      },
+      "signatures": [
+        {
+          "id": 2,
+          "name": "useCursorSurface",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {
+            "isPublic": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Attach the renderer to a Vue template ref after mounting."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@returns",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "A shallow readonly ref to the current attachment, or null before mounting and during cleanup."
+                  }
+                ]
+              },
+              {
+                "tag": "@remarks",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "Rendered element or option changes release the previous attachment. Vue also disposes\nthe attachment when the component scope ends. The host owns the controller."
+                  }
+                ]
+              }
+            ]
+          },
+          "parameters": [
+            {
+              "id": 3,
+              "name": "element",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "The mounted element or a getter that resolves it."
+                  }
+                ]
+              },
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "@vue/reactivity",
+                  "packagePath": "dist/reactivity.d.ts",
+                  "qualifiedName": "MaybeRefOrGetter"
+                },
+                "typeArguments": [
+                  {
+                    "type": "union",
+                    "types": [
+                      {
+                        "type": "reference",
+                        "target": {
+                          "packageName": "typescript",
+                          "packagePath": "lib/lib.dom.d.ts",
+                          "qualifiedName": "HTMLElement"
+                        },
+                        "name": "HTMLElement",
+                        "package": "typescript"
+                      },
+                      {
+                        "type": "literal",
+                        "value": null
+                      }
+                    ]
+                  }
+                ],
+                "name": "MaybeRefOrGetter",
+                "package": "@vue/reactivity"
+              }
+            },
+            {
+              "id": 4,
+              "name": "options",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "The host controller and local pointer setting. The local pointer is hidden by default."
+                  }
+                ]
+              },
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "@vue/reactivity",
+                  "packagePath": "dist/reactivity.d.ts",
+                  "qualifiedName": "MaybeRefOrGetter"
+                },
+                "typeArguments": [
+                  {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "typescript",
+                      "packagePath": "lib/lib.es5.d.ts",
+                      "qualifiedName": "Omit"
+                    },
+                    "typeArguments": [
+                      {
+                        "type": "reference",
+                        "target": {
+                          "packageName": "@pixel-brewery/cursor-browser",
+                          "packagePath": "src/interfaces/ICursorSurfaceOptions.ts",
+                          "qualifiedName": "ICursorSurfaceOptions"
+                        },
+                        "name": "ICursorSurfaceOptions",
+                        "package": "@pixel-brewery/cursor-browser"
+                      },
+                      {
+                        "type": "literal",
+                        "value": "surface"
+                      }
+                    ],
+                    "name": "Omit",
+                    "package": "typescript"
+                  }
+                ],
+                "name": "MaybeRefOrGetter",
+                "package": "@vue/reactivity"
+              }
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "typescript",
+              "packagePath": "lib/lib.es5.d.ts",
+              "qualifiedName": "Readonly"
+            },
+            "typeArguments": [
+              {
+                "type": "reference",
+                "target": {
+                  "packageName": "@vue/reactivity",
+                  "packagePath": "dist/reactivity.d.ts",
+                  "qualifiedName": "ShallowRef"
+                },
+                "typeArguments": [
+                  {
+                    "type": "union",
+                    "types": [
+                      {
+                        "type": "reference",
+                        "target": {
+                          "packageName": "@pixel-brewery/cursor-browser",
+                          "packagePath": "src/interfaces/ICursorSurface.ts",
+                          "qualifiedName": "ICursorSurface"
+                        },
+                        "name": "ICursorSurface",
+                        "package": "@pixel-brewery/cursor-browser"
+                      },
+                      {
+                        "type": "literal",
+                        "value": null
+                      }
+                    ]
+                  }
+                ],
+                "name": "ShallowRef",
+                "package": "@vue/reactivity"
+              }
+            ],
+            "name": "Readonly",
+            "package": "typescript"
+          }
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "useCursorTarget",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {
+        "isPublic": true
+      },
+      "signatures": [
+        {
+          "id": 6,
+          "name": "useCursorTarget",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {
+            "isPublic": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Keep a target registered for the active Vue attachment and rendered element."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@remarks",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "Changes to the surface, identifier or element release the previous registration.\nVue releases the final registration when the component scope ends."
+                  }
+                ]
+              }
+            ]
+          },
+          "parameters": [
+            {
+              "id": 7,
+              "name": "surface",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "The active surface returned by the surface composable."
+                  }
+                ]
+              },
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "@vue/reactivity",
+                  "packagePath": "dist/reactivity.d.ts",
+                  "qualifiedName": "MaybeRefOrGetter"
+                },
+                "typeArguments": [
+                  {
+                    "type": "union",
+                    "types": [
+                      {
+                        "type": "reference",
+                        "target": {
+                          "packageName": "@pixel-brewery/cursor-browser",
+                          "packagePath": "src/interfaces/ICursorSurface.ts",
+                          "qualifiedName": "ICursorSurface"
+                        },
+                        "name": "ICursorSurface",
+                        "package": "@pixel-brewery/cursor-browser"
+                      },
+                      {
+                        "type": "literal",
+                        "value": null
+                      }
+                    ]
+                  }
+                ],
+                "name": "MaybeRefOrGetter",
+                "package": "@vue/reactivity"
+              }
+            },
+            {
+              "id": 8,
+              "name": "targetId",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "The target identifier used by assistant commands."
+                  }
+                ]
+              },
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "@vue/reactivity",
+                  "packagePath": "dist/reactivity.d.ts",
+                  "qualifiedName": "MaybeRefOrGetter"
+                },
+                "typeArguments": [
+                  {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                ],
+                "name": "MaybeRefOrGetter",
+                "package": "@vue/reactivity"
+              }
+            },
+            {
+              "id": 9,
+              "name": "element",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "The template ref or getter for the target element."
+                  }
+                ]
+              },
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "@vue/reactivity",
+                  "packagePath": "dist/reactivity.d.ts",
+                  "qualifiedName": "MaybeRefOrGetter"
+                },
+                "typeArguments": [
+                  {
+                    "type": "union",
+                    "types": [
+                      {
+                        "type": "reference",
+                        "target": {
+                          "packageName": "typescript",
+                          "packagePath": "lib/lib.dom.d.ts",
+                          "qualifiedName": "HTMLElement"
+                        },
+                        "name": "HTMLElement",
+                        "package": "typescript"
+                      },
+                      {
+                        "type": "literal",
+                        "value": null
+                      }
+                    ]
+                  }
+                ],
+                "name": "MaybeRefOrGetter",
+                "package": "@vue/reactivity"
+              }
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "void"
+          }
+        }
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "title": "Functions",
+      "children": [
+        1,
+        5
+      ]
+    }
+  ],
+  "packageName": "@pixel-brewery/cursor-vue",
+  "symbolIdMap": {
+    "0": {
+      "packageName": "@pixel-brewery/cursor-vue",
+      "packagePath": "src/index.ts",
+      "qualifiedName": ""
+    },
+    "1": {
+      "packageName": "@pixel-brewery/cursor-vue",
+      "packagePath": "src/composables/useCursorSurface.ts",
+      "qualifiedName": "useCursorSurface"
+    },
+    "2": {
+      "packageName": "@pixel-brewery/cursor-vue",
+      "packagePath": "src/composables/useCursorSurface.ts",
+      "qualifiedName": "useCursorSurface"
+    },
+    "3": {
+      "packageName": "@pixel-brewery/cursor-vue",
+      "packagePath": "src/composables/useCursorSurface.ts",
+      "qualifiedName": "element"
+    },
+    "4": {
+      "packageName": "@pixel-brewery/cursor-vue",
+      "packagePath": "src/composables/useCursorSurface.ts",
+      "qualifiedName": "options"
+    },
+    "5": {
+      "packageName": "@pixel-brewery/cursor-vue",
+      "packagePath": "src/composables/useCursorTarget.ts",
+      "qualifiedName": "useCursorTarget"
+    },
+    "6": {
+      "packageName": "@pixel-brewery/cursor-vue",
+      "packagePath": "src/composables/useCursorTarget.ts",
+      "qualifiedName": "useCursorTarget"
+    },
+    "7": {
+      "packageName": "@pixel-brewery/cursor-vue",
+      "packagePath": "src/composables/useCursorTarget.ts",
+      "qualifiedName": "surface"
+    },
+    "8": {
+      "packageName": "@pixel-brewery/cursor-vue",
+      "packagePath": "src/composables/useCursorTarget.ts",
+      "qualifiedName": "targetId"
+    },
+    "9": {
+      "packageName": "@pixel-brewery/cursor-vue",
+      "packagePath": "src/composables/useCursorTarget.ts",
+      "qualifiedName": "element"
+    }
+  },
+  "files": {
+    "entries": {
+      "1": "libs/cursor-vue/src/index.ts"
+    },
+    "reflections": {
+      "1": 0
+    }
+  }
+}

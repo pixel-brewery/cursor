@@ -1,0 +1,559 @@
+{
+  "schemaVersion": "2.0",
+  "id": 0,
+  "name": "@pixel-brewery/cursor-browser",
+  "variant": "project",
+  "kind": 1,
+  "flags": {},
+  "children": [
+    {
+      "id": 1,
+      "name": "attachCursorSurface",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {
+        "isPublic": true
+      },
+      "signatures": [
+        {
+          "id": 2,
+          "name": "attachCursorSurface",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {
+            "isPublic": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Mounts the shared pointer renderer on a connected browser or Electron surface."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@remarks",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "The overlay observes the attached view without handling pointer input or taking focus\nfrom host controls. The host owns the lifetime of the returned attachment and the supplied\ncontroller. Dispose the attachment before a view change or unmount."
+                  }
+                ]
+              },
+              {
+                "tag": "@returns",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "An attachment that owns overlay cleanup and target registration."
+                  }
+                ]
+              },
+              {
+                "tag": "@throws",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "If the surface has no connected browser document with a body and a window."
+                  }
+                ]
+              },
+              {
+                "tag": "@example",
+                "content": [
+                  {
+                    "kind": "code",
+                    "text": "```ts\nconst binding = attachCursorSurface({ surface, controller });\nconst releaseSettings = binding.registerTarget('settings', settingsButton);\nreleaseSettings();\nbinding.dispose();\n```"
+                  }
+                ]
+              }
+            ]
+          },
+          "parameters": [
+            {
+              "id": 3,
+              "name": "options",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "The host surface, view controller and optional projection settings."
+                  }
+                ]
+              },
+              "type": {
+                "type": "reference",
+                "target": 13,
+                "name": "ICursorSurfaceOptions",
+                "package": "@pixel-brewery/cursor-browser"
+              }
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 4,
+            "name": "ICursorSurface",
+            "package": "@pixel-brewery/cursor-browser"
+          }
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "ICursorSurface",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {
+        "isPublic": true
+      },
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "A mounted cursor overlay and its target registrations."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 11,
+          "name": "dispose",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {
+            "isPublic": true
+          },
+          "signatures": [
+            {
+              "id": 12,
+              "name": "dispose",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {
+                "isPublic": true
+              },
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Withdraws the local pointer, removes the overlay and releases subscriptions, listeners,\nobservers and target registrations. Cancels an active presentation."
+                  }
+                ],
+                "blockTags": [
+                  {
+                    "tag": "@remarks",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "Call on unmount or before replacing the host view or controller. Repeated calls\nhave no effect. The caller continues to own the controller."
+                      }
+                    ]
+                  }
+                ]
+              },
+              "type": {
+                "type": "intrinsic",
+                "name": "void"
+              }
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "name": "registerTarget",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {
+            "isPublic": true
+          },
+          "signatures": [
+            {
+              "id": 6,
+              "name": "registerTarget",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {
+                "isPublic": true
+              },
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Registers a live element under its stable host target ID."
+                  }
+                ],
+                "blockTags": [
+                  {
+                    "tag": "@returns",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "An idempotent cleanup function for this registration. Releasing an active target\ncancels its presentation and removes the assistant marker."
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "@throws",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "If the element lies outside the surface, the attachment or controller is\ndisposed, or the identifier is invalid or already registered on the controller."
+                      }
+                    ]
+                  }
+                ]
+              },
+              "parameters": [
+                {
+                  "id": 7,
+                  "name": "id",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "The unique target ID supplied to assistant commands and anchored pointer events."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                },
+                {
+                  "id": 8,
+                  "name": "element",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "A rendered element within the attached surface."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "typescript",
+                      "packagePath": "lib/lib.dom.d.ts",
+                      "qualifiedName": "HTMLElement"
+                    },
+                    "name": "HTMLElement",
+                    "package": "typescript"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reflection",
+                "declaration": {
+                  "id": 9,
+                  "name": "__type",
+                  "variant": "declaration",
+                  "kind": 65536,
+                  "flags": {},
+                  "signatures": [
+                    {
+                      "id": 10,
+                      "name": "__type",
+                      "variant": "signature",
+                      "kind": 4096,
+                      "flags": {},
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "void"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "groups": [
+        {
+          "title": "Methods",
+          "children": [
+            11,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "name": "ICursorSurfaceOptions",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {
+        "isPublic": true
+      },
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Host view and projection options for one browser or Electron attachment."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 17,
+          "name": "allowSurfaceProjection",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true,
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Whether remote moves can use normalized surface coordinates when they lack a known target.\nSet to false when the sender and receiver use different surface layouts."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@defaultValue",
+                "content": [
+                  {
+                    "kind": "code",
+                    "text": "`true`"
+                  }
+                ]
+              }
+            ]
+          },
+          "type": {
+            "type": "intrinsic",
+            "name": "boolean"
+          }
+        },
+        {
+          "id": 15,
+          "name": "controller",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "The host-owned controller for the attached view. Dispose the attachment when switching\ncontrollers and dispose the controller according to its own lifetime."
+              }
+            ]
+          },
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "@pixel-brewery/cursor-core",
+              "packagePath": "dist/interfaces/ICursorController.d.ts",
+              "qualifiedName": "ICursorController"
+            },
+            "name": "ICursorController",
+            "package": "@pixel-brewery/cursor-core"
+          }
+        },
+        {
+          "id": 16,
+          "name": "showLocalPointer",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true,
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Whether the overlay also draws the local participant's labeled pointer. The controller\npublishes local moves regardless of this setting."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@defaultValue",
+                "content": [
+                  {
+                    "kind": "code",
+                    "text": "`false`"
+                  }
+                ]
+              }
+            ]
+          },
+          "type": {
+            "type": "intrinsic",
+            "name": "boolean"
+          }
+        },
+        {
+          "id": 14,
+          "name": "surface",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Connected DOM root that receives pointer input and contains registered targets."
+              }
+            ]
+          },
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "typescript",
+              "packagePath": "lib/lib.dom.d.ts",
+              "qualifiedName": "HTMLElement"
+            },
+            "name": "HTMLElement",
+            "package": "typescript"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            17,
+            15,
+            16,
+            14
+          ]
+        }
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "title": "Interfaces",
+      "children": [
+        4,
+        13
+      ]
+    },
+    {
+      "title": "Functions",
+      "children": [
+        1
+      ]
+    }
+  ],
+  "packageName": "@pixel-brewery/cursor-browser",
+  "symbolIdMap": {
+    "0": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/index.ts",
+      "qualifiedName": ""
+    },
+    "1": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/attachCursorSurface.ts",
+      "qualifiedName": "attachCursorSurface"
+    },
+    "2": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/attachCursorSurface.ts",
+      "qualifiedName": "attachCursorSurface"
+    },
+    "3": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/attachCursorSurface.ts",
+      "qualifiedName": "options"
+    },
+    "4": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/interfaces/ICursorSurface.ts",
+      "qualifiedName": "ICursorSurface"
+    },
+    "5": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/interfaces/ICursorSurface.ts",
+      "qualifiedName": "ICursorSurface.registerTarget"
+    },
+    "6": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/interfaces/ICursorSurface.ts",
+      "qualifiedName": "ICursorSurface.registerTarget"
+    },
+    "7": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/interfaces/ICursorSurface.ts",
+      "qualifiedName": "id"
+    },
+    "8": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/interfaces/ICursorSurface.ts",
+      "qualifiedName": "element"
+    },
+    "9": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/interfaces/ICursorSurface.ts",
+      "qualifiedName": "__type"
+    },
+    "10": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/interfaces/ICursorSurface.ts",
+      "qualifiedName": "__type"
+    },
+    "11": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/interfaces/ICursorSurface.ts",
+      "qualifiedName": "ICursorSurface.dispose"
+    },
+    "12": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/interfaces/ICursorSurface.ts",
+      "qualifiedName": "ICursorSurface.dispose"
+    },
+    "13": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/interfaces/ICursorSurfaceOptions.ts",
+      "qualifiedName": "ICursorSurfaceOptions"
+    },
+    "14": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/interfaces/ICursorSurfaceOptions.ts",
+      "qualifiedName": "ICursorSurfaceOptions.surface"
+    },
+    "15": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/interfaces/ICursorSurfaceOptions.ts",
+      "qualifiedName": "ICursorSurfaceOptions.controller"
+    },
+    "16": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/interfaces/ICursorSurfaceOptions.ts",
+      "qualifiedName": "ICursorSurfaceOptions.showLocalPointer"
+    },
+    "17": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/interfaces/ICursorSurfaceOptions.ts",
+      "qualifiedName": "ICursorSurfaceOptions.allowSurfaceProjection"
+    }
+  },
+  "files": {
+    "entries": {
+      "1": "libs/cursor-browser/src/index.ts"
+    },
+    "reflections": {
+      "1": 0
+    }
+  }
+}

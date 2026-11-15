@@ -10,7 +10,7 @@
         }
     },
     "scripts": {
-        "build": "ngc -p tsconfig.json"
+        "build": "ngc -p tsconfig.lib.json"
     },
     "dependencies": {
         "@pixel-brewery/cursor-browser": "workspace:^"

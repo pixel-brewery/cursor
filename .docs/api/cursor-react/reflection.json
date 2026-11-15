@@ -1,0 +1,364 @@
+{
+  "schemaVersion": "2.0",
+  "id": 0,
+  "name": "@pixel-brewery/cursor-react",
+  "variant": "project",
+  "kind": 1,
+  "flags": {},
+  "comment": {
+    "summary": [
+      {
+        "kind": "text",
+        "text": "React hooks for attaching a Cursor surface and registering committed elements."
+      }
+    ]
+  },
+  "children": [
+    {
+      "id": 1,
+      "name": "useCursorSurface",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {
+        "isPublic": true
+      },
+      "signatures": [
+        {
+          "id": 2,
+          "name": "useCursorSurface",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {
+            "isPublic": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Attach the browser renderer to a committed React element."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@returns",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "The current attachment for registering targets or null while it is unavailable."
+                  }
+                ]
+              },
+              {
+                "tag": "@remarks",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "Changes to the element, controller or visibility dispose the previous attachment.\nReact also disposes the attachment on unmount. The host owns the controller."
+                  }
+                ]
+              }
+            ]
+          },
+          "parameters": [
+            {
+              "id": 3,
+              "name": "element",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "The element received from a React callback ref, or null until mounted."
+                  }
+                ]
+              },
+              "type": {
+                "type": "union",
+                "types": [
+                  {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "typescript",
+                      "packagePath": "lib/lib.dom.d.ts",
+                      "qualifiedName": "HTMLElement"
+                    },
+                    "name": "HTMLElement",
+                    "package": "typescript"
+                  },
+                  {
+                    "type": "literal",
+                    "value": null
+                  }
+                ]
+              }
+            },
+            {
+              "id": 4,
+              "name": "options",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "The host controller and local pointer setting. The local pointer is hidden by default."
+                  }
+                ]
+              },
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "typescript",
+                  "packagePath": "lib/lib.es5.d.ts",
+                  "qualifiedName": "Omit"
+                },
+                "typeArguments": [
+                  {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "@pixel-brewery/cursor-browser",
+                      "packagePath": "src/interfaces/ICursorSurfaceOptions.ts",
+                      "qualifiedName": "ICursorSurfaceOptions"
+                    },
+                    "name": "ICursorSurfaceOptions",
+                    "package": "@pixel-brewery/cursor-browser"
+                  },
+                  {
+                    "type": "literal",
+                    "value": "surface"
+                  }
+                ],
+                "name": "Omit",
+                "package": "typescript"
+              }
+            }
+          ],
+          "type": {
+            "type": "union",
+            "types": [
+              {
+                "type": "reference",
+                "target": {
+                  "packageName": "@pixel-brewery/cursor-browser",
+                  "packagePath": "src/interfaces/ICursorSurface.ts",
+                  "qualifiedName": "ICursorSurface"
+                },
+                "name": "ICursorSurface",
+                "package": "@pixel-brewery/cursor-browser"
+              },
+              {
+                "type": "literal",
+                "value": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "useCursorTarget",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {
+        "isPublic": true
+      },
+      "signatures": [
+        {
+          "id": 6,
+          "name": "useCursorTarget",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {
+            "isPublic": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Register a target for the current React element and attachment."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@remarks",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "Changes to the surface, identifier or element release the previous registration.\nReact releases the final registration on unmount."
+                  }
+                ]
+              }
+            ]
+          },
+          "parameters": [
+            {
+              "id": 7,
+              "name": "surface",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "The active surface returned by the surface hook."
+                  }
+                ]
+              },
+              "type": {
+                "type": "union",
+                "types": [
+                  {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "@pixel-brewery/cursor-browser",
+                      "packagePath": "src/interfaces/ICursorSurface.ts",
+                      "qualifiedName": "ICursorSurface"
+                    },
+                    "name": "ICursorSurface",
+                    "package": "@pixel-brewery/cursor-browser"
+                  },
+                  {
+                    "type": "literal",
+                    "value": null
+                  }
+                ]
+              }
+            },
+            {
+              "id": 8,
+              "name": "targetId",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "The target identifier used by assistant commands."
+                  }
+                ]
+              },
+              "type": {
+                "type": "intrinsic",
+                "name": "string"
+              }
+            },
+            {
+              "id": 9,
+              "name": "element",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "The committed DOM element, or null until mounted."
+                  }
+                ]
+              },
+              "type": {
+                "type": "union",
+                "types": [
+                  {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "typescript",
+                      "packagePath": "lib/lib.dom.d.ts",
+                      "qualifiedName": "HTMLElement"
+                    },
+                    "name": "HTMLElement",
+                    "package": "typescript"
+                  },
+                  {
+                    "type": "literal",
+                    "value": null
+                  }
+                ]
+              }
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "void"
+          }
+        }
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "title": "Functions",
+      "children": [
+        1,
+        5
+      ]
+    }
+  ],
+  "packageName": "@pixel-brewery/cursor-react",
+  "symbolIdMap": {
+    "0": {
+      "packageName": "@pixel-brewery/cursor-react",
+      "packagePath": "src/index.ts",
+      "qualifiedName": ""
+    },
+    "1": {
+      "packageName": "@pixel-brewery/cursor-react",
+      "packagePath": "src/hooks/useCursorSurface.ts",
+      "qualifiedName": "useCursorSurface"
+    },
+    "2": {
+      "packageName": "@pixel-brewery/cursor-react",
+      "packagePath": "src/hooks/useCursorSurface.ts",
+      "qualifiedName": "useCursorSurface"
+    },
+    "3": {
+      "packageName": "@pixel-brewery/cursor-react",
+      "packagePath": "src/hooks/useCursorSurface.ts",
+      "qualifiedName": "element"
+    },
+    "4": {
+      "packageName": "@pixel-brewery/cursor-react",
+      "packagePath": "src/hooks/useCursorSurface.ts",
+      "qualifiedName": "options"
+    },
+    "5": {
+      "packageName": "@pixel-brewery/cursor-react",
+      "packagePath": "src/hooks/useCursorTarget.ts",
+      "qualifiedName": "useCursorTarget"
+    },
+    "6": {
+      "packageName": "@pixel-brewery/cursor-react",
+      "packagePath": "src/hooks/useCursorTarget.ts",
+      "qualifiedName": "useCursorTarget"
+    },
+    "7": {
+      "packageName": "@pixel-brewery/cursor-react",
+      "packagePath": "src/hooks/useCursorTarget.ts",
+      "qualifiedName": "surface"
+    },
+    "8": {
+      "packageName": "@pixel-brewery/cursor-react",
+      "packagePath": "src/hooks/useCursorTarget.ts",
+      "qualifiedName": "targetId"
+    },
+    "9": {
+      "packageName": "@pixel-brewery/cursor-react",
+      "packagePath": "src/hooks/useCursorTarget.ts",
+      "qualifiedName": "element"
+    }
+  },
+  "files": {
+    "entries": {
+      "1": "libs/cursor-react/src/index.ts"
+    },
+    "reflections": {
+      "1": 0
+    }
+  }
+}

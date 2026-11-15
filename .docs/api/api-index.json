@@ -1,0 +1,214 @@
+{
+  "schemaVersion": 1,
+  "linkBase": ".docs/",
+  "packages": [
+    {
+      "name": "@pixel-brewery/cursor-angular",
+      "version": "0.0.0",
+      "entryPoints": [
+        {
+          "importPath": "@pixel-brewery/cursor-angular",
+          "markdown": "packages/cursor-angular/api/index.md",
+          "reflection": "api/cursor-angular/reflection.json",
+          "exports": [
+            {
+              "name": "CursorSurfaceDirective",
+              "kind": "Class",
+              "link": "packages/cursor-angular/api/classes/CursorSurfaceDirective.md"
+            },
+            {
+              "name": "CursorTargetDirective",
+              "kind": "Class",
+              "link": "packages/cursor-angular/api/classes/CursorTargetDirective.md"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "@pixel-brewery/cursor-browser",
+      "version": "0.0.0",
+      "entryPoints": [
+        {
+          "importPath": "@pixel-brewery/cursor-browser",
+          "markdown": "packages/cursor-browser/api/index.md",
+          "reflection": "api/cursor-browser/reflection.json",
+          "exports": [
+            {
+              "name": "attachCursorSurface",
+              "kind": "Function",
+              "link": "packages/cursor-browser/api/functions/attachCursorSurface.md"
+            },
+            {
+              "name": "ICursorSurface",
+              "kind": "Interface",
+              "link": "packages/cursor-browser/api/interfaces/ICursorSurface.md"
+            },
+            {
+              "name": "ICursorSurfaceOptions",
+              "kind": "Interface",
+              "link": "packages/cursor-browser/api/interfaces/ICursorSurfaceOptions.md"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "@pixel-brewery/cursor-core",
+      "version": "0.0.0",
+      "entryPoints": [
+        {
+          "importPath": "@pixel-brewery/cursor-core",
+          "markdown": "packages/cursor-core/api/index.md",
+          "reflection": "api/cursor-core/reflection.json",
+          "exports": [
+            {
+              "name": "createCursorController",
+              "kind": "Function",
+              "link": "packages/cursor-core/api/functions/createCursorController.md"
+            },
+            {
+              "name": "CursorCommand",
+              "kind": "Type Alias",
+              "link": "packages/cursor-core/api/type-aliases/CursorCommand.md"
+            },
+            {
+              "name": "CursorResult",
+              "kind": "Type Alias",
+              "link": "packages/cursor-core/api/type-aliases/CursorResult.md"
+            },
+            {
+              "name": "CursorTransportEvent",
+              "kind": "Type Alias",
+              "link": "packages/cursor-core/api/type-aliases/CursorTransportEvent.md"
+            },
+            {
+              "name": "ICursorAction",
+              "kind": "Interface",
+              "link": "packages/cursor-core/api/interfaces/ICursorAction.md"
+            },
+            {
+              "name": "ICursorController",
+              "kind": "Interface",
+              "link": "packages/cursor-core/api/interfaces/ICursorController.md"
+            },
+            {
+              "name": "ICursorControllerOptions",
+              "kind": "Interface",
+              "link": "packages/cursor-core/api/interfaces/ICursorControllerOptions.md"
+            },
+            {
+              "name": "ICursorParticipant",
+              "kind": "Interface",
+              "link": "packages/cursor-core/api/interfaces/ICursorParticipant.md"
+            },
+            {
+              "name": "ICursorPosition",
+              "kind": "Interface",
+              "link": "packages/cursor-core/api/interfaces/ICursorPosition.md"
+            },
+            {
+              "name": "ICursorTransport",
+              "kind": "Interface",
+              "link": "packages/cursor-core/api/interfaces/ICursorTransport.md"
+            },
+            {
+              "name": "IPointer",
+              "kind": "Interface",
+              "link": "packages/cursor-core/api/interfaces/IPointer.md"
+            },
+            {
+              "name": "IPointerUpdate",
+              "kind": "Type Alias",
+              "link": "packages/cursor-core/api/type-aliases/IPointerUpdate.md"
+            },
+            {
+              "name": "parsePointerUpdate",
+              "kind": "Function",
+              "link": "packages/cursor-core/api/functions/parsePointerUpdate.md"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "@pixel-brewery/cursor-react",
+      "version": "0.0.0",
+      "entryPoints": [
+        {
+          "importPath": "@pixel-brewery/cursor-react",
+          "markdown": "packages/cursor-react/api/index.md",
+          "reflection": "api/cursor-react/reflection.json",
+          "exports": [
+            {
+              "name": "useCursorSurface",
+              "kind": "Function",
+              "link": "packages/cursor-react/api/functions/useCursorSurface.md"
+            },
+            {
+              "name": "useCursorTarget",
+              "kind": "Function",
+              "link": "packages/cursor-react/api/functions/useCursorTarget.md"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "@pixel-brewery/cursor-svelte",
+      "version": "0.0.0",
+      "entryPoints": [
+        {
+          "importPath": "@pixel-brewery/cursor-svelte",
+          "markdown": "packages/cursor-svelte/api/index.md",
+          "reflection": "api/cursor-svelte/reflection.json",
+          "exports": [
+            {
+              "name": "cursorSurface",
+              "kind": "Variable",
+              "link": "packages/cursor-svelte/api/variables/cursorSurface.md"
+            },
+            {
+              "name": "cursorTarget",
+              "kind": "Variable",
+              "link": "packages/cursor-svelte/api/variables/cursorTarget.md"
+            },
+            {
+              "name": "ICursorBindingOptions",
+              "kind": "Interface",
+              "link": "packages/cursor-svelte/api/interfaces/ICursorBindingOptions.md"
+            },
+            {
+              "name": "ICursorTargetOptions",
+              "kind": "Interface",
+              "link": "packages/cursor-svelte/api/interfaces/ICursorTargetOptions.md"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "@pixel-brewery/cursor-vue",
+      "version": "0.0.0",
+      "entryPoints": [
+        {
+          "importPath": "@pixel-brewery/cursor-vue",
+          "markdown": "packages/cursor-vue/api/index.md",
+          "reflection": "api/cursor-vue/reflection.json",
+          "exports": [
+            {
+              "name": "useCursorSurface",
+              "kind": "Function",
+              "link": "packages/cursor-vue/api/functions/useCursorSurface.md"
+            },
+            {
+              "name": "useCursorTarget",
+              "kind": "Function",
+              "link": "packages/cursor-vue/api/functions/useCursorTarget.md"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

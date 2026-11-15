@@ -1,12 +1,21 @@
-import type { IPointerUpdate } from './IPointerUpdate.js';
-import { readTransportEvent } from './wire.js';
+// #region Imports
+
+import type { IPointerUpdate } from './models/IPointerUpdate.js';
+import { readTransportEvent } from './utils/CursorWireUtils.js';
+
+// #endregion
 
 /**
- * Parse an untrusted wire value as a move or leave update.
+ * Parses an untrusted wire value as a move or leave update.
+ *
+ * @remarks This validates the wire format. The host must authenticate the
+ * participant and authorize view membership before forwarding an update.
+ *
+ * @param value - Untrusted update from the transport.
+ * @returns A normalized copy when its fields are valid. Malformed values and
+ * transport lifecycle events return undefined.
  *
  * @public
- * @param value - Untrusted update from the transport.
- * @returns A normalized update when its fields are valid.
  */
 export function parsePointerUpdate(value: unknown): IPointerUpdate | undefined {
     const event = readTransportEvent(value);

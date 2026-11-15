@@ -1,0 +1,617 @@
+{
+  "schemaVersion": "2.0",
+  "id": 0,
+  "name": "@pixel-brewery/cursor-svelte",
+  "variant": "project",
+  "kind": 1,
+  "flags": {},
+  "comment": {
+    "summary": [
+      {
+        "kind": "text",
+        "text": "Svelte actions for attaching a Cursor surface and registering rendered targets."
+      }
+    ]
+  },
+  "children": [
+    {
+      "id": 12,
+      "name": "cursorSurface",
+      "variant": "declaration",
+      "kind": 32,
+      "flags": {
+        "isPublic": true,
+        "isConst": true
+      },
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Attach the browser renderer when a Svelte action mounts."
+          }
+        ],
+        "blockTags": [
+          {
+            "tag": "@remarks",
+            "content": [
+              {
+                "kind": "text",
+                "text": "Changing the controller or local pointer visibility disposes the previous attachment.\nDestruction releases the renderer and reports "
+              },
+              {
+                "kind": "code",
+                "text": "`null`"
+              },
+              {
+                "kind": "text",
+                "text": " through "
+              },
+              {
+                "kind": "code",
+                "text": "`onAttachment`"
+              },
+              {
+                "kind": "text",
+                "text": ".\nReplacing the callback ends the previous observation and reports the current attachment\nto the new observer. The host owns the controller."
+              }
+            ]
+          }
+        ]
+      },
+      "type": {
+        "type": "reference",
+        "target": {
+          "packageName": "svelte",
+          "packagePath": "src/index.d.ts",
+          "qualifiedName": "\"svelte/action\".Action"
+        },
+        "typeArguments": [
+          {
+            "type": "reference",
+            "target": {
+              "packageName": "typescript",
+              "packagePath": "lib/lib.dom.d.ts",
+              "qualifiedName": "HTMLElement"
+            },
+            "name": "HTMLElement",
+            "package": "typescript"
+          },
+          {
+            "type": "reference",
+            "target": 1,
+            "name": "ICursorBindingOptions",
+            "package": "@pixel-brewery/cursor-svelte"
+          }
+        ],
+        "name": "Action",
+        "package": "svelte",
+        "qualifiedName": "\"svelte/action\".Action"
+      },
+      "defaultValue": "..."
+    },
+    {
+      "id": 13,
+      "name": "cursorTarget",
+      "variant": "declaration",
+      "kind": 32,
+      "flags": {
+        "isPublic": true,
+        "isConst": true
+      },
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Register a rendered element as an assistant target for its Svelte action lifetime."
+          }
+        ],
+        "blockTags": [
+          {
+            "tag": "@remarks",
+            "content": [
+              {
+                "kind": "text",
+                "text": "A null surface suspends registration. Changing the target or its surface releases the previous registration."
+              }
+            ]
+          }
+        ]
+      },
+      "type": {
+        "type": "reference",
+        "target": {
+          "packageName": "svelte",
+          "packagePath": "src/index.d.ts",
+          "qualifiedName": "\"svelte/action\".Action"
+        },
+        "typeArguments": [
+          {
+            "type": "reference",
+            "target": {
+              "packageName": "typescript",
+              "packagePath": "lib/lib.dom.d.ts",
+              "qualifiedName": "HTMLElement"
+            },
+            "name": "HTMLElement",
+            "package": "typescript"
+          },
+          {
+            "type": "reference",
+            "target": 9,
+            "name": "ICursorTargetOptions",
+            "package": "@pixel-brewery/cursor-svelte"
+          }
+        ],
+        "name": "Action",
+        "package": "svelte",
+        "qualifiedName": "\"svelte/action\".Action"
+      },
+      "defaultValue": "..."
+    },
+    {
+      "id": 1,
+      "name": "ICursorBindingOptions",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {
+        "isPublic": true
+      },
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Options for attaching the Svelte surface and observing its lifetime."
+          }
+        ],
+        "blockTags": [
+          {
+            "tag": "@remarks",
+            "content": [
+              {
+                "kind": "text",
+                "text": "The local pointer stays hidden unless "
+              },
+              {
+                "kind": "code",
+                "text": "`showLocalPointer`"
+              },
+              {
+                "kind": "text",
+                "text": " is enabled."
+              }
+            ]
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 8,
+          "name": "allowSurfaceProjection",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true,
+            "isReadonly": true,
+            "isInherited": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Whether remote moves can use normalized surface coordinates when they lack a known target.\nSet to false when the sender and receiver use different surface layouts."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@defaultValue",
+                "content": [
+                  {
+                    "kind": "code",
+                    "text": "`true`"
+                  }
+                ]
+              }
+            ]
+          },
+          "type": {
+            "type": "intrinsic",
+            "name": "boolean"
+          },
+          "inheritedFrom": {
+            "type": "reference",
+            "target": -1,
+            "name": "Omit.allowSurfaceProjection",
+            "package": "@pixel-brewery/cursor-browser"
+          }
+        },
+        {
+          "id": 6,
+          "name": "controller",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true,
+            "isInherited": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "The host-owned controller for the attached view. Dispose the attachment when switching\ncontrollers and dispose the controller according to its own lifetime."
+              }
+            ]
+          },
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "@pixel-brewery/cursor-core",
+              "packagePath": "src/interfaces/ICursorController.ts",
+              "qualifiedName": "ICursorController"
+            },
+            "name": "ICursorController",
+            "package": "@pixel-brewery/cursor-core"
+          },
+          "inheritedFrom": {
+            "type": "reference",
+            "target": -1,
+            "name": "Omit.controller",
+            "package": "@pixel-brewery/cursor-browser"
+          }
+        },
+        {
+          "id": 2,
+          "name": "onAttachment",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Receives the current attachment when observation starts and "
+              },
+              {
+                "kind": "code",
+                "text": "`null`"
+              },
+              {
+                "kind": "text",
+                "text": " when it ends."
+              }
+            ]
+          },
+          "type": {
+            "type": "reflection",
+            "declaration": {
+              "id": 3,
+              "name": "__type",
+              "variant": "declaration",
+              "kind": 65536,
+              "flags": {},
+              "signatures": [
+                {
+                  "id": 4,
+                  "name": "__type",
+                  "variant": "signature",
+                  "kind": 4096,
+                  "flags": {},
+                  "parameters": [
+                    {
+                      "id": 5,
+                      "name": "attachment",
+                      "variant": "param",
+                      "kind": 32768,
+                      "flags": {},
+                      "comment": {
+                        "summary": [
+                          {
+                            "kind": "text",
+                            "text": "The current browser attachment or "
+                          },
+                          {
+                            "kind": "code",
+                            "text": "`null`"
+                          },
+                          {
+                            "kind": "text",
+                            "text": " during cleanup."
+                          }
+                        ]
+                      },
+                      "type": {
+                        "type": "union",
+                        "types": [
+                          {
+                            "type": "reference",
+                            "target": {
+                              "packageName": "@pixel-brewery/cursor-browser",
+                              "packagePath": "src/interfaces/ICursorSurface.ts",
+                              "qualifiedName": "ICursorSurface"
+                            },
+                            "name": "ICursorSurface",
+                            "package": "@pixel-brewery/cursor-browser"
+                          },
+                          {
+                            "type": "literal",
+                            "value": null
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "void"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": 7,
+          "name": "showLocalPointer",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true,
+            "isReadonly": true,
+            "isInherited": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Whether the overlay also draws the local participant's labeled pointer. The controller\npublishes local moves regardless of this setting."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@defaultValue",
+                "content": [
+                  {
+                    "kind": "code",
+                    "text": "`false`"
+                  }
+                ]
+              }
+            ]
+          },
+          "type": {
+            "type": "intrinsic",
+            "name": "boolean"
+          },
+          "inheritedFrom": {
+            "type": "reference",
+            "target": -1,
+            "name": "Omit.showLocalPointer",
+            "package": "@pixel-brewery/cursor-browser"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            8,
+            6,
+            2,
+            7
+          ]
+        }
+      ],
+      "extendedTypes": [
+        {
+          "type": "reference",
+          "target": {
+            "packageName": "typescript",
+            "packagePath": "lib/lib.es5.d.ts",
+            "qualifiedName": "Omit"
+          },
+          "typeArguments": [
+            {
+              "type": "reference",
+              "target": {
+                "packageName": "@pixel-brewery/cursor-browser",
+                "packagePath": "src/interfaces/ICursorSurfaceOptions.ts",
+                "qualifiedName": "ICursorSurfaceOptions"
+              },
+              "name": "ICursorSurfaceOptions",
+              "package": "@pixel-brewery/cursor-browser"
+            },
+            {
+              "type": "literal",
+              "value": "surface"
+            }
+          ],
+          "name": "Omit",
+          "package": "typescript"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "name": "ICursorTargetOptions",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {
+        "isPublic": true
+      },
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Identifies a Svelte target and the surface that owns it."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 10,
+          "name": "surface",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "The owning surface attachment, or null until the surface is mounted."
+              }
+            ]
+          },
+          "type": {
+            "type": "union",
+            "types": [
+              {
+                "type": "reference",
+                "target": {
+                  "packageName": "@pixel-brewery/cursor-browser",
+                  "packagePath": "src/interfaces/ICursorSurface.ts",
+                  "qualifiedName": "ICursorSurface"
+                },
+                "name": "ICursorSurface",
+                "package": "@pixel-brewery/cursor-browser"
+              },
+              {
+                "type": "literal",
+                "value": null
+              }
+            ]
+          }
+        },
+        {
+          "id": 11,
+          "name": "targetId",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Stable identifier used by assistant commands to find this target."
+              }
+            ]
+          },
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            10,
+            11
+          ]
+        }
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "title": "Interfaces",
+      "children": [
+        1,
+        9
+      ]
+    },
+    {
+      "title": "Variables",
+      "children": [
+        12,
+        13
+      ]
+    }
+  ],
+  "packageName": "@pixel-brewery/cursor-svelte",
+  "symbolIdMap": {
+    "0": {
+      "packageName": "@pixel-brewery/cursor-svelte",
+      "packagePath": "src/index.ts",
+      "qualifiedName": ""
+    },
+    "1": {
+      "packageName": "@pixel-brewery/cursor-svelte",
+      "packagePath": "src/interfaces/ICursorBindingOptions.ts",
+      "qualifiedName": "ICursorBindingOptions"
+    },
+    "2": {
+      "packageName": "@pixel-brewery/cursor-svelte",
+      "packagePath": "src/interfaces/ICursorBindingOptions.ts",
+      "qualifiedName": "ICursorBindingOptions.onAttachment"
+    },
+    "3": {
+      "packageName": "@pixel-brewery/cursor-svelte",
+      "packagePath": "src/interfaces/ICursorBindingOptions.ts",
+      "qualifiedName": "__type"
+    },
+    "4": {
+      "packageName": "@pixel-brewery/cursor-svelte",
+      "packagePath": "src/interfaces/ICursorBindingOptions.ts",
+      "qualifiedName": "__type"
+    },
+    "5": {
+      "packageName": "@pixel-brewery/cursor-svelte",
+      "packagePath": "src/interfaces/ICursorBindingOptions.ts",
+      "qualifiedName": "attachment"
+    },
+    "6": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/interfaces/ICursorSurfaceOptions.ts",
+      "qualifiedName": "controller"
+    },
+    "7": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/interfaces/ICursorSurfaceOptions.ts",
+      "qualifiedName": "showLocalPointer"
+    },
+    "8": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/interfaces/ICursorSurfaceOptions.ts",
+      "qualifiedName": "allowSurfaceProjection"
+    },
+    "9": {
+      "packageName": "@pixel-brewery/cursor-svelte",
+      "packagePath": "src/interfaces/ICursorTargetOptions.ts",
+      "qualifiedName": "ICursorTargetOptions"
+    },
+    "10": {
+      "packageName": "@pixel-brewery/cursor-svelte",
+      "packagePath": "src/interfaces/ICursorTargetOptions.ts",
+      "qualifiedName": "ICursorTargetOptions.surface"
+    },
+    "11": {
+      "packageName": "@pixel-brewery/cursor-svelte",
+      "packagePath": "src/interfaces/ICursorTargetOptions.ts",
+      "qualifiedName": "ICursorTargetOptions.targetId"
+    },
+    "12": {
+      "packageName": "@pixel-brewery/cursor-svelte",
+      "packagePath": "src/actions/cursorSurface.ts",
+      "qualifiedName": "cursorSurface"
+    },
+    "13": {
+      "packageName": "@pixel-brewery/cursor-svelte",
+      "packagePath": "src/actions/cursorTarget.ts",
+      "qualifiedName": "cursorTarget"
+    }
+  },
+  "files": {
+    "entries": {
+      "1": "libs/cursor-svelte/src/index.ts"
+    },
+    "reflections": {
+      "1": 0
+    }
+  }
+}

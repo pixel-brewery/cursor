@@ -10,7 +10,8 @@
     },
     "workspaces": [
         "libs/*",
-        "apps/*"
+        "apps/*",
+        "tools/nx-plugins/*"
     ],
     "scripts": {
         "agents:sync": "node tools/sync-agents.mjs --write",
@@ -19,6 +20,8 @@
         "typecheck": "yarn build",
         "build": "nx run-many -t build --parallel=1",
         "test": "nx run-many -t test --parallel=1",
+        "docs": "nx run api-docs:generate --parallel=1",
+        "docs:check": "nx run api-docs:check --parallel=1",
         "demo:web": "nx run cursor-reference:build && yarn workspace @pixel-brewery/cursor-reference serve",
         "demo:electron": "nx run cursor-reference:build && yarn workspace @pixel-brewery/cursor-reference electron:install && yarn workspace @pixel-brewery/cursor-reference electron:start",
         "test:demo": "yarn workspace @pixel-brewery/cursor-reference test:acceptance",

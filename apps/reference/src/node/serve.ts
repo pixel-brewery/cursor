@@ -1,9 +1,11 @@
-import { startReferenceServer } from './server.js';
+// #region Imports
 
-const port = process.env.CURSOR_REFERENCE_PORT === undefined ? 4317 : Number(process.env.CURSOR_REFERENCE_PORT);
-if (!Number.isInteger(port) || port < 1024 || port > 65535) {
-    throw new Error('CURSOR_REFERENCE_PORT must be a user port from 1024 to 65535.');
-}
+import { readReferencePort } from './configuration/readReferencePort.js';
+import { startReferenceServer } from './services/startReferenceServer.js';
+
+// #endregion
+
+const port = readReferencePort(process.env.CURSOR_REFERENCE_PORT);
 const server = await startReferenceServer(port);
 console.log(`Cursor reference demo ready at ${server.origin}`);
 

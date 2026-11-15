@@ -1,0 +1,387 @@
+{
+  "schemaVersion": "2.0",
+  "id": 0,
+  "name": "@pixel-brewery/cursor-angular",
+  "variant": "project",
+  "kind": 1,
+  "flags": {},
+  "comment": {
+    "summary": [
+      {
+        "kind": "text",
+        "text": "Angular directives for attaching a Cursor surface and registering rendered targets."
+      }
+    ]
+  },
+  "children": [
+    {
+      "id": 1,
+      "name": "CursorSurfaceDirective",
+      "variant": "declaration",
+      "kind": 128,
+      "flags": {
+        "isPublic": true
+      },
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Attaches a browser renderer to an Angular host element."
+          }
+        ],
+        "blockTags": [
+          {
+            "tag": "@remarks",
+            "content": [
+              {
+                "kind": "text",
+                "text": "Each renderer is disposed when the controller or local pointer visibility\nchanges and when Angular destroys the directive. The caller owns the controller."
+              }
+            ]
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 9,
+          "name": "attachment",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isPublic": true,
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "The active browser attachment, or null before registration and after cleanup."
+              }
+            ]
+          },
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "@angular/core",
+              "packagePath": "types/_chrome_dev_tools_performance-chunk.d.ts",
+              "qualifiedName": "Signal"
+            },
+            "typeArguments": [
+              {
+                "type": "union",
+                "types": [
+                  {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "@pixel-brewery/cursor-browser",
+                      "packagePath": "src/interfaces/ICursorSurface.ts",
+                      "qualifiedName": "ICursorSurface"
+                    },
+                    "name": "ICursorSurface",
+                    "package": "@pixel-brewery/cursor-browser"
+                  },
+                  {
+                    "type": "literal",
+                    "value": null
+                  }
+                ]
+              }
+            ],
+            "name": "Signal",
+            "package": "@angular/core"
+          },
+          "defaultValue": "..."
+        },
+        {
+          "id": 2,
+          "name": "constructor",
+          "variant": "declaration",
+          "kind": 512,
+          "flags": {
+            "isPublic": true
+          },
+          "signatures": [
+            {
+              "id": 3,
+              "name": "CursorSurfaceDirective",
+              "variant": "signature",
+              "kind": 16384,
+              "flags": {
+                "isPublic": true
+              },
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Registers the attachment effect with Angular's browser render lifecycle."
+                  }
+                ]
+              },
+              "type": {
+                "type": "reference",
+                "target": 1,
+                "name": "CursorSurfaceDirective",
+                "package": "@pixel-brewery/cursor-angular"
+              }
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "name": "cursorSurface",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isPublic": true,
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "The host-supplied controller and its local pointer setting. The local pointer is hidden by default."
+              }
+            ]
+          },
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "@angular/core",
+              "packagePath": "types/core.d.ts",
+              "qualifiedName": "InputSignal"
+            },
+            "typeArguments": [
+              {
+                "type": "reference",
+                "target": {
+                  "packageName": "typescript",
+                  "packagePath": "lib/lib.es5.d.ts",
+                  "qualifiedName": "Omit"
+                },
+                "typeArguments": [
+                  {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "@pixel-brewery/cursor-browser",
+                      "packagePath": "src/interfaces/ICursorSurfaceOptions.ts",
+                      "qualifiedName": "ICursorSurfaceOptions"
+                    },
+                    "name": "ICursorSurfaceOptions",
+                    "package": "@pixel-brewery/cursor-browser"
+                  },
+                  {
+                    "type": "literal",
+                    "value": "surface"
+                  }
+                ],
+                "name": "Omit",
+                "package": "typescript"
+              }
+            ],
+            "name": "InputSignal",
+            "package": "@angular/core"
+          },
+          "defaultValue": "..."
+        }
+      ],
+      "groups": [
+        {
+          "title": "Constructors",
+          "children": [
+            2
+          ]
+        },
+        {
+          "title": "Properties",
+          "children": [
+            9,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "name": "CursorTargetDirective",
+      "variant": "declaration",
+      "kind": 128,
+      "flags": {
+        "isPublic": true
+      },
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Registers the host element with its nearest Cursor surface."
+          }
+        ],
+        "blockTags": [
+          {
+            "tag": "@remarks",
+            "content": [
+              {
+                "kind": "text",
+                "text": "Angular releases the registration when the target identifier or surface\nchanges and when the directive is destroyed."
+              }
+            ]
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 11,
+          "name": "constructor",
+          "variant": "declaration",
+          "kind": 512,
+          "flags": {
+            "isPublic": true
+          },
+          "signatures": [
+            {
+              "id": 12,
+              "name": "CursorTargetDirective",
+              "variant": "signature",
+              "kind": 16384,
+              "flags": {
+                "isPublic": true
+              },
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Resolves the owning surface and registers the target after rendering."
+                  }
+                ]
+              },
+              "type": {
+                "type": "reference",
+                "target": 10,
+                "name": "CursorTargetDirective",
+                "package": "@pixel-brewery/cursor-angular"
+              }
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "name": "cursorTarget",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isPublic": true,
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Stable identifier used by assistant commands to resolve this element."
+              }
+            ]
+          },
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "@angular/core",
+              "packagePath": "types/core.d.ts",
+              "qualifiedName": "InputSignal"
+            },
+            "typeArguments": [
+              {
+                "type": "intrinsic",
+                "name": "string"
+              }
+            ],
+            "name": "InputSignal",
+            "package": "@angular/core"
+          },
+          "defaultValue": "..."
+        }
+      ],
+      "groups": [
+        {
+          "title": "Constructors",
+          "children": [
+            11
+          ]
+        },
+        {
+          "title": "Properties",
+          "children": [
+            13
+          ]
+        }
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "title": "Classes",
+      "children": [
+        1,
+        10
+      ]
+    }
+  ],
+  "packageName": "@pixel-brewery/cursor-angular",
+  "symbolIdMap": {
+    "0": {
+      "packageName": "@pixel-brewery/cursor-angular",
+      "packagePath": "src/index.ts",
+      "qualifiedName": ""
+    },
+    "1": {
+      "packageName": "@pixel-brewery/cursor-angular",
+      "packagePath": "src/directives/CursorSurfaceDirective.ts",
+      "qualifiedName": "CursorSurfaceDirective"
+    },
+    "2": {
+      "packageName": "@pixel-brewery/cursor-angular",
+      "packagePath": "src/directives/CursorSurfaceDirective.ts",
+      "qualifiedName": "CursorSurfaceDirective.__constructor"
+    },
+    "3": {
+      "packageName": "@pixel-brewery/cursor-angular",
+      "packagePath": "src/directives/CursorSurfaceDirective.ts",
+      "qualifiedName": "CursorSurfaceDirective"
+    },
+    "8": {
+      "packageName": "@pixel-brewery/cursor-angular",
+      "packagePath": "src/directives/CursorSurfaceDirective.ts",
+      "qualifiedName": "CursorSurfaceDirective.cursorSurface"
+    },
+    "9": {
+      "packageName": "@pixel-brewery/cursor-angular",
+      "packagePath": "src/directives/CursorSurfaceDirective.ts",
+      "qualifiedName": "CursorSurfaceDirective.attachment"
+    },
+    "10": {
+      "packageName": "@pixel-brewery/cursor-angular",
+      "packagePath": "src/directives/CursorTargetDirective.ts",
+      "qualifiedName": "CursorTargetDirective"
+    },
+    "11": {
+      "packageName": "@pixel-brewery/cursor-angular",
+      "packagePath": "src/directives/CursorTargetDirective.ts",
+      "qualifiedName": "CursorTargetDirective.__constructor"
+    },
+    "12": {
+      "packageName": "@pixel-brewery/cursor-angular",
+      "packagePath": "src/directives/CursorTargetDirective.ts",
+      "qualifiedName": "CursorTargetDirective"
+    },
+    "13": {
+      "packageName": "@pixel-brewery/cursor-angular",
+      "packagePath": "src/directives/CursorTargetDirective.ts",
+      "qualifiedName": "CursorTargetDirective.cursorTarget"
+    }
+  },
+  "files": {
+    "entries": {
+      "1": "libs/cursor-angular/src/index.ts"
+    },
+    "reflections": {
+      "1": 0
+    }
+  }
+}

@@ -1,2 +1,3 @@
-export { attachCursorSurface } from './attach-cursor-surface.js';
-export type { ICursorSurface, ICursorSurfaceOptions } from './attach-cursor-surface.js';
+export { attachCursorSurface } from './attachCursorSurface.js';
+export type { ICursorSurface } from './interfaces/ICursorSurface.js';
+export type { ICursorSurfaceOptions } from './interfaces/ICursorSurfaceOptions.js';
