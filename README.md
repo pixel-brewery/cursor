@@ -8,7 +8,7 @@
 
 Show where another participant is pointing. Let an assistant guide someone to a control and invoke an action the application has registered.
 
-[Why Cursor](#why-cursor-exists) · [Architecture](#architecture) · [Run the demo](#run-the-demo) · [Developer setup](#developer-setup) · [Agent documentation](#documentation-for-your-coding-agent) · [Documentation](.docs/README.md) · [Product icon](.github/assets/cursor-icon.png)
+[Website](https://pixel-brewery.github.io/cursor/) · [Why Cursor](#why-cursor-exists) · [Architecture](#architecture) · [Run the demo](#run-the-demo) · [Developer setup](#developer-setup) · [Agent documentation](#documentation-for-your-coding-agent) · [Documentation](.docs/README.md) · [Product icon](.github/assets/cursor-icon.png)
 
 > **Status** · The reference demo runs in a browser and Electron. Select an installed AI CLI in Electron or connect the browser to a loopback model server. Chat can guide the pointer to Settings or open the panel.
 
