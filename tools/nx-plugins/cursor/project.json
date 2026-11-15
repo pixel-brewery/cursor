@@ -2,6 +2,7 @@
     "name": "api-docs",
     "projectType": "application",
     "implicitDependencies": [
+        "cursor-adapter-mosaik",
         "cursor-core",
         "@pixel-brewery/cursor-angular",
         "@pixel-brewery/cursor-browser",

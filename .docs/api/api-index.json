@@ -3,6 +3,39 @@
   "linkBase": ".docs/",
   "packages": [
     {
+      "name": "@pixel-brewery/cursor-adapter-mosaik",
+      "version": "0.0.0",
+      "entryPoints": [
+        {
+          "importPath": "@pixel-brewery/cursor-adapter-mosaik",
+          "markdown": "packages/cursor-adapter-mosaik/api/index.md",
+          "reflection": "api/cursor-adapter-mosaik/reflection.json",
+          "exports": [
+            {
+              "name": "IMosaikAccessor",
+              "kind": "Interface",
+              "link": "packages/cursor-adapter-mosaik/api/interfaces/IMosaikAccessor.md"
+            },
+            {
+              "name": "IMosaikElementAccess",
+              "kind": "Interface",
+              "link": "packages/cursor-adapter-mosaik/api/interfaces/IMosaikElementAccess.md"
+            },
+            {
+              "name": "IMosaikSingleChoiceAccess",
+              "kind": "Interface",
+              "link": "packages/cursor-adapter-mosaik/api/interfaces/IMosaikSingleChoiceAccess.md"
+            },
+            {
+              "name": "MosaikOptionSelection",
+              "kind": "Type Alias",
+              "link": "packages/cursor-adapter-mosaik/api/type-aliases/MosaikOptionSelection.md"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "@pixel-brewery/cursor-angular",
       "version": "0.0.0",
       "entryPoints": [

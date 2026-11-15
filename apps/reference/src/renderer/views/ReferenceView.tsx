@@ -1,10 +1,13 @@
 // #region Imports
 
 import { SelectElementIntl, type ElementEvent, type SelectElement } from '@pixel-brewery/mosaik-elements-foundation';
+import { accessor as buttonAccessor } from '@pixel-brewery/cursor-adapter-mosaik/components/button';
+import { accessor as selectAccessor } from '@pixel-brewery/cursor-adapter-mosaik/components/select';
 import { attachCursorSurface } from '@pixel-brewery/cursor-browser';
 import { createCursorController, type CursorResult, type ICursorController } from '@pixel-brewery/cursor-core';
 import type { JSX, TargetedEvent } from 'preact';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'preact/hooks';
+import cursorMark from '../../../../../.github/assets/cursor-icon.png';
 import type { ChatReply } from '../../contracts/chat.js';
 import {
     cursorStyleChangeSchema,
@@ -74,15 +77,6 @@ export function ReferenceView(props: IReferenceViewProps): JSX.Element {
         setSettingsOpen(true);
     }, []);
 
-    const changeCursorStyle = useCallback((input: unknown) => {
-        const selection = cursorStyleChangeSchema.parse(input);
-        setStyle((current) => {
-            if (selection !== 'next') return selection;
-            const styles = cursorStyleSchema.options;
-            return styles[(styles.indexOf(current) + 1) % styles.length] ?? 'pill';
-        });
-    }, []);
-
     function selectCursorStyle(event: TargetedEvent<SelectElement, ElementEvent<SelectElement, 'changed'>>): void {
         if (event.detail.propertyName !== 'value') return;
         const select = event.currentTarget;
@@ -145,8 +139,25 @@ export function ReferenceView(props: IReferenceViewProps): JSX.Element {
                 });
                 attachment.registerTarget(settingsTarget, button);
                 attachment.registerTarget(styleTarget, select);
-                active.registerAction({ id: openSettingsAction, targetId: settingsTarget, handler: openSettings });
-                active.registerAction({ id: changeStyleAction, targetId: styleTarget, handler: changeCursorStyle });
+                const cursorSettings = buttonAccessor.bind(button);
+                const cursorSelect = selectAccessor.bind(select);
+                active.registerAction({
+                    id: openSettingsAction,
+                    targetId: settingsTarget,
+                    handler: (_input, signal) => cursorSettings.activate(attachment, signal),
+                });
+                active.registerAction({
+                    id: changeStyleAction,
+                    targetId: styleTarget,
+                    handler(input, signal) {
+                        const value = cursorStyleChangeSchema.parse(input);
+                        return cursorSelect.selectOption(
+                            attachment,
+                            value === 'next' ? { kind: 'next' } : { kind: 'value', value },
+                            signal,
+                        );
+                    },
+                });
                 controller.current = active;
                 setCursorReady(true);
 
@@ -157,7 +168,7 @@ export function ReferenceView(props: IReferenceViewProps): JSX.Element {
                 };
             },
             onCount(count) {
-                setConnection({ label: `${participantLabel} verbunden · ${count} online`, count });
+                setConnection({ label: `${participantLabel} · ${count} online`, count });
             },
             onDisconnect() {
                 release?.();
@@ -171,117 +182,146 @@ export function ReferenceView(props: IReferenceViewProps): JSX.Element {
             release?.();
             stop();
         };
-    }, [desktop, openSettings, changeCursorStyle]);
+    }, [desktop]);
 
     const loginPending = modelState?.login?.state === 'running' || modelState?.login?.state === 'waiting';
     const modelReady = !desktop || (modelState?.status === 'ready' && !loginPending);
     const conversationKey = modelState && JSON.stringify([modelState.connection, modelState.login?.operationId]);
+    const pointerHint = connection.count === 1
+        ? desktop ? 'Öffne die Demo zusätzlich im Browser.' : 'Öffne eine weitere Ansicht, um beide Zeiger live zu sehen.'
+        : 'Andere Teilnehmer sehen deine Bewegung in ihrer Ansicht.';
 
     return (
         <>
-            <header class="layout shell-header">
-                <div class="brand">
-                    <h1>Cursor-Demo</h1>
+            <header>
+                <div class="layout shell-header">
+                    <div class="brand">
+                        <mosaik-image src={cursorMark} alt="" fit="contain" width="32px" height="32px" />
+                        <span>Cursor</span>
+                    </div>
+                    <div class="shell-tools">
+                        <mosaik-badge
+                            data-testid="connection-status"
+                            data-connected={connection.count}
+                            appearance="soft"
+                            variant={connection.count ? 'success' : 'neutral'}
+                            aria-live="polite"
+                            label={connection.label}
+                        />
+                        {!desktop && (
+                            <mosaik-button
+                                data-testid="another-view"
+                                label="Weitere Ansicht öffnen"
+                                appearance="outline"
+                                icon="add"
+                                onClick={() => window.open(location.origin, '_blank', 'noopener')}
+                            />
+                        )}
+                    </div>
                 </div>
-                {!desktop && (
-                    <mosaik-button
-                        data-testid="another-view"
-                        label="Weitere Ansicht öffnen"
-                        appearance="outline"
-                        onClick={() => window.open(location.origin, '_blank', 'noopener')}
-                    />
-                )}
+                <mosaik-divider />
             </header>
 
-            <main class="layout">
-                <section class="intro" aria-label="Verbindung">
-                    <p>Bewege deinen Zeiger in der gemeinsamen Ansicht. Bitte den Assistenten, die Einstellungen zu zeigen oder zu öffnen.</p>
-                    <mosaik-message
-                        id="connection"
-                        data-testid="connection-status"
-                        data-connected={connection.count}
-                        appearance="soft"
-                        aria-live="polite"
-                        header={connection.label}
-                    />
+            <main class="layout workspace">
+                <section class="page-heading" aria-labelledby="workspace-title">
+                    <h1 id="workspace-title">Gemeinsame Ansicht</h1>
+                    <p>Bewege deinen Zeiger live in mehreren Ansichten. Der Assistent kann dir Bedienelemente zeigen und sie für dich öffnen.</p>
                 </section>
 
                 {desktop && <DesktopConnectionView bridge={desktop} onState={setModelState} />}
 
-                <section
-                    ref={surface}
-                    id="surface"
-                    class="surface"
-                    aria-label="Gemeinsame Ansicht"
-                    data-testid="surface"
-                    data-cursor-style={style}
-                >
-                    <mosaik-card appearance="outline">
-                        <mosaik-card-header>
-                            <mosaik-card-title text="Gemeinsame Ansicht" />
-                        </mosaik-card-header>
-                        <mosaik-card-content>
-                            <div class="workspace-content" data-testid="pointer-area">
-                                <mosaik-button
-                                    ref={settingsButton}
-                                    id="settings"
-                                    data-testid="settings"
-                                    label="Einstellungen"
-                                    appearance="outline"
-                                    aria-controls="settings-panel"
-                                    aria-expanded={settingsOpen}
-                                    onClick={openSettings}
-                                />
-                            </div>
-                            <mosaik-card
-                                ref={settingsPanel}
-                                id="settings-panel"
-                                data-testid="settings-panel"
-                                data-open-count={openCount || undefined}
-                                appearance="soft"
-                                hidden={!settingsOpen}
-                            >
-                                <mosaik-card-header>
-                                    <mosaik-card-title text="Einstellungen" />
-                                </mosaik-card-header>
-                                <mosaik-card-content>
-                                    <mosaik-select
-                                        ref={styleSelect}
-                                        id="cursor-style"
-                                        data-testid="cursor-style"
-                                        label="Zeigerstil"
-                                        intl={styleIntl}
-                                        value={style}
-                                        onchanged={selectCursorStyle}
-                                    >
-                                        {cursorStyleSchema.options.map((value) => (
-                                            <mosaik-select-item
-                                                key={value}
-                                                data-testid={`cursor-style-${value}`}
-                                                value={value}
-                                                label={cursorStyleLabels[value]}
-                                            />
-                                        ))}
-                                    </mosaik-select>
-                                </mosaik-card-content>
-                                <mosaik-card-actions>
+                <div class="workspace-columns">
+                    <section
+                        ref={surface}
+                        id="surface"
+                        aria-label="Zeigerfläche"
+                        data-testid="surface"
+                        data-cursor-style={style}
+                    >
+                        <mosaik-card appearance="outline">
+                            <mosaik-card-header>
+                                <div class="workspace-card-heading">
+                                    <mosaik-card-title text="Zeigerfläche" />
                                     <mosaik-button
-                                        id="close-settings"
-                                        label="Einstellungen schließen"
+                                        ref={settingsButton}
+                                        id="settings"
+                                        data-testid="settings"
+                                        label="Einstellungen"
                                         appearance="plain"
-                                        onClick={() => setSettingsOpen(false)}
+                                        icon="settings"
+                                        aria-controls="settings-panel"
+                                        aria-expanded={settingsOpen}
+                                        onClick={openSettings}
                                     />
-                                </mosaik-card-actions>
-                            </mosaik-card>
-                        </mosaik-card-content>
-                    </mosaik-card>
+                                </div>
+                            </mosaik-card-header>
+                            <mosaik-card-content class="workspace-card-content">
+                                <mosaik-card
+                                    class="pointer-stage"
+                                    data-testid="pointer-area"
+                                    data-cursor-hide-native
+                                    appearance="soft"
+                                >
+                                    <mosaik-card-content class="pointer-stage-content">
+                                        <mosaik-empty-state
+                                            class="pointer-hint"
+                                            icon="cursor"
+                                            iconSize="large"
+                                            header="Zeiger bewegen"
+                                            content={pointerHint}
+                                        />
+                                    </mosaik-card-content>
+                                </mosaik-card>
+                                <mosaik-card
+                                    ref={settingsPanel}
+                                    id="settings-panel"
+                                    data-testid="settings-panel"
+                                    data-open-count={openCount || undefined}
+                                    appearance="outline"
+                                    hidden={!settingsOpen}
+                                >
+                                    <mosaik-card-header>
+                                        <mosaik-card-title text="Zeigerstil" />
+                                    </mosaik-card-header>
+                                    <mosaik-card-content>
+                                        <mosaik-select
+                                            ref={styleSelect}
+                                            id="cursor-style"
+                                            data-testid="cursor-style"
+                                            label="Darstellung"
+                                            intl={styleIntl}
+                                            value={style}
+                                            onchanged={selectCursorStyle}
+                                        >
+                                            {cursorStyleSchema.options.map((value) => (
+                                                <mosaik-select-item
+                                                    key={value}
+                                                    data-testid={`cursor-style-${value}`}
+                                                    value={value}
+                                                    label={cursorStyleLabels[value]}
+                                                />
+                                            ))}
+                                        </mosaik-select>
+                                    </mosaik-card-content>
+                                    <mosaik-card-actions>
+                                        <mosaik-button
+                                            id="close-settings"
+                                            label="Schließen"
+                                            appearance="plain"
+                                            onClick={() => setSettingsOpen(false)}
+                                        />
+                                    </mosaik-card-actions>
+                                </mosaik-card>
+                            </mosaik-card-content>
+                        </mosaik-card>
+                    </section>
                     <AssistantChat
                         connected={cursorReady && modelReady}
                         conversationKey={conversationKey}
                         desktop={desktop}
                         run={run}
                     />
-                </section>
+                </div>
             </main>
         </>
     );

@@ -22,7 +22,8 @@ const localHuman = '[data-cursor-kind="human"][data-cursor-local]';
 const remoteHuman = '[data-cursor-kind="human"]:not([data-cursor-local])';
 const assistant = '[data-cursor-kind="assistant"]';
 const arrived = `${assistant}[data-cursor-target="settings"][data-cursor-arrived]`;
-const arrivedAtStyle = `${assistant}[data-cursor-target="cursor-style"][data-cursor-arrived]`;
+const styleArrival = `${assistant}[data-cursor-target="cursor-style"][data-cursor-arrived]`;
+const arrivedAtStyle = `${styleArrival}:not([data-cursor-guided-element])`;
 
 function observe(page: Page, errors: string[]): void {
     page.on('pageerror', (error) => errors.push(error.stack ?? error.message));
@@ -134,12 +135,56 @@ async function changeStyleFromChat(
     prompt: string,
     style: 'square' | 'square-outline',
 ): Promise<void> {
+    const select = page.getByTestId('cursor-style');
+    await expect(select).toHaveJSProperty('isDropDownOpen', false);
+    const option = page.getByTestId(`cursor-style-${style}`);
+    const activation = await option.evaluateHandle((item, guidedPointerSelector) => {
+        const selectElement = item.closest('mosaik-select');
+        if (!selectElement) throw new Error('The style option is missing its select');
+        const observed = {
+            menuVisibleInFrame: false,
+            menuVisibleAtClick: false,
+            valueBeforeClick: selectElement.value,
+            tipDistanceAtClick: Infinity,
+        };
+        const menuVisible = () => selectElement.isDropDownOpen &&
+            !!selectElement.shadowRoot?.querySelector(':popover-open') &&
+            item.checkVisibility({ visibilityProperty: true });
+        let frame = requestAnimationFrame(function observeMenu() {
+            observed.menuVisibleInFrame = menuVisible();
+            if (!observed.menuVisibleInFrame) frame = requestAnimationFrame(observeMenu);
+        });
+        // Record the visible pointer before the select handles the click and closes the menu.
+        item.addEventListener('click', () => {
+            cancelAnimationFrame(frame);
+            observed.menuVisibleAtClick = menuVisible();
+            observed.valueBeforeClick = selectElement.value;
+            const pointer = document.querySelector(guidedPointerSelector);
+            if (!pointer?.checkVisibility() || !pointer.closest(':popover-open')) return;
+            const optionBox = item.getBoundingClientRect();
+            const pointerBox = pointer.getBoundingClientRect();
+            observed.tipDistanceAtClick = Math.hypot(
+                pointerBox.x - optionBox.x - optionBox.width / 2,
+                pointerBox.y - optionBox.y - optionBox.height / 2,
+            );
+        }, { capture: true, once: true });
+        return observed;
+    }, `${styleArrival}[data-cursor-guided-element]`);
+
     await sendChat(page, prompt);
     await expectReply(page, index, prompt);
     await expect(page.getByTestId('settings-panel')).toBeVisible();
     await expect(page.getByTestId('settings-panel')).toHaveAttribute('data-open-count', '1');
     await expect(page.getByTestId('surface')).toHaveAttribute('data-cursor-style', style);
-    await expect(page.getByTestId('cursor-style')).toHaveJSProperty('value', style);
+    await expect(select).toHaveJSProperty('value', style);
+    await expect(select).toHaveJSProperty('isDropDownOpen', false);
+    await expect(option).toBeHidden();
+    const observed = await activation.jsonValue();
+    await activation.dispose();
+    expect(observed.menuVisibleInFrame).toBe(true);
+    expect(observed.menuVisibleAtClick).toBe(true);
+    expect(observed.valueBeforeClick).not.toBe(style);
+    expect(observed.tipDistanceAtClick).toBeLessThan(5);
     const pointer = page.locator(arrivedAtStyle);
     await expect(pointer).toHaveAttribute('data-cursor-style', style);
     await expectTargetAlignment(page, pointer, 'cursor-style');
@@ -149,11 +194,11 @@ async function changeStyleFromChat(
     );
 }
 
-async function takeScreenshot(page: Page, filename: string): Promise<void> {
+async function takeScreenshot(page: Page, filename: string, fullPage = false): Promise<void> {
     const directory = process.env.CURSOR_SCREENSHOT_DIR;
     if (!directory) return;
     await mkdir(directory, { recursive: true });
-    await page.screenshot({ path: join(directory, filename) });
+    await page.screenshot({ path: join(directory, filename), animations: 'disabled', fullPage });
 }
 
 test('two browser views act on their own chat while keeping both human pointers', async ({
@@ -169,13 +214,23 @@ test('two browser views act on their own chat while keeping both human pointers'
     await test.step('Display both humans in both browser views', async () => {
         await Promise.all([first.goto(reference.origin), second.goto(reference.origin)]);
         await Promise.all([expectParticipants(first, 2), expectParticipants(second, 2)]);
+        await takeScreenshot(first, 'browser-start.png');
         await moveInside(first);
+        await expect(first.getByTestId('pointer-area')).toHaveCSS('cursor', 'none');
         await moveInside(second);
         await expectBothHumans(first);
         await expectBothHumans(second);
     });
 
     await test.step('Show and open Settings independently in each view from German chat', async () => {
+        const preset = first.getByTestId('assistant-suggest-show').locator('button');
+        await expect(preset).toBeEnabled();
+        await preset.press('Enter');
+        await expect(chatInput(first)).toHaveValue(showPrompt);
+        await expect(chatInput(first)).toBeFocused();
+        await first.getByTestId('assistant-suggest-style').locator('button').press('Enter');
+        await expect(chatInput(first)).toHaveValue(showPrompt);
+        await expect(first.getByTestId('assistant-user-message')).toHaveCount(0);
         await showAndOpenSettings(first);
         await expect(second.getByTestId('settings-panel')).toBeHidden();
         await expect(second.locator(assistant)).toHaveCount(0);
@@ -201,6 +256,7 @@ test('two browser views act on their own chat while keeping both human pointers'
         assert(resized);
         expect(Math.abs(original.x - resized.x)).toBeGreaterThan(20);
         await expectTargetAlignment(first, first.locator(arrived));
+        await takeScreenshot(first, 'browser-narrow.png', true);
 
         await first.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
         await expect(target).not.toBeInViewport();
@@ -212,6 +268,7 @@ test('two browser views act on their own chat while keeping both human pointers'
 
     await test.step('Remove a remote pointer on leave and again when that browser closes', async () => {
         await second.mouse.move(1, 1);
+        await expect(second.getByTestId('pointer-area')).not.toHaveCSS('cursor', 'none');
         await expect(first.locator(remoteHuman)).toHaveCount(0);
         await moveInside(first);
         await moveInside(second);
@@ -393,6 +450,7 @@ test('a disconnected browser clears stale pointers and can use chat after rejoin
         await expectParticipants(peer, 1);
         await expect(page.getByTestId('connection-status')).not.toHaveAttribute('data-connected');
         await expect(page.locator(assistant)).toHaveCount(0);
+        await expect(page.getByTestId('pointer-area')).not.toHaveCSS('cursor', 'none');
         await expect(page.getByTestId('assistant-input')).toHaveAttribute('disabled', '');
         await expect(peer.locator(remoteHuman)).toHaveCount(0);
 

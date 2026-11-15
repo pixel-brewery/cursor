@@ -8,9 +8,18 @@
  * @internal
  */
 export function isVisibleElement(surface: HTMLElement, element: HTMLElement): boolean {
-    if (!surface.isConnected || !surface.contains(element) || !element.getClientRects().length) {
-        return false;
-    }
+    return surface.isConnected && surface.contains(element) && isRenderedElement(element);
+}
+
+/**
+ * Checks whether an element currently has rendered geometry and is visible.
+ *
+ * @param element - The element to measure.
+ * @returns Whether the element is rendered and visible.
+ * @internal
+ */
+export function isRenderedElement(element: HTMLElement): boolean {
+    if (!element.isConnected || !element.getClientRects().length) return false;
     return (
         element.checkVisibility?.({ visibilityProperty: true, opacityProperty: true }) ??
         element.ownerDocument.defaultView?.getComputedStyle(element).visibility === 'visible'

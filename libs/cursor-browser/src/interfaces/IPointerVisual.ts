@@ -18,4 +18,5 @@ export interface IPointerVisual {
     readonly targetId: string | undefined;
     readonly local?: boolean;
     readonly arrived?: boolean;
+    readonly guided?: boolean;
 }

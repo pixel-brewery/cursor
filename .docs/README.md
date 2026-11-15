@@ -37,6 +37,7 @@ Edit the canonical guidance and registry, then run `yarn agents:sync`. Run `yarn
 | ------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------- |
 | `@pixel-brewery/cursor-core`    | `createCursorController` connects a view to the host transport and authorization. | [Core API](packages/cursor-core/api/index.md)       |
 | `@pixel-brewery/cursor-browser` | `attachCursorSurface` mounts the shared overlay and registers visible targets.    | [Browser API](packages/cursor-browser/api/index.md) |
+| `@pixel-brewery/cursor-adapter-mosaik/components/*` | Generated accessors for individual Mosaik Web Components. | [Component adapter guide](mosaik-component-accessors.md), [Mosaik adapter API](packages/cursor-adapter-mosaik/api/index.md) |
 | `@pixel-brewery/cursor-angular` | `CursorSurfaceDirective` and `CursorTargetDirective` bind Angular views.          | [Angular API](packages/cursor-angular/api/index.md) |
 | `@pixel-brewery/cursor-react`   | `useCursorSurface` and `useCursorTarget` bind React components.                   | [React API](packages/cursor-react/api/index.md)     |
 | `@pixel-brewery/cursor-vue`     | `useCursorSurface` and `useCursorTarget` bind Vue components.                     | [Vue API](packages/cursor-vue/api/index.md)         |

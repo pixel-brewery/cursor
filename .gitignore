@@ -13,6 +13,7 @@ coverage/
 dist/
 *.tsbuildinfo
 __pycache__/
+/libs/cursor-adapter-mosaik/src/generated/
 
 .claude/worktrees
 .claude/settings.local.json
