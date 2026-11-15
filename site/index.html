@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en" theme="soho" theme-mode="light">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Show participant pointers and guide people to controls with Cursor, a TypeScript SDK for web and Electron applications.">
+        <meta name="color-scheme" content="light">
+        <meta property="og:title" content="Cursor · Shared pointers and guided actions">
+        <meta property="og:description" content="A TypeScript SDK for visible human and assistant pointers in web and Electron applications.">
+        <meta property="og:image" content="https://pixel-brewery.github.io/cursor/assets/hero.webp">
+        <link rel="canonical" href="https://pixel-brewery.github.io/cursor/">
+        <link rel="icon" type="image/png" href="../.github/assets/cursor-icon.png">
+        <link rel="preload" href="/assets/hero.webp" as="image">
+        <link rel="stylesheet" href="./styles.css">
+        <script type="module" src="./main.js"></script>
+        <title>Cursor · Shared pointers and guided actions</title>
+    </head>
+    <body>
+        <mosaik-anchor class="skip-link" label="Skip to content" data-href="#main" underline="always"></mosaik-anchor>
+        <div class="page">
+            <header class="site-header">
+                <div class="brand">
+                    <mosaik-image id="brand-icon" width="40px" height="40px" fit="contain" alt=""></mosaik-image>
+                    <span>Cursor</span>
+                </div>
+                <mosaik-anchor label="View on GitHub" data-href="https://github.com/pixel-brewery/cursor" underline="always"></mosaik-anchor>
+            </header>
+
+            <main id="main" tabindex="-1">
+                <section class="hero" aria-labelledby="title">
+                    <div class="hero-copy">
+                        <h1 id="title">Show where people point.</h1>
+                        <p class="lead">Cursor is a TypeScript SDK for shared pointers in web and Electron apps. See where another participant is pointing, or let an assistant guide someone to a control and run an action your app approves.</p>
+                        <div class="actions">
+                            <mosaik-button label="Read the integration guide" variant="primary" appearance="solid" data-href="https://github.com/pixel-brewery/cursor/blob/main/.docs/guides/integrate-cursor.md"></mosaik-button>
+                            <mosaik-button label="Try the local demo" variant="neutral" appearance="outline" data-href="#try-cursor"></mosaik-button>
+                        </div>
+                    </div>
+                    <mosaik-image class="hero-art" id="hero-art" ratio="13/5" width="100%" fit="cover" alt="Ivory ceramic and frosted glass cursor arrows point toward the same petrol-colored marker."></mosaik-image>
+                </section>
+
+                <section class="section" aria-labelledby="capabilities">
+                    <h2 id="capabilities">A shared pointer, with room for guidance</h2>
+                    <div class="features">
+                        <article>
+                            <h3>See who is pointing</h3>
+                            <p>Render each participant’s pointer and name in the active view. A registered target lets the receiving app place the pointer on the same control in its own layout.</p>
+                        </article>
+                        <article>
+                            <h3>Guide someone to a control</h3>
+                            <p>Register visible controls by ID so an assistant can point to the right place, such as the Settings button.</p>
+                        </article>
+                        <article>
+                            <h3>Run an approved action</h3>
+                            <p>Your app registers the handler and decides whether it can run. The host also manages identity, view membership and realtime delivery.</p>
+                        </article>
+                    </div>
+                </section>
+
+                <section class="section split" aria-labelledby="integrate">
+                    <div>
+                        <h2 id="integrate">Add Cursor to your app</h2>
+                        <p>Attach the browser renderer to your view and register a target. The same renderer runs inside Electron. Angular, React, Vue and Svelte adapters connect it to their component lifecycles.</p>
+                        <mosaik-anchor label="Browse the TypeScript API" data-href="https://github.com/pixel-brewery/cursor/blob/main/.docs/README.md#runtime-entry-points" underline="always"></mosaik-anchor>
+                    </div>
+                    <mosaik-card fit="width" appearance="soft" variant="neutral">
+                        <pre slot="content" tabindex="0" aria-label="Example of attaching a surface and pointing to a target"><code>const attachment = attachCursorSurface({
+    surface,
+    controller,
+});
+
+attachment.registerTarget('settings', settingsButton);
+await controller.run({ kind: 'show', targetId: 'settings' });</code></pre>
+                    </mosaik-card>
+                </section>
+
+                <section class="section split" id="try-cursor" aria-labelledby="demo">
+                    <div>
+                        <h2 id="demo">Try two pointers in a local demo</h2>
+                        <p>Use Node.js 24.15 or newer and set up GitHub Packages access before installing dependencies. Open <code>http://127.0.0.1:4317/</code> in two tabs to see pointers move between them.</p>
+                        <mosaik-anchor label="Check the developer prerequisites" data-href="https://github.com/pixel-brewery/cursor#developer-setup" underline="always"></mosaik-anchor>
+                        <mosaik-anchor label="Open the demo setup guide" data-href="https://github.com/pixel-brewery/cursor/blob/main/.docs/guides/reference-chat.md" underline="always"></mosaik-anchor>
+                    </div>
+                    <mosaik-card fit="width" appearance="soft" variant="neutral">
+                        <pre slot="content" tabindex="0" aria-label="Commands to start the browser demo"><code>git clone https://github.com/pixel-brewery/cursor.git
+cd cursor
+corepack enable
+yarn install --immutable
+yarn demo:web</code></pre>
+                    </mosaik-card>
+                </section>
+            </main>
+
+            <footer class="site-footer">
+                <mosaik-anchor label="Pixel Brewery" data-href="https://github.com/pixel-brewery" underline="always"></mosaik-anchor>
+                <mosaik-anchor label="Cursor on GitHub" data-href="https://github.com/pixel-brewery/cursor" underline="always"></mosaik-anchor>
+            </footer>
+        </div>
+    </body>
+</html>
