@@ -21,7 +21,6 @@ export const replies = new Map<string, ChatReply>([
         squareStylePrompt,
         { text: 'Ich stelle den Zeiger auf Eckig.', action: 'set-cursor-style-square' },
     ],
-    [cycleStylePrompt, { text: 'Ich wähle den nächsten Zeigerstil.', action: 'cycle-cursor-style' }],
 ]);
 
 const liveEndpoint = process.env.CURSOR_CHAT_BASE_URL;

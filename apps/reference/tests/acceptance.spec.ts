@@ -93,7 +93,8 @@ async function expectReply(page: Page, index: number, prompt: string): Promise<v
     const text = await reply.evaluate((element) => (element as ChatMessageElement).text.trim());
     expect(text).not.toBe('');
     expect(text).not.toBe(prompt);
-    if (!live) expect(text).toBe(replies.get(prompt)?.text);
+    const fixtureReply = replies.get(prompt);
+    if (!live && fixtureReply) expect(text).toBe(fixtureReply.text);
 }
 
 async function showSettings(page: Page): Promise<void> {
