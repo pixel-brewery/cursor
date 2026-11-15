@@ -100,7 +100,18 @@ test('verifies a completed native sign-in, stores the selection and runs a read-
         outputSchema: {
             additionalProperties: false,
             properties: {
-                action: { enum: ['show-settings', 'open-settings', 'none'] },
+                action: {
+                    enum: [
+                        'show-settings',
+                        'open-settings',
+                        'none',
+                        'set-cursor-style-outline',
+                        'set-cursor-style-pill',
+                        'set-cursor-style-square',
+                        'set-cursor-style-square-outline',
+                        'cycle-cursor-style',
+                    ],
+                },
             },
         },
     });

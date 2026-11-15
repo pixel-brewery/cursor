@@ -3,7 +3,7 @@
 import { mkdtemp, mkdir, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { delimiter, join } from 'node:path';
-import { openPrompt, replies, showPrompt } from './reference.fixture.js';
+import { replies } from './reference.fixture.js';
 
 // #endregion
 
@@ -46,11 +46,12 @@ if (args.includes('--version')) {
 } else if (args.includes('exec') && args.includes('--output-schema') && args.includes('read-only')) {
     if (!fs.existsSync(account)) process.exit(23);
     const prompt = fs.readFileSync(0, 'utf8');
-    const show = ${JSON.stringify(showPrompt)};
-    const open = ${JSON.stringify(openPrompt)};
-    const reply = prompt.lastIndexOf(open) > prompt.lastIndexOf(show)
-        ? ${JSON.stringify(replies.get(openPrompt))}
-        : ${JSON.stringify(replies.get(showPrompt))};
+    const conversationMarker = '\\n\\nConversation in order (JSON):\\n';
+    const conversationStart = prompt.lastIndexOf(conversationMarker);
+    if (conversationStart < 0) process.exit(23);
+    const message = JSON.parse(prompt.slice(conversationStart + conversationMarker.length)).at(-1);
+    const reply = new Map(${JSON.stringify([...replies])}).get(message?.content);
+    if (message?.role !== 'user' || !reply) process.exit(23);
     console.log(JSON.stringify({ type: 'item.completed', item: { type: 'agent_message', text: JSON.stringify(reply) } }));
 } else {
     process.exitCode = 23;

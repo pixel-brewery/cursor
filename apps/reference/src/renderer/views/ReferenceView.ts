@@ -14,17 +14,24 @@ import {
     type ICursorParticipant,
     type ICursorTransport,
 } from '@pixel-brewery/cursor-core';
-import { connectReference } from '../transport/connectReference.js';
-import { referenceViewId } from '../../contracts/referenceViewId.js';
 import type { ChatReply } from '../../contracts/chat.js';
+import {
+    cursorStyleChangeSchema,
+    cursorStyleSchema,
+    type CursorStyle,
+} from '../../contracts/CursorStyle.js';
 import type { DesktopConnectionState } from '../../contracts/DesktopConnection.js';
+import { referenceViewId } from '../../contracts/referenceViewId.js';
+import { connectReference } from '../transport/connectReference.js';
 import { AssistantChat } from './AssistantChat.js';
 import { DesktopConnectionView } from './DesktopConnectionView.js';
 
 // #endregion
 
-const targetId = 'settings';
-const actionId = 'open-settings';
+const settingsTarget = 'settings';
+const openSettingsAction = 'open-settings';
+const styleTarget = 'cursor-style';
+const changeStyleAction = 'set-cursor-style';
 
 /**
  * Owns the settings interaction and cursor registrations for one reference page.
@@ -37,6 +44,7 @@ export class ReferenceView {
     private readonly _surface = this.getElement('#surface');
     private readonly _settings = this.getElement('#settings');
     private readonly _panel = this.getElement('#settings-panel');
+    private readonly _pointerStyle = this.getElement<SelectElement>('#cursor-style');
     private readonly _connection = this.getElement('#connection');
     private readonly _assistant: AssistantChat;
     private readonly _desktop: DesktopConnectionView | undefined;
@@ -76,11 +84,10 @@ export class ReferenceView {
             this._panel.hidden = true;
             this._settings.setAttribute('aria-expanded', 'false');
         });
-        const pointerStyle = this.getElement<SelectElement>('#cursor-style');
         const selectIntl = new SelectElementIntl('de');
         selectIntl.toggleLabel = 'Zeigerstile öffnen';
-        pointerStyle.intl = selectIntl;
-        pointerStyle.addEventListener('changed', (event: Event) => {
+        this._pointerStyle.intl = selectIntl;
+        this._pointerStyle.addEventListener('changed', (event: Event) => {
             const detail: unknown = event instanceof CustomEvent ? event.detail : undefined;
             if (
                 detail &&
@@ -89,8 +96,8 @@ export class ReferenceView {
                 detail.propertyName === 'value'
             ) {
                 // The Select also clears on Escape when its menu is already closed.
-                pointerStyle.value ??= this._surface.dataset.cursorStyle ?? 'pill';
-                this._surface.dataset.cursorStyle = pointerStyle.value;
+                const style = cursorStyleSchema.safeParse(this._pointerStyle.value);
+                this.setCursorStyle(style.success ? style.data : this.currentCursorStyle());
             }
         });
         const anotherView = this.getElement('[data-testid="another-view"]');
@@ -136,6 +143,27 @@ export class ReferenceView {
         this._settings.setAttribute('aria-expanded', 'true');
     };
 
+    private currentCursorStyle(): CursorStyle {
+        return cursorStyleSchema.catch('pill').parse(this._surface.dataset.cursorStyle);
+    }
+
+    private setCursorStyle(style: CursorStyle): void {
+        if (this._surface.dataset.cursorStyle !== style) this._surface.dataset.cursorStyle = style;
+        if (this._pointerStyle.value !== style) this._pointerStyle.value = style;
+    }
+
+    private readonly changeCursorStyle = (input: unknown): void => {
+        const requested = cursorStyleChangeSchema.parse(input);
+        if (requested !== 'next') {
+            this.setCursorStyle(requested);
+            return;
+        }
+
+        const styles = cursorStyleSchema.options;
+        const current = styles.indexOf(this.currentCursorStyle());
+        this.setCursorStyle(styles[(current + 1) % styles.length] ?? 'pill');
+    };
+
     private onModelState(state: DesktopConnectionState): void {
         const context = JSON.stringify([state.connection, state.login?.operationId]);
         if (this._modelContext !== undefined && this._modelContext !== context) {
@@ -151,11 +179,28 @@ export class ReferenceView {
         action: Exclude<ChatReply['action'], 'none'>,
         signal: AbortSignal,
     ): Promise<CursorResult> {
-        if (!this._controller) return { status: 'unavailable' };
-        return this._controller.run(
-            action === 'show-settings'
-                ? { kind: 'show', targetId }
-                : { kind: 'invoke', targetId, actionId },
+        const controller = this._controller;
+        if (!controller) return { status: 'unavailable' };
+        if (action === 'show-settings') {
+            return controller.run({ kind: 'show', targetId: settingsTarget }, signal);
+        }
+        const openSettings = {
+            kind: 'invoke',
+            targetId: settingsTarget,
+            actionId: openSettingsAction,
+        } as const;
+        if (action === 'open-settings') return controller.run(openSettings, signal);
+
+        if (this._panel.hidden) {
+            const result = await controller.run(openSettings, signal);
+            if (result.status !== 'invoked') return result;
+        }
+        const input =
+            action === 'cycle-cursor-style'
+                ? 'next'
+                : cursorStyleSchema.parse(action.slice('set-cursor-style-'.length));
+        return controller.run(
+            { kind: 'invoke', targetId: styleTarget, actionId: changeStyleAction, input },
             signal,
         );
     }
@@ -170,23 +215,40 @@ export class ReferenceView {
             participant,
             generation: 1,
             transport,
-            authorize: (command) => command.actionId === actionId && command.targetId === targetId,
+            authorize: (command) => {
+                if (command.targetId === settingsTarget) {
+                    return command.actionId === openSettingsAction && command.input === undefined;
+                }
+                return (
+                    command.targetId === styleTarget &&
+                    command.actionId === changeStyleAction &&
+                    cursorStyleChangeSchema.safeParse(command.input).success
+                );
+            },
         });
         const attached = attachCursorSurface({
             surface: this._surface,
             controller: active,
             showLocalPointer: true,
         });
-        const unregisterTarget = attached.registerTarget(targetId, this._settings);
-        const unregisterAction = active.registerAction({
-            id: actionId,
-            targetId,
+        const releaseSettingsTarget = attached.registerTarget(settingsTarget, this._settings);
+        const releaseSettingsAction = active.registerAction({
+            id: openSettingsAction,
+            targetId: settingsTarget,
             handler: this.openSettings,
+        });
+        const releaseStyleTarget = attached.registerTarget(styleTarget, this._pointerStyle);
+        const releaseStyleAction = active.registerAction({
+            id: changeStyleAction,
+            targetId: styleTarget,
+            handler: this.changeCursorStyle,
         });
         this._controller = active;
         this._releaseSurface = () => {
-            unregisterAction();
-            unregisterTarget();
+            releaseStyleAction();
+            releaseStyleTarget();
+            releaseSettingsAction();
+            releaseSettingsTarget();
             attached.dispose();
             active.dispose();
         };

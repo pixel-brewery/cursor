@@ -178,7 +178,16 @@ describe('createChatHandler', () => {
                                 additionalProperties: false,
                                 properties: expect.objectContaining({
                                     action: expect.objectContaining({
-                                        enum: ['show-settings', 'open-settings', 'none'],
+                                        enum: [
+                                            'show-settings',
+                                            'open-settings',
+                                            'none',
+                                            'set-cursor-style-outline',
+                                            'set-cursor-style-pill',
+                                            'set-cursor-style-square',
+                                            'set-cursor-style-square-outline',
+                                            'cycle-cursor-style',
+                                        ],
                                     }),
                                 }),
                             }),
@@ -194,6 +203,10 @@ describe('createChatHandler', () => {
         {
             name: 'an unsupported action',
             content: JSON.stringify({ ...answer, action: 'delete-settings' }),
+        },
+        {
+            name: 'a style outside the preset list',
+            content: JSON.stringify({ ...answer, action: 'set-cursor-style-dotted' }),
         },
         {
             name: 'extra action instructions',

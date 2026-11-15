@@ -20,7 +20,17 @@ const actionStatus: Record<CursorResult['status'], string> = {
     denied: 'Die App hat die Aktion abgelehnt.',
     unavailable: 'Das Bedienelement ist in dieser Ansicht nicht verfügbar.',
     cancelled: 'Die Aktion wurde abgebrochen.',
-    failed: 'Die Einstellungen konnten nicht geöffnet werden.',
+    failed: 'Die Aktion konnte nicht ausgeführt werden.',
+};
+
+const nextStyleShortcuts = new Set([
+    'ändere den zeigerstil',
+    'wechsle den zeigerstil',
+    'wechsle zum nächsten zeigerstil',
+]);
+const nextStyleReply: ChatReply = {
+    text: 'Ich wechsle zum nächsten Zeigerstil.',
+    action: 'cycle-cursor-style',
 };
 
 /**
@@ -129,11 +139,10 @@ export class AssistantChat {
         this.append(user);
         this.setStatus('Antwort wird erstellt …');
         try {
-            const reply = await requestChatReply(
-                this._desktop,
-                [...this._history, user],
-                request.signal,
-            );
+            const shortcut = content.toLocaleLowerCase('de').replace(/[.!?]+$/u, '').trimEnd();
+            const reply = nextStyleShortcuts.has(shortcut)
+                ? nextStyleReply
+                : await requestChatReply(this._desktop, [...this._history, user], request.signal);
             request.signal.throwIfAborted();
 
             const assistant: ChatMessage = { role: 'assistant', content: reply.text };
@@ -148,7 +157,11 @@ export class AssistantChat {
             this.setStatus('Der KI-Cursor bewegt sich …');
             const result = await this._run(reply.action, request.signal);
             if (!this._disposed && revision === this._conversationRevision) {
-                this.setStatus(actionStatus[result.status]);
+                this.setStatus(
+                    result.status === 'invoked' && reply.action !== 'open-settings'
+                        ? 'Der Zeigerstil ist eingestellt.'
+                        : actionStatus[result.status],
+                );
             }
         } catch (error) {
             if (!this._disposed && revision === this._conversationRevision) {

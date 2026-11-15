@@ -41,7 +41,9 @@ The prompt box supports Enter to send, Shift+Enter to insert a line break, and *
 
 ## Switch pointer styles
 
-Open **Einstellungen** and choose **Zeigerstil** to switch between the four [pointer styles](integrate-cursor.md#set-the-pointer-appearance). The same setting is available in the browser and Electron. The relay assigns reference accent colors in join order. The receiver applies its selected style to the human and assistant pointers in its own view.
+Open **Einstellungen** and choose **Zeigerstil** to switch between the four [pointer styles](integrate-cursor.md#set-the-pointer-appearance). You can also type **Mach den Zeiger eckig**, **Stell den Zeigerstil auf Rund mit Kontur** or **Ändere den Zeigerstil**. The last command is a chat shortcut that advances to the next style in the selector and wraps to the first after the last. The assistant opens Settings if needed, moves to the **Zeigerstil** control and applies the choice there. The selector and pointers update together in the current view.
+
+The same setting is available in the browser and Electron. The relay assigns reference accent colors in join order. Each receiving view chooses how to display its human and assistant pointers.
 
 ## Browser model environment
 
@@ -61,11 +63,16 @@ Open **Einstellungen** and choose **Zeigerstil** to switch between the four [poi
 
 A successful response contains a reply of 1 to 450 characters and a suggestion. These are the supported suggestions.
 
-| Suggestion      | How the reference view handles it                                           |
-| --------------- | --------------------------------------------------------------------------- |
-| `show-settings` | Runs a show command for the registered Settings target.                     |
-| `open-settings` | Presents the same target and invokes its authorized `open-settings` action. |
-| `none`          | Appends the conversational reply.                                           |
+| Suggestion                        | How the reference view handles it                                           |
+| --------------------------------- | --------------------------------------------------------------------------- |
+| `show-settings`                   | Runs a show command for the registered Settings target.                     |
+| `open-settings`                   | Presents the same target and invokes its authorized `open-settings` action. |
+| `set-cursor-style-outline`        | Selects **Rund mit Kontur**.                                                |
+| `set-cursor-style-pill`           | Selects **Rund**.                                                           |
+| `set-cursor-style-square`         | Selects **Eckig**.                                                          |
+| `set-cursor-style-square-outline` | Selects **Eckig mit Zeigerkontur**.                                         |
+| `cycle-cursor-style`              | Selects the next style in the reference view.                               |
+| `none`                            | Appends the conversational reply.                                           |
 
 The client reports action completion from the controller result. It aborts a pending chat request or cursor presentation when the user cancels or the view disconnects. The browser endpoint allows two simultaneous generations, bounds body reads to five seconds and limits model inference to 30 seconds. Closing the client connection or stopping the reference server cancels pending browser inference. Electron uses a separate bounded native CLI request.
 
@@ -82,7 +89,7 @@ The installed Mosaik 0.1.205 catalog supplied `template-ai-chat`, `recipe-chat-c
 
 The desktop connection panel follows the form sections in `template-settings` and `recipe-profile-settings`, with the compact authentication prompt from `recipe-dialog-form--phone-code`. The same catalog supplied the recipe options and the native Card, Select, Select Item, Textbox, Password Box, Button and Message APIs and anatomy. The app uses those controls from Mosaik Foundation 0.1.205 and registers the matching Reicon aliases, including the dropdown, chat and password field icons.
 
-The Cursor style picker uses the pinned Mosaik 0.1.205 catalog's Select and Select Item APIs and anatomy. `template-settings`, `recipe-dialog-preferences` and `recipe-dropdown-menu--appearance` informed its placement and interaction. The catalog's nearest visual example, `recipe-bento-card--live-cursor`, uses a decorative hover effect. The shared Cursor renderer owns the positioned, noninteractive participant and assistant overlays and their screenshot-derived geometry and colors.
+The Cursor style picker uses the pinned Mosaik 0.1.205 catalog's Select and Select Item APIs and anatomy. `template-settings`, `recipe-dialog-preferences` and `recipe-dropdown-menu--appearance` informed its placement and interaction. The guided action uses the same state update as manual selection and writes the documented `Select.value` property. The existing chat and Message header report the action result. The catalog's nearest visual example, `recipe-bento-card--live-cursor`, uses a decorative hover effect. The shared Cursor renderer owns the positioned, noninteractive participant and assistant overlays and their screenshot-derived geometry and colors.
 
 ## Verify
 

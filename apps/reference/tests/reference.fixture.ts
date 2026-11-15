@@ -11,10 +11,17 @@ export { expect };
 export const showPrompt = 'Zeig mir die Einstellungen';
 export const openPrompt = 'Öffne die Einstellungen';
 export const unrelatedPrompt = 'Wie viele Tage hat eine Woche?';
+export const squareStylePrompt = 'Mach den Zeiger eckig';
+export const cycleStylePrompt = 'Ändere den Zeigerstil';
 export const replies = new Map<string, ChatReply>([
     [showPrompt, { text: 'Ich zeige dir die Einstellungen.', action: 'show-settings' }],
     [openPrompt, { text: 'Ich öffne die Einstellungen.', action: 'open-settings' }],
     [unrelatedPrompt, { text: 'Eine Woche hat sieben Tage.', action: 'none' }],
+    [
+        squareStylePrompt,
+        { text: 'Ich stelle den Zeiger auf Eckig.', action: 'set-cursor-style-square' },
+    ],
+    [cycleStylePrompt, { text: 'Ich wähle den nächsten Zeigerstil.', action: 'cycle-cursor-style' }],
 ]);
 
 const liveEndpoint = process.env.CURSOR_CHAT_BASE_URL;

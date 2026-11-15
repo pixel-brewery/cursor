@@ -2,6 +2,7 @@
 
 import { z } from 'zod';
 import { chatMessageSchema } from './ChatMessage.js';
+import { cursorStyleSchema, type CursorStyle } from './CursorStyle.js';
 
 // #endregion
 
@@ -23,7 +24,15 @@ export const chatRequestSchema = z.strictObject({
 /** A model reply and the only suggestions the reference view knows how to execute. */
 export const chatReplySchema = z.strictObject({
     text: z.string().trim().min(1).max(450),
-    action: z.enum(['show-settings', 'open-settings', 'none']),
+    action: z.enum([
+        'show-settings',
+        'open-settings',
+        'none',
+        ...cursorStyleSchema.options.map(
+            (style): `set-cursor-style-${CursorStyle}` => `set-cursor-style-${style}`,
+        ),
+        'cycle-cursor-style',
+    ]),
 });
 
 /** A validated model reply that cannot specify selectors, code or other commands. */
