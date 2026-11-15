@@ -246,7 +246,12 @@ export function ReferenceView(props: IReferenceViewProps): JSX.Element {
                                 </div>
                             </mosaik-card-header>
                             <mosaik-card-content class="workspace-card-content">
-                                <mosaik-card class="pointer-stage" data-testid="pointer-area" appearance="soft">
+                                <mosaik-card
+                                    class="pointer-stage"
+                                    data-testid="pointer-area"
+                                    data-cursor-hide-native
+                                    appearance="soft"
+                                >
                                     <mosaik-card-content class="pointer-stage-content">
                                         <mosaik-empty-state
                                             class="pointer-hint"

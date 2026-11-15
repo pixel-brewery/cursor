@@ -171,6 +171,7 @@ test('two browser views act on their own chat while keeping both human pointers'
         await Promise.all([expectParticipants(first, 2), expectParticipants(second, 2)]);
         await takeScreenshot(first, 'browser-start.png');
         await moveInside(first);
+        await expect(first.getByTestId('pointer-area')).toHaveCSS('cursor', 'none');
         await moveInside(second);
         await expectBothHumans(first);
         await expectBothHumans(second);
@@ -222,6 +223,7 @@ test('two browser views act on their own chat while keeping both human pointers'
 
     await test.step('Remove a remote pointer on leave and again when that browser closes', async () => {
         await second.mouse.move(1, 1);
+        await expect(second.getByTestId('pointer-area')).not.toHaveCSS('cursor', 'none');
         await expect(first.locator(remoteHuman)).toHaveCount(0);
         await moveInside(first);
         await moveInside(second);
@@ -403,6 +405,7 @@ test('a disconnected browser clears stale pointers and can use chat after rejoin
         await expectParticipants(peer, 1);
         await expect(page.getByTestId('connection-status')).not.toHaveAttribute('data-connected');
         await expect(page.locator(assistant)).toHaveCount(0);
+        await expect(page.getByTestId('pointer-area')).not.toHaveCSS('cursor', 'none');
         await expect(page.getByTestId('assistant-input')).toHaveAttribute('disabled', '');
         await expect(peer.locator(remoteHuman)).toHaveCount(0);
 

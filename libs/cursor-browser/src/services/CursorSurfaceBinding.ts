@@ -32,6 +32,8 @@ export class CursorSurfaceBinding implements ICursorSurface {
     private readonly _mutationObserver: MutationObserver;
     private readonly _targets = new Map<string, ITarget>();
     private readonly _reducedMotion: MediaQueryList;
+    private readonly _nativeCursorRegion: HTMLElement | null;
+    private _nativeCursorStyle: { value: string; priority: string } | undefined;
     private _unsubscribe: (() => void) | undefined;
     private _pointers: readonly IPointer[];
     private _local: ILocalPointer | undefined;
@@ -64,6 +66,7 @@ export class CursorSurfaceBinding implements ICursorSurface {
         this._publishPending = false;
         this._controller.leave();
         this._overlay.remove('local');
+        this.setNativeCursorHidden(false);
         this._schedulePaint();
     };
 
@@ -102,6 +105,10 @@ export class CursorSurfaceBinding implements ICursorSurface {
 
         this._body = document.body;
         this._view = view;
+        const nativeCursorSelector = '[data-cursor-hide-native]';
+        this._nativeCursorRegion = this._surface.matches(nativeCursorSelector)
+            ? this._surface
+            : this._surface.querySelector<HTMLElement>(nativeCursorSelector);
         this._overlay = new PointerOverlay(document);
         this._reducedMotion = view.matchMedia('(prefers-reduced-motion: reduce)');
         this._resizeObserver = new view.ResizeObserver(this._schedulePaint);
@@ -250,7 +257,28 @@ export class CursorSurfaceBinding implements ICursorSurface {
         }
 
         this._overlay.removeMissingParticipants(visible);
+        this.setNativeCursorHidden(visible.has('local'));
         if (!this._animation) this.paintSettledAssistant();
+    }
+
+    private setNativeCursorHidden(hidden: boolean): void {
+        const style = this._nativeCursorRegion?.style;
+        if (!style || hidden === Boolean(this._nativeCursorStyle)) return;
+
+        if (hidden) {
+            this._nativeCursorStyle = {
+                value: style.getPropertyValue('cursor'),
+                priority: style.getPropertyPriority('cursor'),
+            };
+            style.setProperty('cursor', 'none', this._nativeCursorStyle.priority);
+            return;
+        }
+
+        const previous = this._nativeCursorStyle;
+        if (previous && style.getPropertyValue('cursor') === 'none') {
+            style.setProperty('cursor', previous.value, previous.priority);
+        }
+        this._nativeCursorStyle = undefined;
     }
 
     private isInsideViewport(position: ICursorPosition, bounds: DOMRect): boolean {
@@ -281,6 +309,7 @@ export class CursorSurfaceBinding implements ICursorSurface {
         this._animation?.abort();
         this._overlay.removeMissingParticipants(new Set());
         this._overlay.remove('assistant');
+        this.setNativeCursorHidden(false);
     }
 
     private paintAssistant(pointer: IAssistantPointer, arrived: boolean): void {
