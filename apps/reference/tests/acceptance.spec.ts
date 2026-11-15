@@ -149,11 +149,11 @@ async function changeStyleFromChat(
     );
 }
 
-async function takeScreenshot(page: Page, filename: string): Promise<void> {
+async function takeScreenshot(page: Page, filename: string, fullPage = false): Promise<void> {
     const directory = process.env.CURSOR_SCREENSHOT_DIR;
     if (!directory) return;
     await mkdir(directory, { recursive: true });
-    await page.screenshot({ path: join(directory, filename) });
+    await page.screenshot({ path: join(directory, filename), animations: 'disabled', fullPage });
 }
 
 test('two browser views act on their own chat while keeping both human pointers', async ({
@@ -169,6 +169,7 @@ test('two browser views act on their own chat while keeping both human pointers'
     await test.step('Display both humans in both browser views', async () => {
         await Promise.all([first.goto(reference.origin), second.goto(reference.origin)]);
         await Promise.all([expectParticipants(first, 2), expectParticipants(second, 2)]);
+        await takeScreenshot(first, 'browser-start.png');
         await moveInside(first);
         await moveInside(second);
         await expectBothHumans(first);
@@ -176,6 +177,14 @@ test('two browser views act on their own chat while keeping both human pointers'
     });
 
     await test.step('Show and open Settings independently in each view from German chat', async () => {
+        const preset = first.getByTestId('assistant-suggest-show').locator('button');
+        await expect(preset).toBeEnabled();
+        await preset.press('Enter');
+        await expect(chatInput(first)).toHaveValue(showPrompt);
+        await expect(chatInput(first)).toBeFocused();
+        await first.getByTestId('assistant-suggest-style').locator('button').press('Enter');
+        await expect(chatInput(first)).toHaveValue(showPrompt);
+        await expect(first.getByTestId('assistant-user-message')).toHaveCount(0);
         await showAndOpenSettings(first);
         await expect(second.getByTestId('settings-panel')).toBeHidden();
         await expect(second.locator(assistant)).toHaveCount(0);
@@ -201,6 +210,7 @@ test('two browser views act on their own chat while keeping both human pointers'
         assert(resized);
         expect(Math.abs(original.x - resized.x)).toBeGreaterThan(20);
         await expectTargetAlignment(first, first.locator(arrived));
+        await takeScreenshot(first, 'browser-narrow.png', true);
 
         await first.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
         await expect(target).not.toBeInViewport();
