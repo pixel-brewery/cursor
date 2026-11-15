@@ -13,7 +13,10 @@ import type { ICursorPosition } from '@pixel-brewery/cursor-core';
  *
  * @internal
  */
-export function projectPosition(bounds: DOMRect, position: ICursorPosition): ICursorPosition {
+export function projectPosition(
+    bounds: Pick<DOMRect, 'left' | 'top' | 'width' | 'height'>,
+    position: ICursorPosition,
+): ICursorPosition {
     return {
         x: bounds.left + bounds.width * position.x,
         y: bounds.top + bounds.height * position.y,

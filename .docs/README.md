@@ -6,6 +6,8 @@ Cursor is Pixel Brewery’s TypeScript SDK for visible human and AI pointers in 
 | ------------------------------------------------- | ------------------------------------------------------ |
 | Understand the product and set up a checkout      | [Repository README](../README.md)                      |
 | Understand the pointer and action workflow        | [Runtime implementation plan](plan.md)                 |
+| Attach Cursor to a product or framework           | [Host integration](guides/integrate-cursor.md)         |
+| Run the test projects and verify coverage         | [Testing guide](guides/testing.md)                     |
 | Update package contracts and API documentation    | [API documentation guide](guides/api-documentation.md) |
 | Run the chat with a local model                   | [Reference chat](guides/reference-chat.md)             |
 | Prepare a coding agent to work in this repository | [Repository instructions](../AGENTS.md)                |
@@ -42,18 +44,13 @@ The [reference view](../apps/reference/src/renderer/views/ReferenceView.ts) show
 
 ## Runtime verification
 
-Run the workspace build and the focused core checks before opening the reference views.
+Run the unit and transport contract checks and verify generated API documentation.
 
 ```sh
-yarn build
-yarn docs:check
 yarn test
-yarn exec playwright install chromium
-yarn workspace @pixel-brewery/cursor-reference electron:install
-yarn test:adapters
-yarn test:demo
+yarn docs:check
 ```
 
-The adapter check mounts real Angular, React, Vue and Svelte fixtures. The demo check starts a temporary loopback relay, opens two browser views, then shares it between a browser view and Electron. On Linux, run the demo check under `xvfb-run -a` when there is no display server.
+The [testing guide](guides/testing.md) lists the framework and demo Playwright commands, supported renderers, model fixture and live model setup.
 
 To use the reference view interactively, [start a local language model](guides/reference-chat.md) and run `yarn demo:web` or `yarn demo:electron`. The browser entry point is [the loopback URL](http://127.0.0.1:4317/). Host applications supply their own authenticated transport and action authorization.

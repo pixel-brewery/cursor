@@ -16,7 +16,8 @@ The mounted element or a getter that resolves it.
 
 `MaybeRefOrGetter`\<`Omit`\<`ICursorSurfaceOptions`, `"surface"`\>\>
 
-The host controller and local pointer setting. The local pointer is hidden by default.
+The host controller and pointer options. The local pointer is hidden and
+unanchored remote projection is enabled by default.
 
 ## Returns
 

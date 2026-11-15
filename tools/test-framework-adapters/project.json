@@ -1,0 +1,20 @@
+{
+    "name": "framework-adapters",
+    "projectType": "application",
+    "implicitDependencies": [
+        "cursor-core",
+        "@pixel-brewery/cursor-angular",
+        "@pixel-brewery/cursor-browser",
+        "@pixel-brewery/cursor-react",
+        "@pixel-brewery/cursor-svelte",
+        "@pixel-brewery/cursor-vue"
+    ],
+    "targets": {
+        "e2e": {
+            "command": "tsc -p tsconfig.json && playwright test",
+            "options": { "cwd": "tools/test-framework-adapters" },
+            "dependsOn": ["^build"],
+            "cache": false
+        }
+    }
+}

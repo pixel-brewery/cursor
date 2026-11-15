@@ -28,10 +28,35 @@ The prompt box supports Enter to send, Shift+Enter to insert a line break, and *
 | `CURSOR_CHAT_MODEL`    | `cursor-model`             | Model identifier reported by the local server.                                 |
 | `CURSOR_CHAT_API_KEY`  | Unset                      | Server-side bearer credential if the model server requires one.                |
 
-The same-origin `POST /api/chat` accepts a bounded text conversation. The AI SDK validates the reply as text and one of `show-settings`, `open-settings` or `none`. The renderer maps the two action suggestions to the existing Cursor registrations. It reports completed actions from the controller's result. The Cursor SDK receives a structured command and the host's authorization decision.
+## HTTP and WebSocket contracts
+
+`POST /api/chat` accepts `application/json` from the exact reference origin and host. The body is limited to 32 KiB. Send an object with `messages`, an array of one to nine entries with `role` and `content`. Roles alternate from `user` to `assistant` and the final message is from the user. Trimmed content must contain 1 to 700 characters.
+
+```json
+{ "messages": [{ "role": "user", "content": "Öffne die Einstellungen" }] }
+```
+
+A successful response contains a reply of 1 to 450 characters and a suggestion. These are the supported suggestions.
+
+| Suggestion      | How the reference view handles it                                           |
+| --------------- | --------------------------------------------------------------------------- |
+| `show-settings` | Runs a show command for the registered Settings target.                     |
+| `open-settings` | Presents the same target and invokes its authorized `open-settings` action. |
+| `none`          | Appends the conversational reply.                                           |
+
+The client reports action completion from the controller result. It aborts a pending chat request or cursor presentation when the user cancels or the view disconnects. The server allows two simultaneous generations, bounds body reads to five seconds and limits model inference to 30 seconds. Closing the client connection or stopping the reference server cancels pending inference.
+
+| Response              | Meaning                                                              |
+| --------------------- | -------------------------------------------------------------------- |
+| `200`                 | Validated reply and suggestion.                                      |
+| `400 invalid-request` | Wrong method, origin, host, media type or request shape.             |
+| `429 busy`            | Both model request slots are in use.                                 |
+| `503 unavailable`     | The model is unavailable, timed out or produced an invalid response. |
+
+The `/cursor` WebSocket route accepts the reference origin and relays valid pointer updates for the demo view. It assigns participants to connections, stamps their identity and generation on outgoing events, and announces departure on disconnect. The chat action stays in the view that submitted the message. Participant cursors still travel through the relay. Host applications can use the [Cursor transport contract](integrate-cursor.md#connect-identity-and-transport) with their own membership and authentication.
 
 The installed Mosaik 0.1.205 catalog supplied `template-ai-chat`, `recipe-chat-conversation` and `recipe-chat-composer`, including both recipes' options and the native component documentation and anatomy. The demo uses Soho light with Mosaik Chat, Chat Message, Chat Prompt Box, Button, Card and Message.
 
 ## Verify
 
-`yarn test:demo` runs the browser and Electron interaction against an OpenAI-compatible HTTP fixture through the real AI SDK connection. With a running model and its environment set, `CURSOR_LIVE_CHAT=1 yarn test:demo` exercises the same two prompts with model-generated replies.
+`yarn test:demo` runs the TypeScript Playwright browser and Electron specs against an OpenAI-compatible HTTP fixture through the real AI SDK connection. With a running model and its environment set, `CURSOR_LIVE_CHAT=1 yarn test:demo` exercises the chat with model-generated replies. The [testing guide](testing.md) lists the Vitest transport checks and framework projects.

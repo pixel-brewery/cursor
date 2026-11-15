@@ -4,8 +4,8 @@ Attaches a browser renderer to an Angular host element.
 
 ## Remarks
 
-Each renderer is disposed when the controller or local pointer visibility
-changes and when Angular destroys the directive. The caller owns the controller.
+Each renderer is disposed when the controller or its pointer options
+change and when Angular destroys the directive. The caller owns the controller.
 
 ## Constructors
 
@@ -33,4 +33,5 @@ The active browser attachment, or null before registration and after cleanup.
 
 > `readonly` **cursorSurface**: `InputSignal`\<`Omit`\<`ICursorSurfaceOptions`, `"surface"`\>\>
 
-The host-supplied controller and its local pointer setting. The local pointer is hidden by default.
+The host controller and pointer options. By default the local pointer is hidden
+and unanchored remote positions are projected into the receiving surface.

@@ -36,7 +36,7 @@
             "content": [
               {
                 "kind": "text",
-                "text": "Changing the controller or local pointer visibility disposes the previous attachment.\nDestruction releases the renderer and reports "
+                "text": "Changing the controller or a pointer option disposes the previous attachment.\nDestruction releases the renderer and reports "
               },
               {
                 "kind": "code",
@@ -177,7 +177,15 @@
               },
               {
                 "kind": "text",
-                "text": " is enabled."
+                "text": " is enabled.\nUnanchored remote positions are projected unless "
+              },
+              {
+                "kind": "code",
+                "text": "`allowSurfaceProjection`"
+              },
+              {
+                "kind": "text",
+                "text": " is false."
               }
             ]
           }

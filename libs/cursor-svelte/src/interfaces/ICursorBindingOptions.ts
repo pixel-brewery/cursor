@@ -8,6 +8,7 @@ import type { ICursorSurface, ICursorSurfaceOptions } from '@pixel-brewery/curso
  * Options for attaching the Svelte surface and observing its lifetime.
  *
  * @remarks The local pointer stays hidden unless `showLocalPointer` is enabled.
+ * Unanchored remote positions are projected unless `allowSurfaceProjection` is false.
  *
  * @public
  */

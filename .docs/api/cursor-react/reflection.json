@@ -53,7 +53,7 @@
                 "content": [
                   {
                     "kind": "text",
-                    "text": "Changes to the element, controller or visibility dispose the previous attachment.\nReact also disposes the attachment on unmount. The host owns the controller."
+                    "text": "Changes to the element, controller or pointer options dispose the previous attachment.\nReact also disposes the attachment on unmount. The host owns the controller."
                   }
                 ]
               }
@@ -104,7 +104,7 @@
                 "summary": [
                   {
                     "kind": "text",
-                    "text": "The host controller and local pointer setting. The local pointer is hidden by default."
+                    "text": "The host controller and pointer options. The local pointer is hidden and\nunanchored remote projection is enabled by default."
                   }
                 ]
               },

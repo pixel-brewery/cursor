@@ -10,7 +10,8 @@
         }
     },
     "scripts": {
-        "build": "tsc -b"
+        "build": "tsc -b",
+        "test": "tsc -p tsconfig.spec.json && vitest run"
     },
     "dependencies": {
         "@pixel-brewery/cursor-core": "workspace:*"

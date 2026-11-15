@@ -7,3 +7,4 @@
 - Authored contracts live under `.docs/`. Follow the [implementation plan](../../../../.docs/plan.md) and record substantive changes there.
 - Use Synapse’s per-package `src/index.ts` and `tsconfig.lib.json` layout. Group contracts, models and implementation by responsibility. Keep package entry points explicit and follow Archipel’s region order in classes.
 - Follow the [API documentation guide](../../../../.docs/guides/api-documentation.md) for English TSDoc, regions and generated references. Run `yarn docs` when an SDK declaration or TSDoc changes and verify it with `yarn docs:check`.
+- Keep unit and integration tests in colocated TypeScript `.spec.ts` files with Vitest. Use TypeScript Playwright specs for browser and Electron behavior. Follow the [testing guide](../../../../.docs/guides/testing.md) and update it when runner or test ownership changes.

@@ -4,9 +4,10 @@
     import { cursorSurface, cursorTarget } from '@pixel-brewery/cursor-svelte';
     import type { Readable } from 'svelte/store';
 
-    let { controller, targetId }: {
+    let { controller, targetId, allowSurfaceProjection }: {
         controller: Readable<ICursorController>;
         targetId: Readable<string>;
+        allowSurfaceProjection: Readable<boolean>;
     } = $props();
 
     let surface = $state.raw<ICursorSurface | null>(null);
@@ -16,7 +17,7 @@
     }
 </script>
 
-<section data-testid="surface" use:cursorSurface={{ controller: $controller, onAttachment }}>
+<section data-testid="surface" use:cursorSurface={{ controller: $controller, allowSurfaceProjection: $allowSurfaceProjection, onAttachment }}>
     {#key $targetId}
         <button type="button" use:cursorTarget={{ surface, targetId: $targetId }}>Target</button>
     {/key}

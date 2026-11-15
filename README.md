@@ -70,4 +70,4 @@ The workspace provides configuration for Codex, Claude Code, OpenCode, GitHub Co
 
 ## Documentation and verification
 
-The [documentation index](.docs/README.md) links the repository setup, agent tooling and implementation plan. The [SDK API reference](.docs/README.md#runtime-entry-points) is generated from TypeScript declarations and TSDoc. Run `yarn docs` to update it and `yarn docs:check` to verify it. The [runtime acceptance matrix](.docs/plan.md#acceptance) lists the core, browser, Electron and adapter scenarios. The [verification commands](.docs/README.md#runtime-verification) reproduce them.
+The [host integration guide](.docs/guides/integrate-cursor.md) covers transport, target registration, authorization and framework adapters. The [SDK API reference](.docs/README.md#runtime-entry-points) is generated from TypeScript declarations and TSDoc. Run `yarn docs` to update it and `yarn docs:check` to verify it. The [testing guide](.docs/guides/testing.md) covers the Vitest projects, browser and Electron specs, and live model verification.

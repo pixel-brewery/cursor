@@ -15,7 +15,7 @@ import type { ICursorPosition } from '@pixel-brewery/cursor-core';
  * @internal
  */
 export function normalizePosition(
-    bounds: DOMRect,
+    bounds: Pick<DOMRect, 'left' | 'top' | 'width' | 'height'>,
     clientX: number,
     clientY: number,
 ): ICursorPosition | undefined {

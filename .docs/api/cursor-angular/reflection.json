@@ -35,7 +35,7 @@
             "content": [
               {
                 "kind": "text",
-                "text": "Each renderer is disposed when the controller or local pointer visibility\nchanges and when Angular destroys the directive. The caller owns the controller."
+                "text": "Each renderer is disposed when the controller or its pointer options\nchange and when Angular destroys the directive. The caller owns the controller."
               }
             ]
           }
@@ -43,7 +43,7 @@
       },
       "children": [
         {
-          "id": 9,
+          "id": 10,
           "name": "attachment",
           "variant": "declaration",
           "kind": 1024,
@@ -127,7 +127,7 @@
           ]
         },
         {
-          "id": 8,
+          "id": 9,
           "name": "cursorSurface",
           "variant": "declaration",
           "kind": 1024,
@@ -139,7 +139,7 @@
             "summary": [
               {
                 "kind": "text",
-                "text": "The host-supplied controller and its local pointer setting. The local pointer is hidden by default."
+                "text": "The host controller and pointer options. By default the local pointer is hidden\nand unanchored remote positions are projected into the receiving surface."
               }
             ]
           },
@@ -194,14 +194,14 @@
         {
           "title": "Properties",
           "children": [
-            9,
-            8
+            10,
+            9
           ]
         }
       ]
     },
     {
-      "id": 10,
+      "id": 11,
       "name": "CursorTargetDirective",
       "variant": "declaration",
       "kind": 128,
@@ -229,7 +229,7 @@
       },
       "children": [
         {
-          "id": 11,
+          "id": 12,
           "name": "constructor",
           "variant": "declaration",
           "kind": 512,
@@ -238,7 +238,7 @@
           },
           "signatures": [
             {
-              "id": 12,
+              "id": 13,
               "name": "CursorTargetDirective",
               "variant": "signature",
               "kind": 16384,
@@ -255,7 +255,7 @@
               },
               "type": {
                 "type": "reference",
-                "target": 10,
+                "target": 11,
                 "name": "CursorTargetDirective",
                 "package": "@pixel-brewery/cursor-angular"
               }
@@ -263,7 +263,7 @@
           ]
         },
         {
-          "id": 13,
+          "id": 14,
           "name": "cursorTarget",
           "variant": "declaration",
           "kind": 1024,
@@ -302,13 +302,13 @@
         {
           "title": "Constructors",
           "children": [
-            11
+            12
           ]
         },
         {
           "title": "Properties",
           "children": [
-            13
+            14
           ]
         }
       ]
@@ -319,7 +319,7 @@
       "title": "Classes",
       "children": [
         1,
-        10
+        11
       ]
     }
   ],
@@ -345,32 +345,32 @@
       "packagePath": "src/directives/CursorSurfaceDirective.ts",
       "qualifiedName": "CursorSurfaceDirective"
     },
-    "8": {
+    "9": {
       "packageName": "@pixel-brewery/cursor-angular",
       "packagePath": "src/directives/CursorSurfaceDirective.ts",
       "qualifiedName": "CursorSurfaceDirective.cursorSurface"
     },
-    "9": {
+    "10": {
       "packageName": "@pixel-brewery/cursor-angular",
       "packagePath": "src/directives/CursorSurfaceDirective.ts",
       "qualifiedName": "CursorSurfaceDirective.attachment"
     },
-    "10": {
-      "packageName": "@pixel-brewery/cursor-angular",
-      "packagePath": "src/directives/CursorTargetDirective.ts",
-      "qualifiedName": "CursorTargetDirective"
-    },
     "11": {
       "packageName": "@pixel-brewery/cursor-angular",
       "packagePath": "src/directives/CursorTargetDirective.ts",
-      "qualifiedName": "CursorTargetDirective.__constructor"
+      "qualifiedName": "CursorTargetDirective"
     },
     "12": {
       "packageName": "@pixel-brewery/cursor-angular",
       "packagePath": "src/directives/CursorTargetDirective.ts",
-      "qualifiedName": "CursorTargetDirective"
+      "qualifiedName": "CursorTargetDirective.__constructor"
     },
     "13": {
+      "packageName": "@pixel-brewery/cursor-angular",
+      "packagePath": "src/directives/CursorTargetDirective.ts",
+      "qualifiedName": "CursorTargetDirective"
+    },
+    "14": {
       "packageName": "@pixel-brewery/cursor-angular",
       "packagePath": "src/directives/CursorTargetDirective.ts",
       "qualifiedName": "CursorTargetDirective.cursorTarget"

@@ -57,8 +57,12 @@ export async function startReferenceServer(port: number): Promise<IReferenceServ
     let electronCount = 0;
 
     server.httpServer.on('upgrade', (request, socket, head) => {
-        const url = new URL(request.url ?? '/', origin);
-        if (request.headers.origin !== origin || url.pathname !== '/cursor') {
+        const url = URL.parse(request.url ?? '/', origin);
+        if (
+            request.headers.origin !== origin ||
+            url?.origin !== origin ||
+            url.pathname !== '/cursor'
+        ) {
             socket.destroy();
             return;
         }

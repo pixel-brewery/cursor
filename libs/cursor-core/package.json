@@ -15,6 +15,6 @@
     },
     "scripts": {
         "build": "tsc -b",
-        "test": "node --test src/services/*.spec.mjs"
+        "test": "tsc -p tsconfig.spec.json && vitest run"
     }
 }

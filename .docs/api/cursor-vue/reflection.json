@@ -116,7 +116,7 @@
                 "summary": [
                   {
                     "kind": "text",
-                    "text": "The host controller and local pointer setting. The local pointer is hidden by default."
+                    "text": "The host controller and pointer options. The local pointer is hidden and\nunanchored remote projection is enabled by default."
                   }
                 ]
               },

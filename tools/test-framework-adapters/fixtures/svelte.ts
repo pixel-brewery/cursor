@@ -7,7 +7,11 @@ import SvelteFixture from './SvelteFixture.svelte';
 export async function mount(node: HTMLElement, initial: ICursorController): Promise<IFixture> {
     const controller = writable(initial);
     const targetId = writable('settings');
-    const component = mountComponent(SvelteFixture, { target: node, props: { controller, targetId } });
+    const allowSurfaceProjection = writable(true);
+    const component = mountComponent(SvelteFixture, {
+        target: node,
+        props: { controller, targetId, allowSurfaceProjection },
+    });
 
     return {
         setController(next) {
@@ -16,8 +20,11 @@ export async function mount(node: HTMLElement, initial: ICursorController): Prom
         setTargetId(next) {
             targetId.set(next);
         },
+        setSurfaceProjection(allowed) {
+            allowSurfaceProjection.set(allowed);
+        },
         destroy() {
             return unmount(component);
-        }
+        },
     };
 }

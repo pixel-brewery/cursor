@@ -4,21 +4,40 @@ import { createElement, StrictMode, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import type { IFixture } from './IFixture.js';
 
-function Fixture({ controller, targetId }: { controller: ICursorController; targetId: string }) {
+function Fixture({
+    controller,
+    targetId,
+    allowSurfaceProjection,
+}: {
+    controller: ICursorController;
+    targetId: string;
+    allowSurfaceProjection: boolean;
+}) {
     const [element, setElement] = useState<HTMLElement | null>(null);
     const [button, setButton] = useState<HTMLButtonElement | null>(null);
-    const surface = useCursorSurface(element, { controller });
+    const surface = useCursorSurface(element, { controller, allowSurfaceProjection });
     useCursorTarget(surface, targetId, button);
 
-    return createElement('section', { ref: setElement, 'data-testid': 'surface' },
-        createElement('button', { ref: setButton, type: 'button', key: targetId }, 'Target'));
+    return createElement(
+        'section',
+        { ref: setElement, 'data-testid': 'surface' },
+        createElement('button', { ref: setButton, type: 'button', key: targetId }, 'Target'),
+    );
 }
 
 export async function mount(node: HTMLElement, initial: ICursorController): Promise<IFixture> {
     const root = createRoot(node);
     let controller = initial;
     let targetId = 'settings';
-    const render = () => root.render(createElement(StrictMode, null, createElement(Fixture, { controller, targetId })));
+    let allowSurfaceProjection = true;
+    const render = () =>
+        root.render(
+            createElement(
+                StrictMode,
+                null,
+                createElement(Fixture, { controller, targetId, allowSurfaceProjection }),
+            ),
+        );
     render();
 
     return {
@@ -30,8 +49,12 @@ export async function mount(node: HTMLElement, initial: ICursorController): Prom
             targetId = next;
             render();
         },
+        setSurfaceProjection(allowed) {
+            allowSurfaceProjection = allowed;
+            render();
+        },
         destroy() {
             root.unmount();
-        }
+        },
     };
 }
