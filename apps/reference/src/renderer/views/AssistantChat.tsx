@@ -10,6 +10,7 @@ import type { JSX } from 'preact';
 import { useLayoutEffect, useRef, useState } from 'preact/hooks';
 import type { ChatMessage } from '../../contracts/ChatMessage.js';
 import type { ChatReply } from '../../contracts/chat.js';
+import { demoCommands, isDemoAction } from '../../contracts/DemoActions.js';
 import type { DesktopConnectionBridge } from '../../contracts/DesktopConnection.js';
 import { requestChatReply } from '../transport/requestChatReply.js';
 
@@ -23,6 +24,25 @@ const actionStatus: Record<CursorResult['status'], string> = {
     cancelled: 'Die Aktion wurde abgebrochen.',
     failed: 'Die Aktion konnte nicht ausgeführt werden.',
 };
+const demoTargets = {
+    region: 'die Regionsauswahl',
+    table: 'die Datentabelle',
+    checkbox: 'die Checkbox „Vorschau anzeigen“',
+};
+
+function describeActionStatus(
+    action: Exclude<ChatReply['action'], 'none'>,
+    status: CursorResult['status'],
+): string {
+    if (isDemoAction(action) && (status === 'shown' || status === 'invoked')) {
+        const command = demoCommands[action];
+        return status === 'shown' || command.kind === 'show'
+            ? `Der KI-Cursor zeigt auf ${demoTargets[command.target]}.`
+            : 'Die Demo-Aktion ist ausgeführt.';
+    }
+    if (status === 'invoked' && action !== 'open-settings') return 'Der Zeigerstil ist eingestellt.';
+    return actionStatus[status];
+}
 
 const nextStyleShortcuts = new Set([
     'ändere den zeigerstil',
@@ -145,10 +165,7 @@ export function AssistantChat(props: IAssistantChatProps): JSX.Element {
             const result = await run(reply.action, request.signal);
             if (isCurrent()) {
                 setStatus({
-                    header:
-                        result.status === 'invoked' && reply.action !== 'open-settings'
-                            ? 'Der Zeigerstil ist eingestellt.'
-                            : actionStatus[result.status],
+                    header: describeActionStatus(reply.action, result.status),
                     variant: 'neutral',
                 });
             }

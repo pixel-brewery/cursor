@@ -76,6 +76,8 @@ A successful response contains a reply of 1 to 450 characters and a suggestion. 
 
 The client reports action completion from the controller result. It aborts a pending chat request or cursor presentation when the user cancels or the view disconnects. The browser endpoint allows two simultaneous generations, bounds body reads to five seconds and limits model inference to 30 seconds. Closing the client connection or stopping the reference server cancels pending browser inference. Electron uses a separate bounded native CLI request.
 
+The **Steuerelemente** card below the pointer stage has three tabs. Try **Wähle Süden in der Regionsauswahl**, **Sortiere die Tabelle nach Umsatz absteigend**, **Gruppiere die Tabelle nach Region** or **Aktiviere Vorschau anzeigen**. The view opens the tab that owns the target and waits for it to become visible before guiding the assistant cursor and invoking the registered action. The table supports sorting and grouping by **Name**, **Region** and **Umsatz**, and clearing the grouping.
+
 | Response              | Meaning                                                              |
 | --------------------- | -------------------------------------------------------------------- |
 | `200`                 | Validated reply and suggestion.                                      |

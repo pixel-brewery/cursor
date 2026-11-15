@@ -6,6 +6,7 @@ import { delimiter, join, relative } from 'node:path';
 import { afterEach, expect, test, vi } from 'vitest';
 import type { ChatMessage } from '../../contracts/ChatMessage.js';
 import type { ChatReply } from '../../contracts/chat.js';
+import { demoCommands } from '../../contracts/DemoActions.js';
 import { LocalAssistant } from './LocalAssistant.js';
 
 // #endregion
@@ -63,7 +64,15 @@ test('checks but never signs in implicitly and cancels an explicit native operat
 });
 
 test('verifies a completed native sign-in, stores the selection and runs a read-only structured chat after restart', async () => {
-    const fixture = await openFixture();
+    const demoMessage = {
+        role: 'user',
+        content: 'Gruppiere die Datentabelle nach Region',
+    } satisfies ChatMessage;
+    const demoReply = {
+        text: 'Ich gruppiere die Datentabelle nach Region.',
+        action: 'demo-group-region',
+    } satisfies ChatReply;
+    const fixture = await openFixture(demoReply);
     const assistant = fixture.createAssistant();
     vi.stubEnv('OPENAI_API_KEY', 'ambient-not-owned-by-cursor');
     await assistant.save(selection);
@@ -85,7 +94,9 @@ test('verifies a completed native sign-in, stores the selection and runs a read-
         login: null,
     });
     await expect(reopened.check()).resolves.toMatchObject({ status: 'ready' });
-    await expect(reopened.chat([message], new AbortController().signal)).resolves.toEqual(reply);
+    await expect(reopened.chat([demoMessage], new AbortController().signal)).resolves.toEqual(
+        demoReply,
+    );
     expect(
         JSON.parse(
             await readFile(join(fixture.userData, 'local-assistant', 'connection.json'), 'utf8'),
@@ -96,7 +107,7 @@ test('verifies a completed native sign-in, stores the selection and runs a read-
     const chat = calls.find(({ args }) => args[0] === 'exec');
     expect(chat).toMatchObject({
         args: expect.arrayContaining(['--sandbox', 'read-only', '--model', 'fixture-model']),
-        prompt: expect.stringContaining(JSON.stringify([message])),
+        prompt: expect.stringContaining(JSON.stringify([demoMessage])),
         outputSchema: {
             additionalProperties: false,
             properties: {
@@ -110,6 +121,7 @@ test('verifies a completed native sign-in, stores the selection and runs a read-
                         'set-cursor-style-square',
                         'set-cursor-style-square-outline',
                         'cycle-cursor-style',
+                        ...Object.keys(demoCommands),
                     ],
                 },
             },

@@ -1,0 +1,29 @@
+{
+    "name": "nx-tasks",
+    "projectType": "library",
+    "tags": ["infra"],
+    "implicitDependencies": [
+        "cursor-adapter-mosaik",
+        "cursor-core",
+        "@pixel-brewery/cursor-angular",
+        "@pixel-brewery/cursor-browser",
+        "@pixel-brewery/cursor-react",
+        "@pixel-brewery/cursor-svelte",
+        "@pixel-brewery/cursor-vue"
+    ],
+    "targets": {
+        "docs": {
+            "executor": "@pixel-brewery/nx-tasks:api-docs",
+            "dependsOn": ["^build"],
+            "cache": false,
+            "outputs": ["{workspaceRoot}/.docs/api", "{workspaceRoot}/.docs/packages/*/api"],
+            "options": { "mode": "write" }
+        },
+        "docs:check": {
+            "executor": "@pixel-brewery/nx-tasks:api-docs",
+            "dependsOn": ["^build"],
+            "cache": false,
+            "options": { "mode": "check" }
+        }
+    }
+}

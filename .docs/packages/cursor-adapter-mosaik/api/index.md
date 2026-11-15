@@ -2,12 +2,22 @@
 
 Guided actions for Mosaik Foundation elements.
 
+## Classes
+
+- [ElementAccessor](classes/ElementAccessor.md)
+
 ## Interfaces
 
-- [IMosaikAccessor](interfaces/IMosaikAccessor.md)
+- [IAccessorDefinition](interfaces/IAccessorDefinition.md)
 - [IMosaikElementAccess](interfaces/IMosaikElementAccess.md)
-- [IMosaikSingleChoiceAccess](interfaces/IMosaikSingleChoiceAccess.md)
+- [IOptionDropdown](interfaces/IOptionDropdown.md)
+- [ISelectableOption](interfaces/ISelectableOption.md)
 
 ## Type Aliases
 
-- [MosaikOptionSelection](type-aliases/MosaikOptionSelection.md)
+- [OptionSelection](type-aliases/OptionSelection.md)
+
+## Functions
+
+- [Accessor](functions/Accessor.md)
+- [selectOption](functions/selectOption.md)

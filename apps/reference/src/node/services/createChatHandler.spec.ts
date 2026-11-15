@@ -9,7 +9,9 @@ import {
     type ServerResponse,
 } from 'node:http';
 import { afterEach, describe, expect, it, vi } from 'vitest';
+import type { ChatReply } from '../../contracts/chat.js';
 import type { ChatMessage } from '../../contracts/ChatMessage.js';
+import { demoCommands } from '../../contracts/DemoActions.js';
 import { createChatHandler } from './createChatHandler.js';
 
 // #endregion
@@ -146,23 +148,27 @@ describe('createChatHandler', () => {
         expect(calls).toHaveLength(0);
     });
 
-    it('passes the bounded conversation and output schema to the configured provider', async () => {
-        const calls = await openProvider((response) => {
-            sendCompletion(response, JSON.stringify({ text: 'Gerne.', action: 'none' }));
-        });
+    it('passes the bounded conversation and action allowlist to the provider and accepts a supported demo action', async () => {
+        const sortReply = {
+            text: 'Ich sortiere die Datentabelle absteigend nach Umsatz.',
+            action: 'demo-sort-revenue-desc',
+        } satisfies ChatReply;
+        const calls = await openProvider((response) =>
+            sendCompletion(response, JSON.stringify(sortReply)),
+        );
         vi.stubEnv('CURSOR_CHAT_API_KEY', 'fixture-token');
         const { chatOrigin } = await openChat();
         const messages = [
             userMessage,
             { role: 'assistant', content: answer.text },
-            { role: 'user', content: 'Danke!' },
+            { role: 'user', content: 'Sortiere nach Umsatz, höchste zuerst.' },
         ];
 
         const response = await postChat(chatOrigin, JSON.stringify({ messages }));
 
         expect(response.status).toBe(200);
         expect(response.headers.get('cache-control')).toBe('no-store');
-        expect(await response.json()).toEqual({ text: 'Gerne.', action: 'none' });
+        expect(await response.json()).toEqual(sortReply);
         expect(calls).toEqual([
             {
                 method: 'POST',
@@ -187,6 +193,7 @@ describe('createChatHandler', () => {
                                             'set-cursor-style-square',
                                             'set-cursor-style-square-outline',
                                             'cycle-cursor-style',
+                                            ...Object.keys(demoCommands),
                                         ],
                                     }),
                                 }),
@@ -207,6 +214,10 @@ describe('createChatHandler', () => {
         {
             name: 'a style outside the preset list',
             content: JSON.stringify({ ...answer, action: 'set-cursor-style-dotted' }),
+        },
+        {
+            name: 'a demo sort column outside the allowlist',
+            content: JSON.stringify({ ...answer, action: 'demo-sort-unknown-asc' }),
         },
         {
             name: 'extra action instructions',

@@ -9,11 +9,420 @@
     "summary": [
       {
         "kind": "text",
-        "text": "Angular directives for attaching a Cursor surface and registering rendered targets."
+        "text": "Angular configuration and directives for attaching a Cursor surface and registering targets."
       }
     ]
   },
   "children": [
+    {
+      "id": 18,
+      "name": "CursorAccessorRegistry",
+      "variant": "declaration",
+      "kind": 128,
+      "flags": {
+        "isPublic": true
+      },
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Resolves the accessor classes selected for one application."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 26,
+          "name": "bind",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "signatures": [
+            {
+              "id": 27,
+              "name": "bind",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Binds the configured accessor for the element's tag."
+                  }
+                ],
+                "blockTags": [
+                  {
+                    "tag": "@returns",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "The accessor instance, if the host configured the tag."
+                      }
+                    ]
+                  }
+                ]
+              },
+              "parameters": [
+                {
+                  "id": 28,
+                  "name": "element",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "The mounted element to bind."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "typescript",
+                      "packagePath": "lib/lib.dom.d.ts",
+                      "qualifiedName": "HTMLElement"
+                    },
+                    "name": "HTMLElement",
+                    "package": "typescript"
+                  }
+                }
+              ],
+              "type": {
+                "type": "union",
+                "types": [
+                  {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "@pixel-brewery/cursor-browser",
+                      "packagePath": "src/interfaces/ICursorElementAccessor.ts",
+                      "qualifiedName": "ICursorElementAccessor"
+                    },
+                    "name": "ICursorElementAccessor",
+                    "package": "@pixel-brewery/cursor-browser"
+                  },
+                  {
+                    "type": "intrinsic",
+                    "name": "undefined"
+                  }
+                ]
+              }
+            },
+            {
+              "id": 29,
+              "name": "bind",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Binds a known class and keeps its component-specific type."
+                  }
+                ],
+                "blockTags": [
+                  {
+                    "tag": "@returns",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "The bound accessor instance."
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "@throws",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "If the class was not configured for the element's tag."
+                      }
+                    ]
+                  }
+                ]
+              },
+              "typeParameters": [
+                {
+                  "id": 30,
+                  "name": "TAccessor",
+                  "variant": "typeParam",
+                  "kind": 131072,
+                  "flags": {},
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "The expected bound accessor type."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "@pixel-brewery/cursor-browser",
+                      "packagePath": "src/interfaces/ICursorElementAccessor.ts",
+                      "qualifiedName": "ICursorElementAccessor"
+                    },
+                    "name": "ICursorElementAccessor",
+                    "package": "@pixel-brewery/cursor-browser"
+                  }
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 31,
+                  "name": "element",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "The mounted element to bind."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "typescript",
+                      "packagePath": "lib/lib.dom.d.ts",
+                      "qualifiedName": "HTMLElement"
+                    },
+                    "name": "HTMLElement",
+                    "package": "typescript"
+                  }
+                },
+                {
+                  "id": 32,
+                  "name": "expected",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "The class the host configured for this element."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "@pixel-brewery/cursor-browser",
+                      "packagePath": "src/interfaces/ICursorAccessorClass.ts",
+                      "qualifiedName": "ICursorAccessorClass"
+                    },
+                    "typeArguments": [
+                      {
+                        "type": "reference",
+                        "target": 30,
+                        "name": "TAccessor",
+                        "package": "@pixel-brewery/cursor-browser",
+                        "refersToTypeParameter": true
+                      }
+                    ],
+                    "name": "ICursorAccessorClass",
+                    "package": "@pixel-brewery/cursor-browser"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": 30,
+                "name": "TAccessor",
+                "package": "@pixel-brewery/cursor-browser",
+                "refersToTypeParameter": true
+              }
+            }
+          ]
+        },
+        {
+          "id": 19,
+          "name": "constructor",
+          "variant": "declaration",
+          "kind": 512,
+          "flags": {},
+          "signatures": [
+            {
+              "id": 20,
+              "name": "CursorAccessorRegistry",
+              "variant": "signature",
+              "kind": 16384,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Registers the classes supplied by the application features."
+                  }
+                ],
+                "blockTags": [
+                  {
+                    "tag": "@throws",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "If two different classes claim the same tag."
+                      }
+                    ]
+                  }
+                ]
+              },
+              "parameters": [
+                {
+                  "id": 21,
+                  "name": "features",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {
+                    "isRest": true
+                  },
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "The selected accessor features."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "typeOperator",
+                    "operator": "readonly",
+                    "target": {
+                      "type": "array",
+                      "elementType": {
+                        "type": "reference",
+                        "target": {
+                          "packageName": "@pixel-brewery/cursor-browser",
+                          "packagePath": "src/interfaces/ICursorFeature.ts",
+                          "qualifiedName": "ICursorFeature"
+                        },
+                        "name": "ICursorFeature",
+                        "package": "@pixel-brewery/cursor-browser"
+                      }
+                    }
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": 18,
+                "name": "CursorAccessorRegistry",
+                "package": "@pixel-brewery/cursor-browser"
+              }
+            }
+          ]
+        },
+        {
+          "id": 23,
+          "name": "get",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "signatures": [
+            {
+              "id": 24,
+              "name": "get",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Looks up a configured class by tag name."
+                  }
+                ],
+                "blockTags": [
+                  {
+                    "tag": "@returns",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "The accessor class, if the host configured it."
+                      }
+                    ]
+                  }
+                ]
+              },
+              "parameters": [
+                {
+                  "id": 25,
+                  "name": "tagName",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "The local tag name of a DOM element."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                }
+              ],
+              "type": {
+                "type": "union",
+                "types": [
+                  {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "@pixel-brewery/cursor-browser",
+                      "packagePath": "src/interfaces/ICursorAccessorClass.ts",
+                      "qualifiedName": "ICursorAccessorClass"
+                    },
+                    "typeArguments": [
+                      {
+                        "type": "reference",
+                        "target": {
+                          "packageName": "@pixel-brewery/cursor-browser",
+                          "packagePath": "src/interfaces/ICursorElementAccessor.ts",
+                          "qualifiedName": "ICursorElementAccessor"
+                        },
+                        "name": "ICursorElementAccessor",
+                        "package": "@pixel-brewery/cursor-browser"
+                      }
+                    ],
+                    "name": "ICursorAccessorClass",
+                    "package": "@pixel-brewery/cursor-browser"
+                  },
+                  {
+                    "type": "intrinsic",
+                    "name": "undefined"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "groups": [
+        {
+          "title": "Constructors",
+          "children": [
+            19
+          ]
+        },
+        {
+          "title": "Methods",
+          "children": [
+            26,
+            23
+          ]
+        }
+      ]
+    },
     {
       "id": 1,
       "name": "CursorSurfaceDirective",
@@ -312,14 +721,220 @@
           ]
         }
       ]
+    },
+    {
+      "id": 15,
+      "name": "provideCursor",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {
+        "isPublic": true
+      },
+      "signatures": [
+        {
+          "id": 16,
+          "name": "provideCursor",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {
+            "isPublic": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Configures the shared Cursor accessor registry for an Angular environment injector.\nUse "
+              },
+              {
+                "kind": "code",
+                "text": "`inject(CursorAccessorRegistry)`"
+              },
+              {
+                "kind": "text",
+                "text": " within that environment to resolve registered accessors."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@returns",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "Environment providers to add to the application or route configuration."
+                  }
+                ]
+              }
+            ]
+          },
+          "parameters": [
+            {
+              "id": 17,
+              "name": "features",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {
+                "isRest": true
+              },
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Features that contribute accessor classes, such as "
+                  },
+                  {
+                    "kind": "code",
+                    "text": "`withCursorAccessors`"
+                  },
+                  {
+                    "kind": "text",
+                    "text": "."
+                  }
+                ]
+              },
+              "type": {
+                "type": "typeOperator",
+                "operator": "readonly",
+                "target": {
+                  "type": "array",
+                  "elementType": {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "@pixel-brewery/cursor-browser",
+                      "packagePath": "src/interfaces/ICursorFeature.ts",
+                      "qualifiedName": "ICursorFeature"
+                    },
+                    "name": "ICursorFeature",
+                    "package": "@pixel-brewery/cursor-browser"
+                  }
+                }
+              }
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "@angular/core",
+              "packagePath": "types/_chrome_dev_tools_performance-chunk.d.ts",
+              "qualifiedName": "EnvironmentProviders"
+            },
+            "name": "EnvironmentProviders",
+            "package": "@angular/core"
+          }
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "name": "withCursorAccessors",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {
+        "isPublic": true
+      },
+      "signatures": [
+        {
+          "id": 34,
+          "name": "withCursorAccessors",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {
+            "isPublic": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Selects the accessor classes to register in a Cursor application."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@returns",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "A feature accepted by a Cursor registry or framework provider."
+                  }
+                ]
+              }
+            ]
+          },
+          "parameters": [
+            {
+              "id": 35,
+              "name": "accessors",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {
+                "isRest": true
+              },
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "The individual accessor classes imported by the application."
+                  }
+                ]
+              },
+              "type": {
+                "type": "typeOperator",
+                "operator": "readonly",
+                "target": {
+                  "type": "array",
+                  "elementType": {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "@pixel-brewery/cursor-browser",
+                      "packagePath": "src/interfaces/ICursorAccessorClass.ts",
+                      "qualifiedName": "ICursorAccessorClass"
+                    },
+                    "typeArguments": [
+                      {
+                        "type": "reference",
+                        "target": {
+                          "packageName": "@pixel-brewery/cursor-browser",
+                          "packagePath": "src/interfaces/ICursorElementAccessor.ts",
+                          "qualifiedName": "ICursorElementAccessor"
+                        },
+                        "name": "ICursorElementAccessor",
+                        "package": "@pixel-brewery/cursor-browser"
+                      }
+                    ],
+                    "name": "ICursorAccessorClass",
+                    "package": "@pixel-brewery/cursor-browser"
+                  }
+                }
+              }
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "@pixel-brewery/cursor-browser",
+              "packagePath": "src/interfaces/ICursorFeature.ts",
+              "qualifiedName": "ICursorFeature"
+            },
+            "name": "ICursorFeature",
+            "package": "@pixel-brewery/cursor-browser"
+          }
+        }
+      ]
     }
   ],
   "groups": [
     {
       "title": "Classes",
       "children": [
+        18,
         1,
         11
+      ]
+    },
+    {
+      "title": "Functions",
+      "children": [
+        15,
+        33
       ]
     }
   ],
@@ -374,6 +989,106 @@
       "packageName": "@pixel-brewery/cursor-angular",
       "packagePath": "src/directives/CursorTargetDirective.ts",
       "qualifiedName": "CursorTargetDirective.cursorTarget"
+    },
+    "15": {
+      "packageName": "@pixel-brewery/cursor-angular",
+      "packagePath": "src/providers/provideCursor.ts",
+      "qualifiedName": "provideCursor"
+    },
+    "16": {
+      "packageName": "@pixel-brewery/cursor-angular",
+      "packagePath": "src/providers/provideCursor.ts",
+      "qualifiedName": "provideCursor"
+    },
+    "17": {
+      "packageName": "@pixel-brewery/cursor-angular",
+      "packagePath": "src/providers/provideCursor.ts",
+      "qualifiedName": "features"
+    },
+    "18": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/services/CursorAccessorRegistry.ts",
+      "qualifiedName": "CursorAccessorRegistry"
+    },
+    "19": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/services/CursorAccessorRegistry.ts",
+      "qualifiedName": "CursorAccessorRegistry.__constructor"
+    },
+    "20": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/services/CursorAccessorRegistry.ts",
+      "qualifiedName": "CursorAccessorRegistry"
+    },
+    "21": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/services/CursorAccessorRegistry.ts",
+      "qualifiedName": "features"
+    },
+    "23": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/services/CursorAccessorRegistry.ts",
+      "qualifiedName": "CursorAccessorRegistry.get"
+    },
+    "24": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/services/CursorAccessorRegistry.ts",
+      "qualifiedName": "CursorAccessorRegistry.get"
+    },
+    "25": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/services/CursorAccessorRegistry.ts",
+      "qualifiedName": "tagName"
+    },
+    "26": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/services/CursorAccessorRegistry.ts",
+      "qualifiedName": "CursorAccessorRegistry.bind"
+    },
+    "27": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/services/CursorAccessorRegistry.ts",
+      "qualifiedName": "CursorAccessorRegistry.bind"
+    },
+    "28": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/services/CursorAccessorRegistry.ts",
+      "qualifiedName": "element"
+    },
+    "29": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/services/CursorAccessorRegistry.ts",
+      "qualifiedName": "CursorAccessorRegistry.bind"
+    },
+    "30": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/services/CursorAccessorRegistry.ts",
+      "qualifiedName": "TAccessor"
+    },
+    "31": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/services/CursorAccessorRegistry.ts",
+      "qualifiedName": "element"
+    },
+    "32": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/services/CursorAccessorRegistry.ts",
+      "qualifiedName": "expected"
+    },
+    "33": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/withCursorAccessors.ts",
+      "qualifiedName": "withCursorAccessors"
+    },
+    "34": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/withCursorAccessors.ts",
+      "qualifiedName": "withCursorAccessors"
+    },
+    "35": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/withCursorAccessors.ts",
+      "qualifiedName": "accessors"
     }
   },
   "files": {
