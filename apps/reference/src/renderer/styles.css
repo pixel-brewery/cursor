@@ -21,8 +21,7 @@ body {
 }
 
 .shell-header,
-.brand,
-.actions {
+.brand {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -57,6 +56,11 @@ p {
     align-items: start;
     gap: calc(var(--mosaik-layout-space) * 2);
     padding-bottom: calc(var(--mosaik-layout-space) * 3);
+}
+
+.assistant-chat {
+    height: min(max(220px, 44vh), 400px);
+    min-width: 0;
 }
 
 .workspace-content {

@@ -4,7 +4,7 @@
 
 Open the same reference view in two application instances. Moving the pointer in either instance displays a named human pointer in the other. In the first instance, send an assistant a request to show the settings control. A distinct AI pointer moves to the control. Send a second request to open it. The pointer reaches the control and the application invokes its registered action. The settings panel opens through the same application handler as a local click.
 
-Run the scenario first across two browser tabs. Repeat it across a browser tab and an Electron window with the same renderer bundle. Use a deterministic assistant in the reference application that sends the same structured commands as a host assistant integration. This gives the demo a repeatable test path independent of model choices and accounts.
+Run the scenario first across two browser tabs. Repeat it across a browser tab and an Electron window with the same renderer bundle. The reference chat interprets German input with a local language model. The HTTP completion fixture makes the same integration reproducible in CI. The [reference chat guide](guides/reference-chat.md) describes both verification paths.
 
 ## Package boundaries
 
@@ -43,7 +43,7 @@ Controller state is transient. Closing a view, disconnecting or disposing the co
 5. **Invoke the application action.** Check that the registered action still matches the live target and recheck authorization immediately before invoking it. Return an explicit result for shown, invoked, denied, unavailable, cancelled or failed. Execute a handler once per accepted invocation and leave retries of an uncertain result to the host’s action policy.
 6. **Release the view.** Unsubscribe from the transport, remove listeners and observers, cancel active animations and requests, then clear the overlay. A late transport delivery or assistant command from the previous attachment cannot update the next view.
 
-For the reference application, the deterministic assistant accepts two explicit intents. The first points to the settings control. The second invokes its `open-settings` handler. Keep incoming pointer updates on the rendering path. Action invocation requires a separate registered command and host authorization.
+In the reference application, the model returns one validated suggestion. The view resolves `show-settings` to a registered target and `open-settings` to its authorized handler. The `none` suggestion returns the conversational reply alone. Incoming pointer updates remain on the rendering path. The renderer reports the observed result from the controller after guidance.
 
 ## Framework integration
 
@@ -55,7 +55,7 @@ The reference view uses Mosaik Soho and the native Web Component API. The local 
 
 1. Implement the core types, transport boundary and lifecycle. Verify validated input, per-actor ordering, scope changes and action authorization in focused tests.
 2. Implement the browser renderer and target registration. Validate input capture, geometry updates and cleanup in the reference surface.
-3. Connect the reference relay and deterministic assistant. Run the two-tab scenario and repeat across browser and Electron using the shared renderer.
+3. Connect the reference relay and chat. Run the two-tab scenario and repeat across browser and Electron using the shared renderer.
 4. Add the four framework adapters. Exercise the same mount, registration, rerender and teardown contract in each framework.
 5. Document observed behavior, public imports and runnable commands alongside the [runtime verification guide](README.md#runtime-verification).
 

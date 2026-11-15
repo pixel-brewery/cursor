@@ -5,6 +5,55 @@ __metadata:
   version: 10
   cacheKey: 10c0
 
+"@ai-sdk/gateway@npm:4.0.143":
+  version: 4.0.143
+  resolution: "@ai-sdk/gateway@npm:4.0.143"
+  dependencies:
+    "@ai-sdk/provider": "npm:4.0.37"
+    "@ai-sdk/provider-utils": "npm:5.0.79"
+    "@vercel/oidc": "npm:3.2.0"
+  peerDependencies:
+    zod: ^3.25.76 || ^4.1.8
+  checksum: 10c0/21a620832f23a851406236ac1a79c374bd716cd84f484d745e1946fb65d9d8208c496156d84d9d648bc6ced2ecbb1bdf4d7e4efe3a020a4c8d04d98fcdea298a
+  languageName: node
+  linkType: hard
+
+"@ai-sdk/openai-compatible@npm:3.0.90":
+  version: 3.0.90
+  resolution: "@ai-sdk/openai-compatible@npm:3.0.90"
+  dependencies:
+    "@ai-sdk/provider": "npm:4.0.37"
+    "@ai-sdk/provider-utils": "npm:5.0.79"
+  peerDependencies:
+    zod: ^3.25.76 || ^4.1.8
+  checksum: 10c0/a74896d0c71c300e875dd9e701a77e2ce88b2cc722de9c7a66602d3ed3be3ad8a6ba665ab2fefbc36b6995954155f90c97dec0833e4bba9ad02867962fcd3b0d
+  languageName: node
+  linkType: hard
+
+"@ai-sdk/provider-utils@npm:5.0.79":
+  version: 5.0.79
+  resolution: "@ai-sdk/provider-utils@npm:5.0.79"
+  dependencies:
+    "@ai-sdk/provider": "npm:4.0.37"
+    "@standard-schema/spec": "npm:^1.1.0"
+    "@workflow/serde": "npm:4.1.0"
+    eventsource-parser: "npm:^3.0.8"
+    undici: "npm:^7.29.1"
+  peerDependencies:
+    zod: ^3.25.76 || ^4.1.8
+  checksum: 10c0/f4c1dbb871fc4c2545378aa9c8d37120210ba1bb14cdbcc3cb07545cb77e71c2e3bf9f2730112d41b3bd0ad512e1edb6c60d70c07404343df5f17ba14cfeaec6
+  languageName: node
+  linkType: hard
+
+"@ai-sdk/provider@npm:4.0.37":
+  version: 4.0.37
+  resolution: "@ai-sdk/provider@npm:4.0.37"
+  dependencies:
+    json-schema: "npm:^0.4.0"
+  checksum: 10c0/22f8a0478fbd987f68fb7698363386c9683efb4078c01f9b72dd63183fe45db3bbac84d15e4bfe052ab5bd237a33f74ec674dd14f0daba5375c336030539ec1b
+  languageName: node
+  linkType: hard
+
 "@angular/common@npm:22.2.6":
   version: 22.2.6
   resolution: "@angular/common@npm:22.2.6"
@@ -804,6 +853,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@pixel-brewery/cursor-reference@workspace:apps/reference"
   dependencies:
+    "@ai-sdk/openai-compatible": "npm:3.0.90"
     "@floating-ui/dom": "npm:1.8.0"
     "@lit-labs/virtualizer": "npm:2.1.1"
     "@lit/context": "npm:1.1.6"
@@ -814,6 +864,7 @@ __metadata:
     "@pixel-brewery/mosaik-themes": "npm:0.1.205"
     "@types/node": "npm:26.6.6"
     "@types/ws": "npm:8.18.1"
+    ai: "npm:7.0.170"
     chroma-js: "npm:3.3.0"
     electron: "npm:45.3.2"
     lit: "npm:3.3.3"
@@ -821,6 +872,7 @@ __metadata:
     typescript: "npm:6.0.3"
     vite: "npm:8.3.8"
     ws: "npm:8.21.3"
+    zod: "npm:4.6.7"
   languageName: unknown
   linkType: soft
 
@@ -1165,6 +1217,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@standard-schema/spec@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@standard-schema/spec@npm:1.1.0"
+  checksum: 10c0/d90f55acde4b2deb983529c87e8025fa693de1a5e8b49ecc6eb84d1fd96328add0e03d7d551442156c7432fd78165b2c26ff561b970a9a881f046abb78d6a526
+  languageName: node
+  linkType: hard
+
 "@sveltejs/acorn-typescript@npm:^1.0.13":
   version: 1.0.13
   resolution: "@sveltejs/acorn-typescript@npm:1.0.13"
@@ -1297,6 +1356,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vercel/oidc@npm:3.2.0":
+  version: 3.2.0
+  resolution: "@vercel/oidc@npm:3.2.0"
+  checksum: 10c0/98318d3236f58c296616c8c2e1655b268c7bf58525bcd985adac7af6d900e05fc610f6f03ce2ff4bdcd3df7885a40c0ca44fdc761f122dcfe15a78c2756b0243
+  languageName: node
+  linkType: hard
+
 "@vue/compiler-core@npm:3.5.45":
   version: 3.5.45
   resolution: "@vue/compiler-core@npm:3.5.45"
@@ -1396,6 +1462,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@workflow/serde@npm:4.1.0":
+  version: 4.1.0
+  resolution: "@workflow/serde@npm:4.1.0"
+  checksum: 10c0/8ec68cd9448b486bc8244d1f2b33d64d4af4b0fc18d33417699ce29345b21e4359d880c5ea5d66872def4576c0cddcfa2a63282d1f4d661c455663c075595e81
+  languageName: node
+  linkType: hard
+
 "@yarnpkg/lockfile@npm:1.1.0":
   version: 1.1.0
   resolution: "@yarnpkg/lockfile@npm:1.1.0"
@@ -1444,6 +1517,19 @@ __metadata:
   version: 7.1.4
   resolution: "agent-base@npm:7.1.4"
   checksum: 10c0/c2c9ab7599692d594b6a161559ada307b7a624fa4c7b03e3afdb5a5e31cd0e53269115b620fcab024c5ac6a6f37fa5eb2e004f076ad30f5f7e6b8b671f7b35fe
+  languageName: node
+  linkType: hard
+
+"ai@npm:7.0.170":
+  version: 7.0.170
+  resolution: "ai@npm:7.0.170"
+  dependencies:
+    "@ai-sdk/gateway": "npm:4.0.143"
+    "@ai-sdk/provider": "npm:4.0.37"
+    "@ai-sdk/provider-utils": "npm:5.0.79"
+  peerDependencies:
+    zod: ^3.25.76 || ^4.1.8
+  checksum: 10c0/57f35ad405dec8be3464f4a6e1488cc83e1bf7dd2c5f647326273c631dd69e33c1eb3eb0a7189814cad63054d20a943f3d84d245f9a856a464630b7f1ec90337
   languageName: node
   linkType: hard
 
@@ -2188,7 +2274,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eventsource-parser@npm:^3.0.0, eventsource-parser@npm:^3.0.1":
+"eventsource-parser@npm:^3.0.0, eventsource-parser@npm:^3.0.1, eventsource-parser@npm:^3.0.8":
   version: 3.1.1
   resolution: "eventsource-parser@npm:3.1.1"
   checksum: 10c0/dd3236c61140587253dcaaf947de528ac0e7371caffdc53c77afaeee36a17661f00e251a6ea16af56c99be5ac138303e67b5d750630e7c41b02e3564e8ad8c44
@@ -2739,6 +2825,13 @@ __metadata:
   version: 8.0.2
   resolution: "json-schema-typed@npm:8.0.2"
   checksum: 10c0/89f5e2fb1495483b705c027203c07277ee6bf2665165ad25a9cb55de5af7f72570326d13d32565180781e4083ad5c9688102f222baed7b353c2f39c1e02b0428
+  languageName: node
+  linkType: hard
+
+"json-schema@npm:^0.4.0":
+  version: 0.4.0
+  resolution: "json-schema@npm:0.4.0"
+  checksum: 10c0/d4a637ec1d83544857c1c163232f3da46912e971d5bf054ba44fdb88f07d8d359a462b4aec46f2745efbc57053365608d88bc1d7b1729f7b4fc3369765639ed3
   languageName: node
   linkType: hard
 
@@ -4277,6 +4370,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"undici@npm:^7.29.1":
+  version: 7.30.2
+  resolution: "undici@npm:7.30.2"
+  checksum: 10c0/806e17f14fb49d2b63be314cf2be68efbe105469118b366d19a3cb6fd6686089220c74c1e8e947e6b337a16ff434c10c3860f3e637db314381c4ce8c071c3daf
+  languageName: node
+  linkType: hard
+
 "unique-filename@npm:^4.0.0":
   version: 4.0.0
   resolution: "unique-filename@npm:4.0.0"
@@ -4600,7 +4700,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:^3.25 || ^4.0, zod@npm:^4.6.7":
+"zod@npm:4.6.7, zod@npm:^3.25 || ^4.0, zod@npm:^4.6.7":
   version: 4.6.7
   resolution: "zod@npm:4.6.7"
   checksum: 10c0/4ce2eb14034317b7254e347ca37b5ad591cf8333147030cf05b9b5d31692d45073f7f2747aa50cf8c6b29012194d2b22978cecc89969cf34a0d18e89d0ee7d7b

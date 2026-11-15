@@ -1,36 +1,36 @@
 <!doctype html>
-<html lang="en" theme="soho" theme-mode="light">
+<html lang="de" theme="soho" theme-mode="light">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' ws://127.0.0.1:*; font-src 'self'; object-src 'none'; base-uri 'none'" />
-        <title>Cursor reference demo</title>
+        <title>Cursor-Demo</title>
     </head>
     <body>
         <header class="layout shell-header">
             <div class="brand">
-                <h1>Cursor demo</h1>
+                <h1>Cursor-Demo</h1>
             </div>
-            <mosaik-button data-testid="another-view" label="Open another view" appearance="outline"></mosaik-button>
+            <mosaik-button data-testid="another-view" label="Weitere Ansicht öffnen" appearance="outline"></mosaik-button>
         </header>
 
         <main class="layout">
-            <section class="intro" aria-label="Connection">
-                <p>Move your pointer in the shared view. Ask the assistant to point to Settings or open it.</p>
-                <mosaik-message id="connection" data-testid="connection-status" appearance="soft" aria-live="polite" header="Connecting…"></mosaik-message>
+            <section class="intro" aria-label="Verbindung">
+                <p>Bewege deinen Zeiger in der gemeinsamen Ansicht. Bitte den Assistenten, die Einstellungen zu zeigen oder zu öffnen.</p>
+                <mosaik-message id="connection" data-testid="connection-status" appearance="soft" aria-live="polite" header="Verbindung wird aufgebaut …"></mosaik-message>
             </section>
 
-            <section id="surface" class="surface" aria-label="Shared view" data-testid="surface">
+            <section id="surface" class="surface" aria-label="Gemeinsame Ansicht" data-testid="surface">
                 <mosaik-card appearance="outline">
                     <mosaik-card-header>
-                        <mosaik-card-title text="Shared view"></mosaik-card-title>
+                        <mosaik-card-title text="Gemeinsame Ansicht"></mosaik-card-title>
                     </mosaik-card-header>
                     <mosaik-card-content>
                         <div class="workspace-content" data-testid="pointer-area">
                             <mosaik-button
                                 id="settings"
                                 data-testid="settings"
-                                label="Settings"
+                                label="Einstellungen"
                                 appearance="outline"
                                 aria-controls="settings-panel"
                                 aria-expanded="false"
@@ -38,11 +38,11 @@
                         </div>
                         <mosaik-card id="settings-panel" data-testid="settings-panel" appearance="soft" hidden>
                             <mosaik-card-header>
-                                <mosaik-card-title text="Settings"></mosaik-card-title>
+                                <mosaik-card-title text="Einstellungen"></mosaik-card-title>
                             </mosaik-card-header>
-                            <mosaik-card-content text="Pointers are visible in this view."></mosaik-card-content>
+                            <mosaik-card-content text="Die Zeiger sind in dieser Ansicht sichtbar."></mosaik-card-content>
                             <mosaik-card-actions>
-                                <mosaik-button id="close-settings" label="Close settings" appearance="plain"></mosaik-button>
+                                <mosaik-button id="close-settings" label="Einstellungen schließen" appearance="plain"></mosaik-button>
                             </mosaik-card-actions>
                         </mosaik-card>
                     </mosaik-card-content>
@@ -50,16 +50,26 @@
 
                 <mosaik-card appearance="outline">
                     <mosaik-card-header>
-                        <mosaik-card-title text="Demo assistant"></mosaik-card-title>
+                        <mosaik-card-title text="Assistent"></mosaik-card-title>
                     </mosaik-card-header>
                     <mosaik-card-content>
-                        <div class="actions">
-                            <mosaik-button id="show" data-testid="assistant-show" label="Show settings" appearance="outline" disabled></mosaik-button>
-                            <mosaik-button id="open" data-testid="assistant-open" label="Open settings" variant="primary" appearance="solid" disabled></mosaik-button>
-                        </div>
+                        <mosaik-chat id="assistant-chat" class="assistant-chat" data-testid="assistant-chat" aria-label="Chatverlauf" aria-live="polite" scroll-to-end>
+                            <mosaik-chat-prompt-box
+                                id="assistant-input"
+                                slot="input"
+                                data-testid="assistant-input"
+                                label="Nachricht"
+                                placeholder="Zeig mir die Einstellungen"
+                                maxlength="700"
+                                max-rows="3"
+                                disabled
+                            >
+                                <mosaik-button data-testid="assistant-send" slot="submit" label="Senden" variant="primary" appearance="solid"></mosaik-button>
+                            </mosaik-chat-prompt-box>
+                        </mosaik-chat>
                     </mosaik-card-content>
                     <mosaik-card-footer>
-                        <mosaik-message id="assistant-status" data-testid="assistant-status" appearance="soft" aria-live="polite" header="Choose an assistant action."></mosaik-message>
+                        <mosaik-message id="assistant-status" data-testid="assistant-status" appearance="soft" aria-live="polite" hidden></mosaik-message>
                     </mosaik-card-footer>
                 </mosaik-card>
             </section>

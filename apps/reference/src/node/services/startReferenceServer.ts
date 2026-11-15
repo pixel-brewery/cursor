@@ -11,13 +11,14 @@ import { preview } from 'vite';
 import { WebSocket, WebSocketServer } from 'ws';
 import { referenceViewId } from '../../contracts/referenceViewId.js';
 import { type IReferenceServer } from '../interfaces/IReferenceServer.js';
+import { createChatHandler } from './createChatHandler.js';
 
 // #endregion
 
 const root = fileURLToPath(new URL('../../../', import.meta.url));
 
 /**
- * Serves the built renderer and relays the reference view's pointer updates on loopback.
+ * Serves the built renderer, local chat and reference view's pointer relay on loopback.
  *
  * @param port - Local port to bind. It must be unused.
  * @returns The listening origin and the operation to shut down the relay.
@@ -25,13 +26,23 @@ const root = fileURLToPath(new URL('../../../', import.meta.url));
  * @internal
  */
 export async function startReferenceServer(port: number): Promise<IReferenceServer> {
+    const origin = `http://127.0.0.1:${port}`;
+    const shutdown = new AbortController();
+    const handleChat = createChatHandler(origin, shutdown.signal);
     const server = await preview({
         root,
         preview: { host: '127.0.0.1', port, strictPort: true },
         plugins: [
             {
-                name: 'cursor-reference-health',
+                name: 'cursor-reference-http',
                 configurePreviewServer(previewServer) {
+                    previewServer.middlewares.use((request, response, next) => {
+                        if (request.url === '/api/chat') {
+                            void handleChat(request, response).catch(next);
+                            return;
+                        }
+                        next();
+                    });
                     previewServer.middlewares.use('/_cursor-reference', (_request, response) => {
                         response.setHeader('Content-Type', 'text/plain');
                         response.end('cursor-reference');
@@ -40,7 +51,6 @@ export async function startReferenceServer(port: number): Promise<IReferenceServ
             },
         ],
     });
-    const origin = `http://127.0.0.1:${port}`;
     const sockets = new WebSocketServer({ noServer: true, maxPayload: 2048 });
     const peers = new Map<WebSocket, ICursorParticipant>();
     let browserCount = 0;
@@ -112,6 +122,7 @@ export async function startReferenceServer(port: number): Promise<IReferenceServ
     return {
         origin,
         async close() {
+            shutdown.abort();
             for (const socket of peers.keys()) socket.terminate();
             await new Promise<void>((resolve, reject) =>
                 sockets.close((error) => (error ? reject(error) : resolve())),

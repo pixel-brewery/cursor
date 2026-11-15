@@ -1,9 +1,9 @@
 // #region Imports
 
+import type { ChatElement, ChatPromptBoxElement } from '@pixel-brewery/mosaik-elements-foundation';
 import { attachCursorSurface } from '@pixel-brewery/cursor-browser';
 import {
     createCursorController,
-    type CursorCommand,
     type CursorResult,
     type ICursorController,
     type ICursorParticipant,
@@ -11,19 +11,13 @@ import {
 } from '@pixel-brewery/cursor-core';
 import { connectReference } from '../transport/connectReference.js';
 import { referenceViewId } from '../../contracts/referenceViewId.js';
+import type { ChatReply } from '../../contracts/chat.js';
+import { AssistantChat } from './AssistantChat.js';
 
 // #endregion
 
 const targetId = 'settings';
 const actionId = 'open-settings';
-const messages: Record<CursorResult['status'], string> = {
-    shown: 'Pointing to Settings.',
-    invoked: 'Settings opened.',
-    denied: 'The action was denied.',
-    unavailable: 'Settings is unavailable in this view.',
-    cancelled: 'The assistant action was cancelled.',
-    failed: 'The settings action failed.',
-};
 
 /**
  * Owns the settings interaction and cursor registrations for one reference page.
@@ -36,16 +30,13 @@ export class ReferenceView {
     private readonly _surface = this.getElement('#surface');
     private readonly _settings = this.getElement('#settings');
     private readonly _panel = this.getElement('#settings-panel');
-    private readonly _show = this.getElement('#show');
-    private readonly _open = this.getElement('#open');
-    private readonly _assistantStatus = this.getElement('#assistant-status');
     private readonly _connection = this.getElement('#connection');
+    private readonly _assistant: AssistantChat;
     private readonly _stop: () => void;
     private _opens = 0;
     private _label = '';
     private _controller: ICursorController | undefined;
     private _releaseSurface: (() => void) | undefined;
-    private _running = false;
 
     // #endregion
 
@@ -58,16 +49,17 @@ export class ReferenceView {
      * @throws When required elements are absent from the reference markup.
      */
     public constructor(host: 'browser' | 'electron') {
+        this._assistant = new AssistantChat(
+            this.getElement<ChatElement>('#assistant-chat'),
+            this.getElement<ChatPromptBoxElement>('#assistant-input'),
+            this.getElement('#assistant-status'),
+            (action, signal) => this.run(action, signal),
+        );
         this._settings.addEventListener('click', this.openSettings);
         this.getElement('#close-settings').addEventListener('click', () => {
             this._panel.hidden = true;
             this._settings.setAttribute('aria-expanded', 'false');
         });
-        this._show.addEventListener('click', () => void this.run({ kind: 'show', targetId }));
-        this._open.addEventListener(
-            'click',
-            () => void this.run({ kind: 'invoke', targetId, actionId }),
-        );
         const anotherView = this.getElement('[data-testid="another-view"]');
         anotherView.hidden = host === 'electron';
         anotherView.addEventListener('click', () =>
@@ -85,6 +77,7 @@ export class ReferenceView {
         window.addEventListener(
             'pagehide',
             () => {
+                this._assistant.dispose();
                 this._releaseSurface?.();
                 this._stop();
             },
@@ -96,8 +89,8 @@ export class ReferenceView {
 
     // #region Methods
 
-    private getElement(selector: string): HTMLElement {
-        const element = document.querySelector<HTMLElement>(selector);
+    private getElement<T extends HTMLElement = HTMLElement>(selector: string): T {
+        const element = document.querySelector<T>(selector);
         if (!element) throw new Error(`Missing reference element ${selector}`);
         return element;
     }
@@ -109,25 +102,17 @@ export class ReferenceView {
         this._settings.setAttribute('aria-expanded', 'true');
     };
 
-    private updateActions(): void {
-        for (const button of [this._show, this._open])
-            button.toggleAttribute('disabled', !this._controller || this._running);
-    }
-
-    private async run(command: CursorCommand): Promise<void> {
-        if (!this._controller || this._running) return;
-        const active = this._controller;
-        this._running = true;
-        this.updateActions();
-        this._assistantStatus.setAttribute('header', 'Moving to Settings…');
-        try {
-            const result = await active.run(command);
-            if (this._controller === active)
-                this._assistantStatus.setAttribute('header', messages[result.status]);
-        } finally {
-            this._running = false;
-            this.updateActions();
-        }
+    private async run(
+        action: Exclude<ChatReply['action'], 'none'>,
+        signal: AbortSignal,
+    ): Promise<CursorResult> {
+        if (!this._controller) return { status: 'unavailable' };
+        return this._controller.run(
+            action === 'show-settings'
+                ? { kind: 'show', targetId }
+                : { kind: 'invoke', targetId, actionId },
+            signal,
+        );
     }
 
     private readonly onConnect = (
@@ -160,25 +145,21 @@ export class ReferenceView {
             attached.dispose();
             active.dispose();
         };
-        this.updateActions();
+        this._assistant.setConnected(true);
     };
 
     private readonly onCount = (count: number): void => {
-        this._connection.setAttribute(
-            'header',
-            `${this._label} connected · ${count} ${count === 1 ? 'participant' : 'participants'}`,
-        );
+        this._connection.setAttribute('header', `${this._label} verbunden · ${count} online`);
         this._connection.setAttribute('data-connected', String(count));
     };
 
     private readonly onDisconnect = (): void => {
+        this._assistant.setConnected(false);
         this._releaseSurface?.();
         this._releaseSurface = undefined;
         this._controller = undefined;
-        this.updateActions();
-        this._connection.setAttribute('header', 'Disconnected. Reconnecting…');
+        this._connection.setAttribute('header', 'Verbindung getrennt. Neuer Versuch …');
         this._connection.removeAttribute('data-connected');
-        this._assistantStatus.setAttribute('header', 'Choose an assistant action.');
     };
 
     // #endregion
