@@ -1,26 +1,37 @@
 // #region Imports
 
 import type { ICursorSurface } from '@pixel-brewery/cursor-browser';
-import {
-    mosaikSelectItemTag,
-    mosaikSelectTag,
-    type IMosaikSelectElement,
-    type IMosaikSelectItemElement,
-} from './generated/mosaikSelect.generated.js';
-import type { MosaikOptionSelection } from './MosaikOptionSelection.js';
+import type { IMosaikSingleChoiceAccess } from '../interfaces/IMosaikSingleChoiceAccess.js';
+import type { MosaikOptionSelection } from '../MosaikOptionSelection.js';
 
 // #endregion
 
+interface IChoiceOption extends HTMLElement {
+    readonly disabled: boolean;
+    readonly value: unknown;
+}
+
+interface ISingleChoiceElement extends HTMLElement {
+    readonly disabled: boolean;
+    readonly isDropDownOpen: boolean;
+    readonly items: readonly HTMLElement[];
+    readonly selectedItem: HTMLElement | null;
+    readonly value: string | null;
+    open(): void;
+    close(): void;
+}
+
 function findOption(
-    select: IMosaikSelectElement,
+    select: ISingleChoiceElement,
     selection: MosaikOptionSelection,
-): IMosaikSelectItemElement | undefined {
+): IChoiceOption | undefined {
     const options = select.items;
-    const isEnabled = (item: IMosaikSelectItemElement) =>
-        item.localName === mosaikSelectItemTag && !item.disabled;
+    const isEnabled = (item: HTMLElement): item is IChoiceOption =>
+        'disabled' in item && item.disabled === false && 'value' in item;
 
     if (selection.kind === 'value') {
-        return options.find((item) => isEnabled(item) && item.value === selection.value);
+        return options.find((item): item is IChoiceOption =>
+            isEnabled(item) && item.value === selection.value);
     }
 
     const afterSelected = select.selectedItem ? options.indexOf(select.selectedItem) + 1 : 0;
@@ -50,29 +61,31 @@ async function waitUntil(
 }
 
 /**
- * Opens a Mosaik select and guides the assistant to the option before activating it.
- * Call from a host-authorized action registered for the select.
+ * Extends a generated accessor with the shared single-choice interaction.
  *
- * @param surface - The active surface that already presented the select.
- * @param element - The mounted Mosaik select.
- * @param selection - The allowed option value or next enabled option.
- * @param signal - Cancels the action before an option can be activated.
- * @returns A promise that resolves once the select reports the expected selection.
- * @throws When the select or option becomes unavailable or the selection cannot be verified.
- * @public
+ * @param element - The mounted element whose contract the generator verified.
+ * @returns The guided action for that element.
+ * @internal
  */
-export async function selectMosaikOption(
-    surface: ICursorSurface,
+export function bindSingleChoice(element: HTMLElement): IMosaikSingleChoiceAccess {
+    return {
+        selectOption: (surface, selection, signal) => selectOption(element, surface, selection, signal),
+    };
+}
+
+async function selectOption(
     element: HTMLElement,
+    surface: ICursorSurface,
     selection: MosaikOptionSelection,
     signal: AbortSignal,
 ): Promise<void> {
     signal.throwIfAborted();
     const view = element.ownerDocument.defaultView;
-    if (element.localName !== mosaikSelectTag || !element.isConnected || !view) {
-        throw new Error('A mounted Mosaik select is required.');
+    if (!element.isConnected || !view) {
+        throw new Error('The Mosaik dropdown is unavailable.');
     }
-    const select = element as IMosaikSelectElement;
+    const select = element as ISingleChoiceElement;
+    if (!Array.isArray(select.items)) throw new Error('The Mosaik dropdown is not ready.');
     const option = findOption(select, selection);
     if (select.disabled || !option) throw new Error('The Mosaik option is unavailable.');
 

@@ -7,10 +7,16 @@
         ".": {
             "types": "./dist/index.d.ts",
             "default": "./dist/index.js"
+        },
+        "./components/*": {
+            "types": "./dist/generated/*.d.ts",
+            "default": "./dist/generated/*.js"
         }
     },
+    "sideEffects": false,
     "scripts": {
-        "build": "tsc -b"
+        "build": "tsc -b",
+        "test": "tsc -p tsconfig.spec.json && vitest run"
     },
     "nx": {
         "name": "cursor-adapter-mosaik",
@@ -19,11 +25,8 @@
                 "executor": "@pixel-brewery/cursor-workspace-tools:mosaik-bindings",
                 "cache": false,
                 "outputs": [
-                    "{projectRoot}/src/generated/mosaikSelect.generated.ts"
-                ],
-                "options": {
-                    "output": "src/generated/mosaikSelect.generated.ts"
-                }
+                    "{projectRoot}/src/generated"
+                ]
             },
             "build": {
                 "dependsOn": [

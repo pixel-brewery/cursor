@@ -1,7 +1,8 @@
 // #region Imports
 
 import { SelectElementIntl, type ElementEvent, type SelectElement } from '@pixel-brewery/mosaik-elements-foundation';
-import { selectMosaikOption } from '@pixel-brewery/cursor-adapter-mosaik';
+import { accessor as buttonAccessor } from '@pixel-brewery/cursor-adapter-mosaik/components/button';
+import { accessor as selectAccessor } from '@pixel-brewery/cursor-adapter-mosaik/components/select';
 import { attachCursorSurface } from '@pixel-brewery/cursor-browser';
 import { createCursorController, type CursorResult, type ICursorController } from '@pixel-brewery/cursor-core';
 import type { JSX, TargetedEvent } from 'preact';
@@ -138,15 +139,20 @@ export function ReferenceView(props: IReferenceViewProps): JSX.Element {
                 });
                 attachment.registerTarget(settingsTarget, button);
                 attachment.registerTarget(styleTarget, select);
-                active.registerAction({ id: openSettingsAction, targetId: settingsTarget, handler: openSettings });
+                const cursorSettings = buttonAccessor.bind(button);
+                const cursorSelect = selectAccessor.bind(select);
+                active.registerAction({
+                    id: openSettingsAction,
+                    targetId: settingsTarget,
+                    handler: (_input, signal) => cursorSettings.activate(attachment, signal),
+                });
                 active.registerAction({
                     id: changeStyleAction,
                     targetId: styleTarget,
                     handler(input, signal) {
                         const value = cursorStyleChangeSchema.parse(input);
-                        return selectMosaikOption(
+                        return cursorSelect.selectOption(
                             attachment,
-                            select,
                             value === 'next' ? { kind: 'next' } : { kind: 'value', value },
                             signal,
                         );
@@ -176,7 +182,7 @@ export function ReferenceView(props: IReferenceViewProps): JSX.Element {
             release?.();
             stop();
         };
-    }, [desktop, openSettings]);
+    }, [desktop]);
 
     const loginPending = modelState?.login?.state === 'running' || modelState?.login?.state === 'waiting';
     const modelReady = !desktop || (modelState?.status === 'ready' && !loginPending);

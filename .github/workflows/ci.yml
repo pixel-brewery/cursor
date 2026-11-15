@@ -29,6 +29,7 @@ jobs:
             - run: yarn agents:check
             - run: yarn agents:mcp-check
             - run: yarn build
+            - run: yarn nx run cursor-adapter-mosaik:generate --mode=check
             - run: yarn nx run api-docs:typecheck
             - run: yarn docs:check
             - run: yarn test

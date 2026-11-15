@@ -8,7 +8,7 @@
         "mosaik-bindings": {
             "implementation": "./src/executors/mosaik-bindings/executor",
             "schema": "./src/executors/mosaik-bindings/schema.json",
-            "description": "Generate or check Cursor's select bindings for the installed Mosaik component manifest."
+            "description": "Generate or check Cursor accessors for every installed Mosaik component."
         }
     }
 }

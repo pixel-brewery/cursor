@@ -2,19 +2,18 @@
 
 import { logger, type ExecutorContext } from '@nx/devkit';
 import { resolve } from 'node:path';
-import { generateMosaikBindings } from './generateMosaikBindings.js';
+import { generateMosaikAccessors } from './generateMosaikAccessors.js';
 
 // #endregion
 
 interface IMosaikBindingsOptions {
-    readonly output: string;
     readonly mode: 'write' | 'check';
 }
 
 /**
- * Generates the adapter binding using the manifest installed for the current project.
+ * Generates the component accessors using the manifest installed for the current project.
  *
- * @param options - The project-relative output location and generation mode.
+ * @param options - The generation mode.
  * @param context - The resolved Nx workspace and target project.
  * @returns The Nx task result.
  */
@@ -26,7 +25,8 @@ export default async function execute(
         const project = context.projectName && context.projectsConfigurations?.projects[context.projectName];
         if (!project) throw new Error('The Mosaik bindings executor requires an Nx project.');
 
-        await generateMosaikBindings(resolve(context.root, project.root), options.output, options.mode);
+        const count = await generateMosaikAccessors(resolve(context.root, project.root), options.mode);
+        logger.info(`${options.mode === 'check' ? 'Verified' : 'Generated'} ${count} Mosaik component accessors.`);
         return { success: true };
     } catch (error) {
         logger.error(error instanceof Error ? error.message : String(error));
