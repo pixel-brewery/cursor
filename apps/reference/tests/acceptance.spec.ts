@@ -102,7 +102,7 @@ async function showSettings(page: Page): Promise<void> {
     await expectReply(page, 0, showPrompt);
     await expectTargetAlignment(page, page.locator(arrived));
     await expect(page.getByTestId('settings-panel')).toBeHidden();
-    await expect(page.getByTestId('assistant-status')).toHaveAttribute(
+    await expect(page.getByTestId('assistant-status')).toHaveJSProperty(
         'header',
         'Der KI-Cursor zeigt auf die Einstellungen.',
     );
@@ -114,7 +114,7 @@ async function expectSettingsOpenedOnce(page: Page): Promise<void> {
     await expect(panel).toBeVisible();
     await expect(panel).toHaveAttribute('data-open-count', '1');
     await expect(page.getByTestId('settings')).toHaveAttribute('aria-expanded', 'true');
-    await expect(page.getByTestId('assistant-status')).toHaveAttribute(
+    await expect(page.getByTestId('assistant-status')).toHaveJSProperty(
         'header',
         'Die Einstellungen sind geöffnet.',
     );
@@ -143,7 +143,7 @@ async function changeStyleFromChat(
     const pointer = page.locator(arrivedAtStyle);
     await expect(pointer).toHaveAttribute('data-cursor-style', style);
     await expectTargetAlignment(page, pointer, 'cursor-style');
-    await expect(page.getByTestId('assistant-status')).toHaveAttribute(
+    await expect(page.getByTestId('assistant-status')).toHaveJSProperty(
         'header',
         'Der Zeigerstil ist eingestellt.',
     );
@@ -247,8 +247,14 @@ test('Electron and a reduced-motion browser share target positions and each acts
         await Promise.all([expectParticipants(web, 2), expectParticipants(desktop, 2)]);
         await expect(web.getByTestId('config-open')).toBeHidden();
         await expect(chatInput(desktop)).toBeDisabled();
-        await desktop.getByTestId('config-provider').locator('button').click();
+        const provider = desktop.getByTestId('config-provider').locator('button');
+        const openCodeProvider = desktop.getByTestId('config-opencode-provider');
+        await provider.click();
+        await desktop.getByTestId('config-provider-opencode').click();
+        await expect(openCodeProvider).toBeVisible();
+        await provider.click();
         await desktop.getByTestId('config-provider-codex').click();
+        await expect(openCodeProvider).toBeHidden();
         await desktop.getByTestId('config-save').locator('button').click();
         await expect(desktop.getByTestId('config-status')).toHaveAttribute(
             'data-status',
@@ -343,7 +349,7 @@ test('cancelling an in-flight chat request aborts the model connection and keeps
     await page.getByTestId('assistant-input').locator('[part="stop"]').locator('button').click();
 
     await expect.poll(() => disconnected).toBe(true);
-    await expect(page.getByTestId('assistant-status')).toHaveAttribute(
+    await expect(page.getByTestId('assistant-status')).toHaveJSProperty(
         'header',
         'Anfrage abgebrochen.',
     );

@@ -2,9 +2,11 @@
     "extends": "../../tsconfig.base.json",
     "compilerOptions": {
         "lib": ["ES2024", "DOM", "DOM.Iterable"],
+        "jsx": "react-jsx",
+        "jsxImportSource": "preact",
         "types": ["vite/client"],
         "noEmit": true,
         "skipLibCheck": true
     },
-    "include": ["src/renderer/**/*.ts"]
+    "include": ["src/renderer/**/*.ts", "src/renderer/**/*.tsx"]
 }
