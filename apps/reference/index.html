@@ -20,6 +20,63 @@
                 <mosaik-message id="connection" data-testid="connection-status" appearance="soft" aria-live="polite" header="Verbindung wird aufgebaut …"></mosaik-message>
             </section>
 
+            <section id="desktop-connection" class="desktop-connection" aria-label="Lokale Modellverbindung" hidden>
+                <div>
+                    <mosaik-button id="config-open" data-testid="config-open" label="Modellverbindung" appearance="outline" aria-controls="config-panel" aria-expanded="false"></mosaik-button>
+                </div>
+                <mosaik-card id="config-panel" data-testid="config-panel" appearance="outline" hidden>
+                    <mosaik-card-header>
+                        <mosaik-card-title text="Lokale Modellverbindung"></mosaik-card-title>
+                    </mosaik-card-header>
+                    <mosaik-card-content>
+                        <div class="connection-fields">
+                            <mosaik-select id="config-provider" data-testid="config-provider" label="CLI" placeholder="CLI auswählen" required>
+                                <mosaik-select-item data-testid="config-provider-codex" value="codex" label="Codex"></mosaik-select-item>
+                                <mosaik-select-item data-testid="config-provider-claude" value="claude" label="Claude Code"></mosaik-select-item>
+                                <mosaik-select-item data-testid="config-provider-opencode" value="opencode" label="OpenCode"></mosaik-select-item>
+                            </mosaik-select>
+                            <mosaik-textbox id="config-model" data-testid="config-model" label="Modell (optional)" maxlength="120"></mosaik-textbox>
+                            <div id="config-opencode-fields" class="connection-fields connection-fields-wide" hidden>
+                                <mosaik-textbox id="config-opencode-provider" data-testid="config-opencode-provider" label="OpenCode-Anbieter-ID" maxlength="120" required></mosaik-textbox>
+                                <mosaik-textbox id="config-opencode-method" data-testid="config-opencode-method" label="Native OpenCode-Anmeldemethode" maxlength="120" required></mosaik-textbox>
+                            </div>
+                            <div class="connection-actions connection-fields-wide">
+                                <mosaik-button id="config-save" data-testid="config-save" label="Speichern" variant="primary" appearance="solid" disabled></mosaik-button>
+                                <mosaik-button id="config-check" data-testid="config-check" label="Verbindung prüfen" appearance="outline" disabled></mosaik-button>
+                            </div>
+                            <mosaik-message id="config-status" class="connection-fields-wide" data-testid="config-status" appearance="soft" aria-live="polite" header="Verbindung wird geladen …"></mosaik-message>
+                        </div>
+                    </mosaik-card-content>
+                    <mosaik-card-content id="config-login-choices" hidden>
+                        <div class="connection-fields">
+                            <mosaik-select id="config-login-method" data-testid="config-login-method" label="Anmeldemethode" placeholder="Methode auswählen"></mosaik-select>
+                            <div class="connection-actions">
+                                <mosaik-button id="config-login" data-testid="config-login" label="Anmelden" appearance="outline" disabled></mosaik-button>
+                            </div>
+                        </div>
+                    </mosaik-card-content>
+                    <mosaik-card-content id="config-login-flow" data-testid="config-login-flow" hidden>
+                        <div class="connection-fields">
+                            <p id="config-login-instructions" class="connection-fields-wide" data-testid="config-login-instructions" aria-live="polite"></p>
+                            <p id="config-login-code-row" class="connection-fields-wide" hidden>Anmeldecode <code id="config-login-code" data-testid="config-login-code"></code></p>
+                            <div id="config-login-fields" class="connection-fields connection-fields-wide" hidden></div>
+                            <div class="connection-actions connection-fields-wide">
+                                <mosaik-button id="config-login-open" data-testid="config-login-open" label="Anmeldeseite im Browser öffnen" appearance="outline" hidden></mosaik-button>
+                                <mosaik-button id="config-login-submit" data-testid="config-login-submit" label="Anmeldeantwort senden" variant="primary" appearance="solid" hidden></mosaik-button>
+                                <mosaik-button id="config-login-cancel" data-testid="config-login-cancel" label="Anmeldung abbrechen" appearance="plain"></mosaik-button>
+                            </div>
+                        </div>
+                    </mosaik-card-content>
+                </mosaik-card>
+                <template id="config-login-method-template">
+                    <mosaik-select-item></mosaik-select-item>
+                </template>
+                <template id="config-login-input-template">
+                    <mosaik-passwordbox></mosaik-passwordbox>
+                    <mosaik-textbox maxlength="4096"></mosaik-textbox>
+                </template>
+            </section>
+
             <section id="surface" class="surface" aria-label="Gemeinsame Ansicht" data-testid="surface">
                 <mosaik-card appearance="outline">
                     <mosaik-card-header>

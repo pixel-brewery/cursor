@@ -5,6 +5,7 @@ import { addAbortSignal } from 'node:stream';
 import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
 import { generateText, Output } from 'ai';
 import { chatReplySchema, chatRequestSchema, type ChatReply } from '../../contracts/chat.js';
+import { chatInstructions } from '../configuration/chatInstructions.js';
 
 // #endregion
 
@@ -12,23 +13,6 @@ const maxBodyBytes = 32 * 1024;
 const bodyTimeoutMs = 5_000;
 const modelTimeoutMs = 30_000;
 const maxConcurrentGenerations = 2;
-
-const instructions = `You are the assistant in the Cursor reference app.
-Write a short conversational reply in the user's language. Address the user instead of repeating their message.
-Select exactly one action based on what the latest user message asks you to do:
-- show-settings: the user asks to see or be shown where the Settings control is. The app will point to it and leave it closed.
-- open-settings: the user explicitly asks you to open Settings. The app will point to it and then open it.
-- none: regular conversation, questions about how Settings work, ambiguous requests, and all other actions.
-Treat earlier messages as conversation context only. When proposing an action, describe what you are about to do. Never claim that an action has already happened.
-You cannot read, change, save, or delete settings. You can only show the Settings control or ask the app to open it.
-
-Examples:
-User: Zeig mir die Einstellungen
-Reply: {"text":"Ich zeige dir, wo die Einstellungen sind.","action":"show-settings"}
-User: Öffne die Einstellungen
-Reply: {"text":"Ich öffne die Einstellungen für dich.","action":"open-settings"}
-User: Was kannst du hier tun?
-Reply: {"text":"Ich kann dir die Einstellungen zeigen oder sie für dich öffnen.","action":"none"}`;
 
 type ChatBody = ChatReply | { error: 'invalid-request' | 'unavailable' | 'busy' };
 
@@ -82,7 +66,7 @@ export function createChatHandler(
         try {
             const result = await generateText({
                 model,
-                instructions,
+                instructions: chatInstructions,
                 messages: parsed.data.messages,
                 output: Output.object({ schema: chatReplySchema }),
                 maxOutputTokens: 256,

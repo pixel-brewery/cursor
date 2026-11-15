@@ -4,7 +4,7 @@
 
 Open the same reference view in two application instances. Moving the pointer in either instance displays a named human pointer in the other. In the first instance, send an assistant a request to show the settings control. A distinct AI pointer moves to the control. Send a second request to open it. The pointer reaches the control and the application invokes its registered action. The settings panel opens through the same application handler as a local click.
 
-Run the scenario first across two browser tabs. Repeat it across a browser tab and an Electron window with the same renderer bundle. The reference chat interprets German input with a local language model. The HTTP completion fixture makes the same integration reproducible in CI. The [reference chat guide](guides/reference-chat.md) describes both verification paths.
+Run the scenario first across two browser tabs. Repeat it across a browser tab and an Electron window with the same renderer bundle. The browser reference chat interprets German input through a loopback model server. Electron uses the local CLI connection selected in the app and runs it through Synapse. CI exercises both paths with an HTTP completion fixture and an isolated native CLI fixture. The [reference chat guide](guides/reference-chat.md) describes both connections and verification paths.
 
 ## Package boundaries
 

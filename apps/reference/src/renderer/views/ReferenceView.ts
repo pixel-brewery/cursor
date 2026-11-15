@@ -12,7 +12,9 @@ import {
 import { connectReference } from '../transport/connectReference.js';
 import { referenceViewId } from '../../contracts/referenceViewId.js';
 import type { ChatReply } from '../../contracts/chat.js';
+import type { DesktopConnectionState } from '../../contracts/DesktopConnection.js';
 import { AssistantChat } from './AssistantChat.js';
+import { DesktopConnectionView } from './DesktopConnectionView.js';
 
 // #endregion
 
@@ -32,11 +34,14 @@ export class ReferenceView {
     private readonly _panel = this.getElement('#settings-panel');
     private readonly _connection = this.getElement('#connection');
     private readonly _assistant: AssistantChat;
+    private readonly _desktop: DesktopConnectionView | undefined;
     private readonly _stop: () => void;
     private _opens = 0;
     private _label = '';
     private _controller: ICursorController | undefined;
     private _releaseSurface: (() => void) | undefined;
+    private _modelReady: boolean;
+    private _modelContext: string | undefined;
 
     // #endregion
 
@@ -49,12 +54,18 @@ export class ReferenceView {
      * @throws When required elements are absent from the reference markup.
      */
     public constructor(host: 'browser' | 'electron') {
+        const bridge = window.cursorDesktop;
+        this._modelReady = !bridge;
         this._assistant = new AssistantChat(
             this.getElement<ChatElement>('#assistant-chat'),
             this.getElement<ChatPromptBoxElement>('#assistant-input'),
             this.getElement('#assistant-status'),
             (action, signal) => this.run(action, signal),
+            bridge,
         );
+        if (bridge) {
+            this._desktop = new DesktopConnectionView(bridge, (state) => this.onModelState(state));
+        }
         this._settings.addEventListener('click', this.openSettings);
         this.getElement('#close-settings').addEventListener('click', () => {
             this._panel.hidden = true;
@@ -78,6 +89,7 @@ export class ReferenceView {
             'pagehide',
             () => {
                 this._assistant.dispose();
+                this._desktop?.dispose();
                 this._releaseSurface?.();
                 this._stop();
             },
@@ -101,6 +113,17 @@ export class ReferenceView {
         this._panel.hidden = false;
         this._settings.setAttribute('aria-expanded', 'true');
     };
+
+    private onModelState(state: DesktopConnectionState): void {
+        const context = JSON.stringify([state.connection, state.login?.operationId]);
+        if (this._modelContext !== undefined && this._modelContext !== context) {
+            this._assistant.resetConversation();
+        }
+        this._modelContext = context;
+        const loginPending = state.login?.state === 'running' || state.login?.state === 'waiting';
+        this._modelReady = state.status === 'ready' && !loginPending;
+        this._assistant.setConnected(Boolean(this._controller) && this._modelReady);
+    }
 
     private async run(
         action: Exclude<ChatReply['action'], 'none'>,
@@ -145,7 +168,7 @@ export class ReferenceView {
             attached.dispose();
             active.dispose();
         };
-        this._assistant.setConnected(true);
+        this._assistant.setConnected(this._modelReady);
     };
 
     private readonly onCount = (count: number): void => {

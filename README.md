@@ -10,7 +10,7 @@ Show where another participant is pointing. Let an assistant guide someone to a 
 
 [Why Cursor](#why-cursor-exists) · [Architecture](#architecture) · [Run the demo](#run-the-demo) · [Developer setup](#developer-setup) · [Agent documentation](#documentation-for-your-coding-agent) · [Documentation](.docs/README.md) · [Product icon](.github/assets/cursor-icon.png)
 
-> **Status** · The reference demo runs in a browser and Electron. The chat uses a locally running language model and can guide the pointer to Settings or open the panel.
+> **Status** · The reference demo runs in a browser and Electron. Select an installed AI CLI in Electron or connect the browser to a loopback model server. Chat can guide the pointer to Settings or open the panel.
 
 ## Why Cursor exists
 
@@ -42,13 +42,13 @@ flowchart LR
 
 ## Run the demo
 
-Start the [local model](.docs/guides/reference-chat.md) first. Then start the browser demo from the workspace root.
+For Electron, run `yarn demo:electron` and complete the [local connection setup](.docs/guides/reference-chat.md#configure-a-local-connection-in-electron) in the app. For the browser, start the [loopback model](.docs/guides/reference-chat.md#start-the-browser-model), then run the browser demo from the workspace root.
 
 ```sh
 yarn demo:web
 ```
 
-Open [the reference view](http://127.0.0.1:4317/) in two tabs, or pair the browser with `yarn demo:electron`. Move each pointer inside the shared view. Enter **Zeig mir die Einstellungen** to see the assistant indicate the control, then enter **Öffne die Einstellungen** to open its panel. Electron can reuse the reference server or start it from a shell with the same model configuration.
+Open [the reference view](http://127.0.0.1:4317/) in two tabs, or pair the browser with `yarn demo:electron`. Move each pointer inside the shared view. Enter **Zeig mir die Einstellungen** to see the assistant indicate the control, then enter **Öffne die Einstellungen** to open its panel.
 
 ## Developer setup
 

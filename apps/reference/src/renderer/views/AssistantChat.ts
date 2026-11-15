@@ -8,7 +8,9 @@ import {
 } from '@pixel-brewery/mosaik-elements-foundation';
 import type { CursorResult } from '@pixel-brewery/cursor-core';
 import type { ChatMessage } from '../../contracts/ChatMessage.js';
-import { chatReplySchema, type ChatReply } from '../../contracts/chat.js';
+import type { ChatReply } from '../../contracts/chat.js';
+import type { DesktopConnectionBridge } from '../../contracts/DesktopConnection.js';
+import { requestChatReply } from '../transport/requestChatReply.js';
 
 // #endregion
 
@@ -34,6 +36,7 @@ export class AssistantChat {
     private _request: AbortController | undefined;
     private _connected = false;
     private _disposed = false;
+    private _conversationRevision = 0;
 
     // #endregion
 
@@ -46,6 +49,7 @@ export class AssistantChat {
      * @param _prompt - Editor that submits messages and permits cancellation.
      * @param _status - App feedback for the current request and its action result.
      * @param _run - Resolves an allowed suggestion against the active view.
+     * @param _desktop - Electron bridge for the configured native CLI connection.
      */
     public constructor(
         private readonly _chat: ChatElement,
@@ -55,6 +59,7 @@ export class AssistantChat {
             action: Exclude<ChatReply['action'], 'none'>,
             signal: AbortSignal,
         ) => Promise<CursorResult>,
+        private readonly _desktop?: DesktopConnectionBridge,
     ) {
         const intl = new PromptBoxElementIntl('de');
         intl.submitLabel = 'Senden';
@@ -104,33 +109,31 @@ export class AssistantChat {
         this._lifecycle.abort();
     }
 
+    /** Stops the current request and starts a fresh chat when the native account changes. */
+    public resetConversation(): void {
+        this._conversationRevision += 1;
+        this._request?.abort();
+        this._history.length = 0;
+        for (const message of this._chat.querySelectorAll('[slot="message"]')) message.remove();
+        this._status.hidden = true;
+    }
+
     private async send(content: string): Promise<void> {
         if (this._disposed || !this._connected || this._request || !content) return;
 
         const request = new AbortController();
+        const revision = this._conversationRevision;
         this._request = request;
         this._prompt.isBusy = true;
         const user: ChatMessage = { role: 'user', content };
         this.append(user);
         this.setStatus('Antwort wird erstellt …');
         try {
-            const response = await fetch('/api/chat', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ messages: [...this._history, user] }),
-                signal: request.signal,
-            });
-            if (!response.ok) {
-                this.restorePrompt(content);
-                this.setStatus(
-                    response.status === 429
-                        ? 'Das Modell ist ausgelastet. Sende die Nachricht gleich noch einmal.'
-                        : 'Keine Modellantwort. Prüfe den lokalen Modellserver und sende erneut.',
-                    'warning',
-                );
-                return;
-            }
-            const reply = chatReplySchema.parse(await response.json());
+            const reply = await requestChatReply(
+                this._desktop,
+                [...this._history, user],
+                request.signal,
+            );
             request.signal.throwIfAborted();
 
             const assistant: ChatMessage = { role: 'assistant', content: reply.text };
@@ -144,14 +147,20 @@ export class AssistantChat {
             }
             this.setStatus('Der KI-Cursor bewegt sich …');
             const result = await this._run(reply.action, request.signal);
-            if (!this._disposed) this.setStatus(actionStatus[result.status]);
-        } catch {
-            if (!this._disposed) {
+            if (!this._disposed && revision === this._conversationRevision) {
+                this.setStatus(actionStatus[result.status]);
+            }
+        } catch (error) {
+            if (!this._disposed && revision === this._conversationRevision) {
                 this.restorePrompt(content);
                 this.setStatus(
                     request.signal.aborted
                         ? 'Anfrage abgebrochen.'
-                        : 'Die Antwort konnte nicht geladen werden.',
+                        : this._desktop
+                          ? 'Keine Modellantwort. Prüfe die lokale Verbindung.'
+                          : error instanceof Error && error.cause === 429
+                            ? 'Das Modell ist ausgelastet. Sende die Nachricht gleich noch einmal.'
+                            : 'Keine Modellantwort. Prüfe den lokalen Modellserver und sende erneut.',
                     request.signal.aborted ? 'neutral' : 'warning',
                 );
             }

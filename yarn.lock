@@ -861,7 +861,14 @@ __metadata:
     "@pixel-brewery/cursor-browser": "workspace:^"
     "@pixel-brewery/cursor-core": "workspace:^"
     "@pixel-brewery/mosaik-elements-foundation": "npm:0.1.205"
+    "@pixel-brewery/mosaik-icons": "npm:0.1.205"
     "@pixel-brewery/mosaik-themes": "npm:0.1.205"
+    "@pixel-brewery/synapse-auth": "npm:0.0.16"
+    "@pixel-brewery/synapse-core": "npm:0.0.16"
+    "@pixel-brewery/synapse-provider-claude": "npm:0.0.16"
+    "@pixel-brewery/synapse-provider-codex": "npm:0.0.16"
+    "@pixel-brewery/synapse-provider-opencode": "npm:0.0.16"
+    "@pixel-brewery/synapse-runtime": "npm:0.0.16"
     "@types/node": "npm:26.6.6"
     "@types/ws": "npm:8.18.1"
     ai: "npm:7.0.170"
@@ -1041,6 +1048,65 @@ __metadata:
   bin:
     mosaik-design-md: bin/design-md.mjs
   checksum: 10c0/c6578513b568f5804c57e918ce9a65cfd52c67bd00ff30b5462cbdd1492c6088f1b68c657303580ae2109b343dd029ab959dc132a5b953f61a98ef037e70dd18
+  languageName: node
+  linkType: hard
+
+"@pixel-brewery/synapse-auth@npm:0.0.16":
+  version: 0.0.16
+  resolution: "@pixel-brewery/synapse-auth@npm:0.0.16::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40pixel-brewery%2Fsynapse-auth%2F0.0.16%2Fb6cfd2e383dbcfef1f2c04de09e382615f638b4a"
+  dependencies:
+    "@pixel-brewery/synapse-core": "npm:^0.0.16"
+    "@pixel-brewery/synapse-runtime": "npm:^0.0.16"
+  checksum: 10c0/85869766b27a4f4e39eda0e6015fdc702b21e343e484a5d2c5f406532fc7b9c13a15b67b8c40e1c3c6475079811404c13e8a42ec698fbd521229d52fe927abf6
+  languageName: node
+  linkType: hard
+
+"@pixel-brewery/synapse-core@npm:0.0.16, @pixel-brewery/synapse-core@npm:^0.0.16":
+  version: 0.0.16
+  resolution: "@pixel-brewery/synapse-core@npm:0.0.16::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40pixel-brewery%2Fsynapse-core%2F0.0.16%2Fe1baa127d3c3997b3c982586a81027f04a35902e"
+  checksum: 10c0/51f7403bd6c09f5e5d0006ab9daeaeb4bb8f7c4cd40470b27f9a44dd5b5a590b48d95596ec03b22a8bf9183b0af59bb427a4c6ea4bfdc1a74295fac969b32d03
+  languageName: node
+  linkType: hard
+
+"@pixel-brewery/synapse-provider-claude@npm:0.0.16":
+  version: 0.0.16
+  resolution: "@pixel-brewery/synapse-provider-claude@npm:0.0.16::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40pixel-brewery%2Fsynapse-provider-claude%2F0.0.16%2Fe5265ad6c0a9a38e8c80dc937b89c54f540586eb"
+  dependencies:
+    "@pixel-brewery/synapse-core": "npm:^0.0.16"
+    "@pixel-brewery/synapse-runtime": "npm:^0.0.16"
+  checksum: 10c0/1f06bbeb324ce31ed416c8b127cb017d1b94d70840d260f547549e59de7c0ffddf815855f8151a1d0dcbffe8ed20e5708b8f9643d78932be2e5015a627d3e37b
+  languageName: node
+  linkType: hard
+
+"@pixel-brewery/synapse-provider-codex@npm:0.0.16":
+  version: 0.0.16
+  resolution: "@pixel-brewery/synapse-provider-codex@npm:0.0.16::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40pixel-brewery%2Fsynapse-provider-codex%2F0.0.16%2Fdcbc62acb092f3d76e28c1e0e9dcc226dc54f781"
+  dependencies:
+    "@pixel-brewery/synapse-core": "npm:^0.0.16"
+    "@pixel-brewery/synapse-runtime": "npm:^0.0.16"
+    smol-toml: "npm:1.9.1"
+  checksum: 10c0/f5c65c348181fc9f7b2fd4682b82d8047941ccdc6a2c58c0d61cbd4fea62c68674445a6837d08b5b0b21a4e3308666f08727b11572dbaa2bd7c03d46c3863d18
+  languageName: node
+  linkType: hard
+
+"@pixel-brewery/synapse-provider-opencode@npm:0.0.16":
+  version: 0.0.16
+  resolution: "@pixel-brewery/synapse-provider-opencode@npm:0.0.16::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40pixel-brewery%2Fsynapse-provider-opencode%2F0.0.16%2F3574c59169bf070c16ea34ed0b8d6f81bd134648"
+  dependencies:
+    "@pixel-brewery/synapse-core": "npm:^0.0.16"
+    "@pixel-brewery/synapse-runtime": "npm:^0.0.16"
+  checksum: 10c0/babf25515788e80c3c4726dace3e4f54b7a94a3d8dd15c27f83c8defa937cc9e1f620104b6c65031efc1600df45f915cb1e98597e2f496b4161d4dc48c5a463e
+  languageName: node
+  linkType: hard
+
+"@pixel-brewery/synapse-runtime@npm:0.0.16, @pixel-brewery/synapse-runtime@npm:^0.0.16":
+  version: 0.0.16
+  resolution: "@pixel-brewery/synapse-runtime@npm:0.0.16::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40pixel-brewery%2Fsynapse-runtime%2F0.0.16%2F6596261da26e3edd9caaace41cd83f65d4645920"
+  dependencies:
+    "@pixel-brewery/synapse-core": "npm:^0.0.16"
+    ajv: "npm:8.20.0"
+    cross-spawn: "npm:7.0.6"
+  checksum: 10c0/404be8de9ef157f7b409d9082f94e50b1f60528eeb209640d2fc03167c70a187aed75cf51993f919b430ed0827bc163beec98887d115b04d2457da455f18f694
   languageName: node
   linkType: hard
 
@@ -1611,7 +1677,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv@npm:^8.0.0, ajv@npm:^8.17.1":
+"ajv@npm:8.20.0, ajv@npm:^8.0.0, ajv@npm:^8.17.1":
   version: 8.20.0
   resolution: "ajv@npm:8.20.0"
   dependencies:
@@ -2040,7 +2106,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-spawn@npm:^7.0.5, cross-spawn@npm:^7.0.6":
+"cross-spawn@npm:7.0.6, cross-spawn@npm:^7.0.5, cross-spawn@npm:^7.0.6":
   version: 7.0.6
   resolution: "cross-spawn@npm:7.0.6"
   dependencies:
@@ -4148,6 +4214,13 @@ __metadata:
   version: 1.9.0
   resolution: "smol-toml@npm:1.9.0"
   checksum: 10c0/9a15a7560e15d050961f12cffab502f8b42af9d9e4713218181d10d3bda5e0265c4c81a92d6877e7d4e73145fc44d7fbc7cce997d9317b855fea974fc3bbc238
+  languageName: node
+  linkType: hard
+
+"smol-toml@npm:1.9.1":
+  version: 1.9.1
+  resolution: "smol-toml@npm:1.9.1"
+  checksum: 10c0/8acccf7bbc063f29405f58f5014ab39bf4eb9d7f0e000e5e3f140f7d4d6ead5696681a7c15260d1f2910213012c0af43b31a05bf94f704b0bdf39989fba08c02
   languageName: node
   linkType: hard
 

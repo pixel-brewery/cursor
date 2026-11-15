@@ -3,12 +3,7 @@ import { mkdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { ChatMessageElement } from '@pixel-brewery/mosaik-elements-foundation';
-import {
-    _electron as electron,
-    type Locator,
-    type Page,
-    type WebSocketRoute,
-} from 'playwright';
+import { _electron as electron, type Locator, type Page, type WebSocketRoute } from 'playwright';
 import {
     expect,
     live,
@@ -18,6 +13,7 @@ import {
     test,
     unrelatedPrompt,
 } from './reference.fixture.js';
+import { createNativeCliFixture } from './nativeCli.fixture.js';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const localHuman = '[data-cursor-kind="human"][data-cursor-local]';
@@ -202,13 +198,15 @@ test('Electron and a reduced-motion browser share target positions and each acts
     browser,
     reference,
 }) => {
-    const desktopApp = await electron.launch({
-        args: [root],
-        env: { ...process.env, CURSOR_REFERENCE_PORT: String(reference.port) },
-        timeout: 30_000,
-    });
+    const fixture = await createNativeCliFixture();
+    let desktopApp: Awaited<ReturnType<typeof electron.launch>> | undefined;
     const errors: string[] = [];
     try {
+        desktopApp = await electron.launch({
+            args: [root, `--user-data-dir=${fixture.dataDirectory}`],
+            env: { ...fixture.env, CURSOR_REFERENCE_PORT: String(reference.port) },
+            timeout: 30_000,
+        });
         const desktop = await desktopApp.firstWindow();
         const web = await browser.newPage({
             viewport: { width: 580, height: 690 },
@@ -218,6 +216,26 @@ test('Electron and a reduced-motion browser share target positions and each acts
         observe(web, errors);
         await web.goto(reference.origin);
         await Promise.all([expectParticipants(web, 2), expectParticipants(desktop, 2)]);
+        await expect(web.getByTestId('config-open')).toBeHidden();
+        await expect(chatInput(desktop)).toBeDisabled();
+        await desktop.getByTestId('config-provider').locator('button').click();
+        await desktop.getByTestId('config-provider-codex').click();
+        await desktop.getByTestId('config-save').locator('button').click();
+        await expect(desktop.getByTestId('config-status')).toHaveAttribute(
+            'data-status',
+            'signed-out',
+        );
+        await expect(chatInput(desktop)).toBeDisabled();
+        await desktop.getByTestId('config-login-method').locator('button').click();
+        await desktop.getByTestId('config-login-method-chatgpt-browser').click();
+        await desktop.getByTestId('config-login').locator('button').click();
+        await expect(desktop.getByTestId('config-login-open')).toBeVisible();
+        await takeScreenshot(desktop, 'electron-connection.png');
+        await fixture.completeLogin();
+        await expect(desktop.getByTestId('config-status')).toHaveAttribute('data-status', 'ready');
+        await expect(chatInput(desktop)).toBeEnabled();
+        await desktop.getByTestId('config-open').locator('button').click();
+        await expect(desktop.getByTestId('config-panel')).toBeHidden();
 
         await test.step('Project the Electron pointer to the browser control', async () => {
             await moveInside(web);
@@ -248,15 +266,14 @@ test('Electron and a reduced-motion browser share target positions and each acts
             await expect(remote).toHaveCount(0);
         });
         if (reference.completions)
-            expect(reference.completions.prompts).toEqual([
-                showPrompt,
-                openPrompt,
-                showPrompt,
-                openPrompt,
-            ]);
+            expect(reference.completions.prompts).toEqual([showPrompt, openPrompt]);
         expect(errors).toEqual([]);
     } finally {
-        await desktopApp.close();
+        try {
+            await desktopApp?.close();
+        } finally {
+            await fixture.close();
+        }
     }
 });
 
@@ -290,11 +307,7 @@ test('cancelling an in-flight chat request aborts the model connection and keeps
     await sendChat(page, openPrompt, true);
     await expect.poll(() => reference.completions?.prompts).toEqual([showPrompt, openPrompt]);
     await pending.started;
-    await page
-        .getByTestId('assistant-input')
-        .locator('[part="stop"]')
-        .locator('button')
-        .click();
+    await page.getByTestId('assistant-input').locator('[part="stop"]').locator('button').click();
 
     await expect.poll(() => disconnected).toBe(true);
     await expect(page.getByTestId('assistant-status')).toHaveAttribute(
@@ -339,9 +352,7 @@ test('a disconnected browser clears stale pointers and can use chat after rejoin
         reconnect = resume.promise;
         await active.close({ code: 4001 });
         await expectParticipants(peer, 1);
-        await expect(page.getByTestId('connection-status')).not.toHaveAttribute(
-            'data-connected',
-        );
+        await expect(page.getByTestId('connection-status')).not.toHaveAttribute('data-connected');
         await expect(page.locator(assistant)).toHaveCount(0);
         await expect(page.getByTestId('assistant-input')).toHaveAttribute('disabled', '');
         await expect(peer.locator(remoteHuman)).toHaveCount(0);

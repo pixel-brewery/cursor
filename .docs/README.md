@@ -9,7 +9,7 @@ Cursor is Pixel Brewery’s TypeScript SDK for visible human and AI pointers in 
 | Attach Cursor to a product or framework           | [Host integration](guides/integrate-cursor.md)         |
 | Run the test projects and verify coverage         | [Testing guide](guides/testing.md)                     |
 | Update package contracts and API documentation    | [API documentation guide](guides/api-documentation.md) |
-| Run the chat with a local model                   | [Reference chat](guides/reference-chat.md)             |
+| Connect the reference chat                        | [Reference chat](guides/reference-chat.md)             |
 | Prepare a coding agent to work in this repository | [Repository instructions](../AGENTS.md)                |
 | Inspect the shared MCP definition                 | [Mosaik catalog registry](../.vscode/mcp.json)         |
 
@@ -53,4 +53,4 @@ yarn docs:check
 
 The [testing guide](guides/testing.md) lists the framework and demo Playwright commands, supported renderers, model fixture and live model setup.
 
-To use the reference view interactively, [start a local language model](guides/reference-chat.md) and run `yarn demo:web` or `yarn demo:electron`. The browser entry point is [the loopback URL](http://127.0.0.1:4317/). Host applications supply their own authenticated transport and action authorization.
+To use the reference view interactively, [start the browser model](guides/reference-chat.md#start-the-browser-model) for `yarn demo:web` or [configure a local CLI connection](guides/reference-chat.md#configure-a-local-connection-in-electron) in `yarn demo:electron`. The browser entry point is [the loopback URL](http://127.0.0.1:4317/). Host applications supply their own authenticated transport and action authorization.

@@ -49,6 +49,32 @@ p {
     margin-bottom: calc(var(--mosaik-layout-space) * 3);
 }
 
+.desktop-connection,
+.connection-fields {
+    display: grid;
+    gap: var(--mosaik-layout-space);
+}
+
+.desktop-connection {
+    margin-bottom: calc(var(--mosaik-layout-space) * 3);
+}
+
+.connection-fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: end;
+}
+
+.connection-fields-wide {
+    grid-column: 1 / -1;
+}
+
+.connection-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--mosaik-layout-space);
+}
+
 .surface {
     position: relative;
     display: grid;
@@ -75,7 +101,8 @@ p {
 }
 
 @media (max-width: 700px) {
-    .surface {
+    .surface,
+    .connection-fields {
         grid-template-columns: minmax(0, 1fr);
     }
 
