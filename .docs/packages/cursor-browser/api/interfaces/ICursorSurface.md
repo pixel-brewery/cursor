@@ -22,6 +22,39 @@ have no effect. The caller continues to own the controller.
 
 ***
 
+### guideTo()
+
+> **guideTo**(`element`, `signal`): `Promise`\<`boolean`\>
+
+Moves the assistant pointer to a live element in this surface's composed tree.
+
+#### Parameters
+
+##### element
+
+`HTMLElement`
+
+The rendered element for the next step of a guided interaction.
+
+##### signal
+
+`AbortSignal`
+
+The signal from the guided action that owns the interaction.
+
+#### Returns
+
+`Promise`\<`boolean`\>
+
+Whether the pointer arrived at the element.
+
+#### Remarks
+
+The pointer stays at the element until it becomes hidden, guidance is
+cancelled or another presentation starts. This method does not activate the element.
+
+***
+
 ### registerTarget()
 
 > **registerTarget**(`id`, `element`): () => `void`

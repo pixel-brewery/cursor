@@ -58,6 +58,10 @@ export async function generateReference(root: string, mode: 'write' | 'check'): 
                 a.localeCompare(b),
             )) {
                 if (subpath === './package.json') continue;
+                // Generated components share the accessor API documented at the package root.
+                if (subpath === './components/*' &&
+                    targets.types === './dist/generated/*.d.ts' &&
+                    (targets.import ?? targets.default) === './dist/generated/*.js') continue;
                 if (subpath !== '.' && !/^\.\/[\w-]+(?:\/[\w-]+)*$/.test(subpath)) {
                     throw new Error(
                         `Expected a literal SDK subpath in ${manifest.name}: ${subpath}`,

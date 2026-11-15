@@ -86,7 +86,7 @@
               },
               "type": {
                 "type": "reference",
-                "target": 13,
+                "target": 17,
                 "name": "ICursorSurfaceOptions",
                 "package": "@pixel-brewery/cursor-browser"
               }
@@ -102,7 +102,7 @@
       ]
     },
     {
-      "id": 18,
+      "id": 22,
       "name": "cursorPalette",
       "variant": "declaration",
       "kind": 32,
@@ -140,14 +140,14 @@
       "type": {
         "type": "reflection",
         "declaration": {
-          "id": 19,
+          "id": 23,
           "name": "__type",
           "variant": "declaration",
           "kind": 65536,
           "flags": {},
           "children": [
             {
-              "id": 20,
+              "id": 24,
               "name": "blue",
               "variant": "declaration",
               "kind": 1024,
@@ -169,7 +169,7 @@
               "defaultValue": "'#1770ef'"
             },
             {
-              "id": 24,
+              "id": 28,
               "name": "cyan",
               "variant": "declaration",
               "kind": 1024,
@@ -191,7 +191,7 @@
               "defaultValue": "'#7cd4fd'"
             },
             {
-              "id": 21,
+              "id": 25,
               "name": "green",
               "variant": "declaration",
               "kind": 1024,
@@ -213,7 +213,7 @@
               "defaultValue": "'#019855'"
             },
             {
-              "id": 22,
+              "id": 26,
               "name": "orange",
               "variant": "declaration",
               "kind": 1024,
@@ -235,7 +235,7 @@
               "defaultValue": "'#dc6903'"
             },
             {
-              "id": 23,
+              "id": 27,
               "name": "pink",
               "variant": "declaration",
               "kind": 1024,
@@ -261,11 +261,11 @@
             {
               "title": "Properties",
               "children": [
-                20,
                 24,
-                21,
-                22,
-                23
+                28,
+                25,
+                26,
+                27
               ]
             }
           ]
@@ -291,7 +291,7 @@
       },
       "children": [
         {
-          "id": 11,
+          "id": 15,
           "name": "dispose",
           "variant": "declaration",
           "kind": 2048,
@@ -300,7 +300,7 @@
           },
           "signatures": [
             {
-              "id": 12,
+              "id": 16,
               "name": "dispose",
               "variant": "signature",
               "kind": 4096,
@@ -329,6 +329,122 @@
               "type": {
                 "type": "intrinsic",
                 "name": "void"
+              }
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "name": "guideTo",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {
+            "isPublic": true
+          },
+          "signatures": [
+            {
+              "id": 12,
+              "name": "guideTo",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {
+                "isPublic": true
+              },
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Moves the assistant pointer to a live element in this surface's composed tree."
+                  }
+                ],
+                "blockTags": [
+                  {
+                    "tag": "@returns",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "Whether the pointer arrived at the element."
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "@remarks",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "The pointer stays at the element until it becomes hidden, guidance is\ncancelled or another presentation starts. This method does not activate the element."
+                      }
+                    ]
+                  }
+                ]
+              },
+              "parameters": [
+                {
+                  "id": 13,
+                  "name": "element",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "The rendered element for the next step of a guided interaction."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "typescript",
+                      "packagePath": "lib/lib.dom.d.ts",
+                      "qualifiedName": "HTMLElement"
+                    },
+                    "name": "HTMLElement",
+                    "package": "typescript"
+                  }
+                },
+                {
+                  "id": 14,
+                  "name": "signal",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "The signal from the guided action that owns the interaction."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "typescript",
+                      "packagePath": "lib/lib.dom.d.ts",
+                      "qualifiedName": "AbortSignal"
+                    },
+                    "name": "AbortSignal",
+                    "package": "typescript"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "typescript",
+                  "packagePath": "lib/lib.es5.d.ts",
+                  "qualifiedName": "Promise"
+                },
+                "typeArguments": [
+                  {
+                    "type": "intrinsic",
+                    "name": "boolean"
+                  }
+                ],
+                "name": "Promise",
+                "package": "typescript"
               }
             }
           ]
@@ -455,6 +571,7 @@
         {
           "title": "Methods",
           "children": [
+            15,
             11,
             5
           ]
@@ -462,7 +579,7 @@
       ]
     },
     {
-      "id": 13,
+      "id": 17,
       "name": "ICursorSurfaceOptions",
       "variant": "declaration",
       "kind": 256,
@@ -479,7 +596,7 @@
       },
       "children": [
         {
-          "id": 17,
+          "id": 21,
           "name": "allowSurfaceProjection",
           "variant": "declaration",
           "kind": 1024,
@@ -512,7 +629,7 @@
           }
         },
         {
-          "id": 15,
+          "id": 19,
           "name": "controller",
           "variant": "declaration",
           "kind": 1024,
@@ -539,7 +656,7 @@
           }
         },
         {
-          "id": 16,
+          "id": 20,
           "name": "showLocalPointer",
           "variant": "declaration",
           "kind": 1024,
@@ -572,7 +689,7 @@
           }
         },
         {
-          "id": 14,
+          "id": 18,
           "name": "surface",
           "variant": "declaration",
           "kind": 1024,
@@ -651,10 +768,10 @@
         {
           "title": "Properties",
           "children": [
-            17,
-            15,
-            16,
-            14
+            21,
+            19,
+            20,
+            18
           ]
         }
       ]
@@ -665,13 +782,13 @@
       "title": "Interfaces",
       "children": [
         4,
-        13
+        17
       ]
     },
     {
       "title": "Variables",
       "children": [
-        18
+        22
       ]
     },
     {
@@ -741,69 +858,89 @@
     "11": {
       "packageName": "@pixel-brewery/cursor-browser",
       "packagePath": "src/interfaces/ICursorSurface.ts",
-      "qualifiedName": "ICursorSurface.dispose"
+      "qualifiedName": "ICursorSurface.guideTo"
     },
     "12": {
       "packageName": "@pixel-brewery/cursor-browser",
       "packagePath": "src/interfaces/ICursorSurface.ts",
-      "qualifiedName": "ICursorSurface.dispose"
+      "qualifiedName": "ICursorSurface.guideTo"
     },
     "13": {
       "packageName": "@pixel-brewery/cursor-browser",
-      "packagePath": "src/interfaces/ICursorSurfaceOptions.ts",
-      "qualifiedName": "ICursorSurfaceOptions"
+      "packagePath": "src/interfaces/ICursorSurface.ts",
+      "qualifiedName": "element"
     },
     "14": {
       "packageName": "@pixel-brewery/cursor-browser",
-      "packagePath": "src/interfaces/ICursorSurfaceOptions.ts",
-      "qualifiedName": "ICursorSurfaceOptions.surface"
+      "packagePath": "src/interfaces/ICursorSurface.ts",
+      "qualifiedName": "signal"
     },
     "15": {
       "packageName": "@pixel-brewery/cursor-browser",
-      "packagePath": "src/interfaces/ICursorSurfaceOptions.ts",
-      "qualifiedName": "ICursorSurfaceOptions.controller"
+      "packagePath": "src/interfaces/ICursorSurface.ts",
+      "qualifiedName": "ICursorSurface.dispose"
     },
     "16": {
       "packageName": "@pixel-brewery/cursor-browser",
-      "packagePath": "src/interfaces/ICursorSurfaceOptions.ts",
-      "qualifiedName": "ICursorSurfaceOptions.showLocalPointer"
+      "packagePath": "src/interfaces/ICursorSurface.ts",
+      "qualifiedName": "ICursorSurface.dispose"
     },
     "17": {
       "packageName": "@pixel-brewery/cursor-browser",
       "packagePath": "src/interfaces/ICursorSurfaceOptions.ts",
-      "qualifiedName": "ICursorSurfaceOptions.allowSurfaceProjection"
+      "qualifiedName": "ICursorSurfaceOptions"
     },
     "18": {
       "packageName": "@pixel-brewery/cursor-browser",
-      "packagePath": "src/models/cursorPalette.ts",
-      "qualifiedName": "cursorPalette"
+      "packagePath": "src/interfaces/ICursorSurfaceOptions.ts",
+      "qualifiedName": "ICursorSurfaceOptions.surface"
     },
     "19": {
       "packageName": "@pixel-brewery/cursor-browser",
-      "packagePath": "src/models/cursorPalette.ts",
-      "qualifiedName": "__object"
+      "packagePath": "src/interfaces/ICursorSurfaceOptions.ts",
+      "qualifiedName": "ICursorSurfaceOptions.controller"
     },
     "20": {
       "packageName": "@pixel-brewery/cursor-browser",
-      "packagePath": "src/models/cursorPalette.ts",
-      "qualifiedName": "__object.blue"
+      "packagePath": "src/interfaces/ICursorSurfaceOptions.ts",
+      "qualifiedName": "ICursorSurfaceOptions.showLocalPointer"
     },
     "21": {
       "packageName": "@pixel-brewery/cursor-browser",
-      "packagePath": "src/models/cursorPalette.ts",
-      "qualifiedName": "__object.green"
+      "packagePath": "src/interfaces/ICursorSurfaceOptions.ts",
+      "qualifiedName": "ICursorSurfaceOptions.allowSurfaceProjection"
     },
     "22": {
       "packageName": "@pixel-brewery/cursor-browser",
       "packagePath": "src/models/cursorPalette.ts",
-      "qualifiedName": "__object.orange"
+      "qualifiedName": "cursorPalette"
     },
     "23": {
       "packageName": "@pixel-brewery/cursor-browser",
       "packagePath": "src/models/cursorPalette.ts",
-      "qualifiedName": "__object.pink"
+      "qualifiedName": "__object"
     },
     "24": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/models/cursorPalette.ts",
+      "qualifiedName": "__object.blue"
+    },
+    "25": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/models/cursorPalette.ts",
+      "qualifiedName": "__object.green"
+    },
+    "26": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/models/cursorPalette.ts",
+      "qualifiedName": "__object.orange"
+    },
+    "27": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/models/cursorPalette.ts",
+      "qualifiedName": "__object.pink"
+    },
+    "28": {
       "packageName": "@pixel-brewery/cursor-browser",
       "packagePath": "src/models/cursorPalette.ts",
       "qualifiedName": "__object.cyan"

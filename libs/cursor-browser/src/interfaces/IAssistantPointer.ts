@@ -10,6 +10,6 @@ import type { ICursorPosition } from '@pixel-brewery/cursor-core';
  * @internal
  */
 export interface IAssistantPointer {
-    readonly targetId: string;
+    readonly targetId: string | undefined;
     position: ICursorPosition;
 }

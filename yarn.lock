@@ -812,6 +812,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@pixel-brewery/cursor-adapter-mosaik@workspace:^, @pixel-brewery/cursor-adapter-mosaik@workspace:libs/cursor-adapter-mosaik":
+  version: 0.0.0-use.local
+  resolution: "@pixel-brewery/cursor-adapter-mosaik@workspace:libs/cursor-adapter-mosaik"
+  dependencies:
+    "@pixel-brewery/cursor-browser": "workspace:^"
+    "@pixel-brewery/mosaik-elements-foundation": "npm:0.1.205"
+  languageName: unknown
+  linkType: soft
+
 "@pixel-brewery/cursor-angular@workspace:libs/cursor-angular":
   version: 0.0.0-use.local
   resolution: "@pixel-brewery/cursor-angular@workspace:libs/cursor-angular"
@@ -866,6 +875,7 @@ __metadata:
     "@lit-labs/virtualizer": "npm:2.1.1"
     "@lit/context": "npm:1.1.6"
     "@lit/task": "npm:1.0.3"
+    "@pixel-brewery/cursor-adapter-mosaik": "workspace:^"
     "@pixel-brewery/cursor-browser": "workspace:^"
     "@pixel-brewery/cursor-core": "workspace:^"
     "@pixel-brewery/mosaik-elements-foundation": "npm:0.1.205"

@@ -1,6 +1,8 @@
 // #region Imports
 
 import { SelectElementIntl, type ElementEvent, type SelectElement } from '@pixel-brewery/mosaik-elements-foundation';
+import { accessor as buttonAccessor } from '@pixel-brewery/cursor-adapter-mosaik/components/button';
+import { accessor as selectAccessor } from '@pixel-brewery/cursor-adapter-mosaik/components/select';
 import { attachCursorSurface } from '@pixel-brewery/cursor-browser';
 import { createCursorController, type CursorResult, type ICursorController } from '@pixel-brewery/cursor-core';
 import type { JSX, TargetedEvent } from 'preact';
@@ -75,15 +77,6 @@ export function ReferenceView(props: IReferenceViewProps): JSX.Element {
         setSettingsOpen(true);
     }, []);
 
-    const changeCursorStyle = useCallback((input: unknown) => {
-        const selection = cursorStyleChangeSchema.parse(input);
-        setStyle((current) => {
-            if (selection !== 'next') return selection;
-            const styles = cursorStyleSchema.options;
-            return styles[(styles.indexOf(current) + 1) % styles.length] ?? 'pill';
-        });
-    }, []);
-
     function selectCursorStyle(event: TargetedEvent<SelectElement, ElementEvent<SelectElement, 'changed'>>): void {
         if (event.detail.propertyName !== 'value') return;
         const select = event.currentTarget;
@@ -146,8 +139,25 @@ export function ReferenceView(props: IReferenceViewProps): JSX.Element {
                 });
                 attachment.registerTarget(settingsTarget, button);
                 attachment.registerTarget(styleTarget, select);
-                active.registerAction({ id: openSettingsAction, targetId: settingsTarget, handler: openSettings });
-                active.registerAction({ id: changeStyleAction, targetId: styleTarget, handler: changeCursorStyle });
+                const cursorSettings = buttonAccessor.bind(button);
+                const cursorSelect = selectAccessor.bind(select);
+                active.registerAction({
+                    id: openSettingsAction,
+                    targetId: settingsTarget,
+                    handler: (_input, signal) => cursorSettings.activate(attachment, signal),
+                });
+                active.registerAction({
+                    id: changeStyleAction,
+                    targetId: styleTarget,
+                    handler(input, signal) {
+                        const value = cursorStyleChangeSchema.parse(input);
+                        return cursorSelect.selectOption(
+                            attachment,
+                            value === 'next' ? { kind: 'next' } : { kind: 'value', value },
+                            signal,
+                        );
+                    },
+                });
                 controller.current = active;
                 setCursorReady(true);
 
@@ -172,7 +182,7 @@ export function ReferenceView(props: IReferenceViewProps): JSX.Element {
             release?.();
             stop();
         };
-    }, [desktop, openSettings, changeCursorStyle]);
+    }, [desktop]);
 
     const loginPending = modelState?.login?.state === 'running' || modelState?.login?.state === 'waiting';
     const modelReady = !desktop || (modelState?.status === 'ready' && !loginPending);
