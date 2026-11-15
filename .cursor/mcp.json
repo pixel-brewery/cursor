@@ -6,6 +6,13 @@
                 "exec",
                 "mosaik-mcp"
             ]
+        },
+        "nx-mcp": {
+            "command": "yarn",
+            "args": [
+                "nx",
+                "mcp"
+            ]
         }
     }
 }

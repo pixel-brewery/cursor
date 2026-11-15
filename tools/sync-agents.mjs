@@ -52,20 +52,16 @@ async function readWorkspaceText(root, name) {
 async function readSources(root) {
     const configuration = JSON.parse(await readWorkspaceText(root, '.agents/config.json'));
     const registry = JSON.parse(await readWorkspaceText(root, '.vscode/mcp.json'));
-    const server = registry.servers?.mosaik;
-
-    if (
-        !server ||
-        Object.keys(registry.servers).length !== 1 ||
-        Object.keys(server).length !== 3 ||
+    const servers = Object.entries(registry.servers ?? {});
+    const serverCommands = { mosaik: ['exec', 'mosaik-mcp'], 'nx-mcp': ['nx', 'mcp'] };
+    if (servers.length !== Object.keys(serverCommands).length || servers.some(([name, server]) =>
+        !Object.hasOwn(serverCommands, name) ||
+        Object.keys(server ?? {}).length !== 3 ||
         server.type !== 'stdio' ||
         server.command !== 'yarn' ||
-        !Array.isArray(server.args) ||
-        server.args.length !== 2 ||
-        server.args[0] !== 'exec' ||
-        server.args[1] !== 'mosaik-mcp'
-    ) {
-        throw new Error('.vscode/mcp.json must define the local Mosaik stdio catalog only.');
+        JSON.stringify(server.args) !== JSON.stringify(serverCommands[name])
+    )) {
+        throw new Error('.vscode/mcp.json must define the workspace Mosaik and Nx stdio servers.');
     }
 
     const roles = configuration.roles;
@@ -87,7 +83,16 @@ async function readSources(root) {
         await readWorkspaceText(root, `.agents/skills/${role.skill}/SKILL.md`);
     }
 
-    return { roles, server };
+    const codexSubagents = Object.entries(configuration.codexSubagents ?? {});
+    for (const [name, description] of codexSubagents) {
+        if (!/^[a-z][a-z0-9-]*$/.test(name) || roleNames.includes(name) ||
+            typeof description !== 'string' || !description.trim()) {
+            throw new Error(`Invalid Codex subagent definition: ${name}.`);
+        }
+        await readWorkspaceText(root, `.codex/agents/${name}.toml`);
+    }
+
+    return { roles, servers, codexSubagents };
 }
 
 function asJson(value) {
@@ -113,11 +118,12 @@ function agentInstructions(role) {
     return `Read and apply AGENTS.md and .agents/skills/${role.skill}/SKILL.md from the repository root. Follow the linked foundation and references before proposing changes.`;
 }
 
-function renderProjections({ roles, server }) {
-    const { command, args, type } = server;
+function renderProjections({ roles, servers, codexSubagents }) {
     const instructions = instructionsFor(roles);
     const rootGuide = `${markdownMarker}\n\n${instructions}\n`;
-    const localServer = { command, args };
+    const projectServers = (project) => Object.fromEntries(
+        servers.map(([name, server]) => [name, project(server)]),
+    );
 
     const output = new Map([
         ['CODEX.md', rootGuide],
@@ -146,32 +152,42 @@ function renderProjections({ roles, server }) {
             [
                 tomlMarker,
                 '',
-                '[mcp_servers.mosaik]',
-                `command = ${JSON.stringify(command)}`,
-                `args = ${JSON.stringify(args)}`,
-                'cwd = "."',
-                '',
+                ...servers.flatMap(([name, { command, args }]) => [
+                    `[mcp_servers.${name}]`,
+                    `command = ${JSON.stringify(command)}`,
+                    `args = ${JSON.stringify(args)}`,
+                    'cwd = "."',
+                    '',
+                ]),
+                ...codexSubagents.flatMap(([name, description]) => [
+                    `[agents.${name}]`,
+                    `description = ${JSON.stringify(description)}`,
+                    `config_file = "agents/${name}.toml"`,
+                    '',
+                ]),
             ].join('\n'),
         ],
-        ['.mcp.json', asJson({ mcpServers: { mosaik: { type, ...localServer } } })],
+        ['.mcp.json', asJson({ mcpServers: { mosaik: Object.fromEntries(servers).mosaik } })],
         [
             'opencode.json',
             asJson({
                 $schema: 'https://opencode.ai/config.json',
                 instructions: ['AGENTS.md'],
-                mcp: { mosaik: { type: 'local', command: [command, ...args], enabled: true } },
+                mcp: projectServers(({ command, args }) => ({
+                    type: 'local', command: [command, ...args], enabled: true,
+                })),
             }),
         ],
         [
             '.github/mcp.json',
-            asJson({ mcpServers: { mosaik: { type, ...localServer, tools: ['*'] } } }),
+            asJson({ mcpServers: projectServers((server) => ({ ...server, tools: ['*'] })) }),
         ],
-        ['.cursor/mcp.json', asJson({ mcpServers: { mosaik: localServer } })],
+        ['.cursor/mcp.json', asJson({ mcpServers: projectServers(({ command, args }) => ({ command, args })) })],
         [
             '.gemini/settings.json',
             asJson({
                 context: { fileName: ['AGENTS.md', 'GEMINI.md'] },
-                mcpServers: { mosaik: { ...localServer, cwd: '.' } },
+                mcpServers: projectServers(({ command, args }) => ({ command, args, cwd: '.' })),
             }),
         ],
     ]);

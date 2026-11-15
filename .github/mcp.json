@@ -10,6 +10,17 @@
             "tools": [
                 "*"
             ]
+        },
+        "nx-mcp": {
+            "type": "stdio",
+            "command": "yarn",
+            "args": [
+                "nx",
+                "mcp"
+            ],
+            "tools": [
+                "*"
+            ]
         }
     }
 }

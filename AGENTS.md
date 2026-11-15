@@ -1,6 +1,6 @@
 # Pixel Brewery Cursor agent guide
 
-Pixel Brewery Cursor is a private TypeScript workspace for rendering participant and assistant pointers and dispatching host-registered guided actions. [The implementation plan](.docs/plan.md) describes the planned runtime.
+Pixel Brewery Cursor is a TypeScript workspace for rendering participant and assistant pointers and dispatching host-registered guided actions. [The implementation plan](.docs/plan.md) describes the planned runtime.
 
 ## Required skills
 

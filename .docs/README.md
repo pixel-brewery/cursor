@@ -15,7 +15,9 @@ Cursor is Pixel Brewery’s TypeScript SDK for visible human and AI pointers in 
 
 ## Agent configuration
 
-`AGENTS.md` governs repository work. The canonical skill definitions live under `.agents/skills/`, with the upstream Architect and Designer protected by `skills-lock.json`. The local architecture skill applies to every task. The local design skill adds the Mosaik catalog workflow for UI decisions. The shared registry in `.vscode/mcp.json` starts the pinned catalog through `yarn exec mosaik-mcp`.
+`AGENTS.md` governs repository work. The canonical skill definitions live under `.agents/skills/`, with the upstream Architect and Designer protected by `skills-lock.json`. The local architecture skill applies to every task. The local design skill adds the Mosaik catalog workflow for UI decisions. The shared registry in `.vscode/mcp.json` starts the pinned Mosaik catalog and runs the Nx CLI through Yarn. Claude Code gets its Nx integration from the Nx plugin in `.claude/settings.json`.
+
+The imported Nx skills and agent configuration come from [Nx AI Agents Config](https://github.com/nrwl/nx-ai-agents-config) and retain its [MIT notice](../.agents/licenses/nx-ai-agents-config.txt).
 
 | Client         | Repository entry point                                                   |
 | -------------- | ------------------------------------------------------------------------ |
