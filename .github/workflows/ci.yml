@@ -29,7 +29,8 @@ jobs:
             - run: yarn agents:check
             - run: yarn agents:mcp-check
             - run: yarn build
-            - run: yarn nx run api-docs:typecheck
+            - run: yarn nx run cursor-adapter-mosaik:generate:check
+            - run: yarn nx run nx-tasks:typecheck
             - run: yarn docs:check
             - run: yarn test
             - name: Install test renderers

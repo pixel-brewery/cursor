@@ -812,6 +812,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@pixel-brewery/cursor-adapter-mosaik@workspace:^, @pixel-brewery/cursor-adapter-mosaik@workspace:libs/cursor-adapter-mosaik":
+  version: 0.0.0-use.local
+  resolution: "@pixel-brewery/cursor-adapter-mosaik@workspace:libs/cursor-adapter-mosaik"
+  dependencies:
+    "@pixel-brewery/cursor-browser": "workspace:^"
+    "@pixel-brewery/mosaik-elements-foundation": "npm:0.1.205"
+  languageName: unknown
+  linkType: soft
+
 "@pixel-brewery/cursor-angular@workspace:libs/cursor-angular":
   version: 0.0.0-use.local
   resolution: "@pixel-brewery/cursor-angular@workspace:libs/cursor-angular"
@@ -866,6 +875,7 @@ __metadata:
     "@lit-labs/virtualizer": "npm:2.1.1"
     "@lit/context": "npm:1.1.6"
     "@lit/task": "npm:1.0.3"
+    "@pixel-brewery/cursor-adapter-mosaik": "workspace:^"
     "@pixel-brewery/cursor-browser": "workspace:^"
     "@pixel-brewery/cursor-core": "workspace:^"
     "@pixel-brewery/mosaik-elements-foundation": "npm:0.1.205"
@@ -911,18 +921,6 @@ __metadata:
     vue: "npm:3.5.45"
   peerDependencies:
     vue: ^3.5.45
-  languageName: unknown
-  linkType: soft
-
-"@pixel-brewery/cursor-workspace-tools@workspace:tools/nx-plugins/cursor":
-  version: 0.0.0-use.local
-  resolution: "@pixel-brewery/cursor-workspace-tools@workspace:tools/nx-plugins/cursor"
-  dependencies:
-    "@nx/devkit": "npm:24.0.5"
-    nx: "npm:24.0.5"
-    typedoc: "npm:0.28.20"
-    typedoc-plugin-markdown: "npm:4.14.1"
-    typescript: "npm:6.0.3"
   languageName: unknown
   linkType: soft
 
@@ -1059,6 +1057,18 @@ __metadata:
   checksum: 10c0/c6578513b568f5804c57e918ce9a65cfd52c67bd00ff30b5462cbdd1492c6088f1b68c657303580ae2109b343dd029ab959dc132a5b953f61a98ef037e70dd18
   languageName: node
   linkType: hard
+
+"@pixel-brewery/nx-tasks@workspace:infra/nx-tasks":
+  version: 0.0.0-use.local
+  resolution: "@pixel-brewery/nx-tasks@workspace:infra/nx-tasks"
+  dependencies:
+    "@nx/devkit": "npm:24.0.5"
+    nx: "npm:24.0.5"
+    typedoc: "npm:0.28.20"
+    typedoc-plugin-markdown: "npm:4.14.1"
+    typescript: "npm:6.0.3"
+  languageName: unknown
+  linkType: soft
 
 "@pixel-brewery/synapse-auth@npm:0.0.16":
   version: 0.0.16

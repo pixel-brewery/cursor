@@ -9,11 +9,261 @@
     "summary": [
       {
         "kind": "text",
-        "text": "React hooks for attaching a Cursor surface and registering committed elements."
+        "text": "React configuration and hooks for attaching a Cursor surface and registering targets."
       }
     ]
   },
   "children": [
+    {
+      "id": 10,
+      "name": "CursorProvider",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {
+        "isPublic": true
+      },
+      "signatures": [
+        {
+          "id": 11,
+          "name": "CursorProvider",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {
+            "isPublic": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Shares a Cursor accessor registry with the React subtree."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@returns",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "The descendant content within the registry context."
+                  }
+                ]
+              }
+            ]
+          },
+          "parameters": [
+            {
+              "id": 12,
+              "name": "props",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Cursor features and descendant content. The registry starts empty without features."
+                  }
+                ]
+              },
+              "type": {
+                "type": "reference",
+                "target": 13,
+                "name": "ICursorProviderProps",
+                "package": "@pixel-brewery/cursor-react"
+              }
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "@types/react",
+              "packagePath": "index.d.ts",
+              "qualifiedName": "React.ReactNode"
+            },
+            "name": "ReactNode",
+            "package": "@types/react",
+            "qualifiedName": "React.ReactNode"
+          }
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "name": "ICursorProviderProps",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {
+        "isPublic": true
+      },
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Configuration and content for a React Cursor scope."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 15,
+          "name": "children",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true,
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Content that can access the configured registry."
+              }
+            ]
+          },
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "@types/react",
+              "packagePath": "index.d.ts",
+              "qualifiedName": "React.ReactNode"
+            },
+            "name": "ReactNode",
+            "package": "@types/react",
+            "qualifiedName": "React.ReactNode"
+          }
+        },
+        {
+          "id": 14,
+          "name": "features",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true,
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Features that supply the accessor classes used by this scope."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@remarks",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "Keep the array reference stable to reuse the registry across renders."
+                  }
+                ]
+              }
+            ]
+          },
+          "type": {
+            "type": "typeOperator",
+            "operator": "readonly",
+            "target": {
+              "type": "array",
+              "elementType": {
+                "type": "reference",
+                "target": {
+                  "packageName": "@pixel-brewery/cursor-browser",
+                  "packagePath": "src/interfaces/ICursorFeature.ts",
+                  "qualifiedName": "ICursorFeature"
+                },
+                "name": "ICursorFeature",
+                "package": "@pixel-brewery/cursor-browser"
+              }
+            }
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            15,
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "name": "useCursorAccessorRegistry",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {
+        "isPublic": true
+      },
+      "signatures": [
+        {
+          "id": 17,
+          "name": "useCursorAccessorRegistry",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {
+            "isPublic": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Reads the accessor registry from the nearest "
+              },
+              {
+                "kind": "code",
+                "text": "`CursorProvider`"
+              },
+              {
+                "kind": "text",
+                "text": "."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@returns",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "The registry for the current Cursor scope."
+                  }
+                ]
+              },
+              {
+                "tag": "@throws",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "If the calling component has no ancestor "
+                  },
+                  {
+                    "kind": "code",
+                    "text": "`CursorProvider`"
+                  },
+                  {
+                    "kind": "text",
+                    "text": "."
+                  }
+                ]
+              }
+            ]
+          },
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "@pixel-brewery/cursor-browser",
+              "packagePath": "src/services/CursorAccessorRegistry.ts",
+              "qualifiedName": "CursorAccessorRegistry"
+            },
+            "name": "CursorAccessorRegistry",
+            "package": "@pixel-brewery/cursor-browser"
+          }
+        }
+      ]
+    },
     {
       "id": 1,
       "name": "useCursorSurface",
@@ -289,14 +539,120 @@
           }
         }
       ]
+    },
+    {
+      "id": 18,
+      "name": "withCursorAccessors",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {
+        "isPublic": true
+      },
+      "signatures": [
+        {
+          "id": 19,
+          "name": "withCursorAccessors",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {
+            "isPublic": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Selects the accessor classes to register in a Cursor application."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@returns",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "A feature accepted by a Cursor registry or framework provider."
+                  }
+                ]
+              }
+            ]
+          },
+          "parameters": [
+            {
+              "id": 20,
+              "name": "accessors",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {
+                "isRest": true
+              },
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "The individual accessor classes imported by the application."
+                  }
+                ]
+              },
+              "type": {
+                "type": "typeOperator",
+                "operator": "readonly",
+                "target": {
+                  "type": "array",
+                  "elementType": {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "@pixel-brewery/cursor-browser",
+                      "packagePath": "src/interfaces/ICursorAccessorClass.ts",
+                      "qualifiedName": "ICursorAccessorClass"
+                    },
+                    "typeArguments": [
+                      {
+                        "type": "reference",
+                        "target": {
+                          "packageName": "@pixel-brewery/cursor-browser",
+                          "packagePath": "src/interfaces/ICursorElementAccessor.ts",
+                          "qualifiedName": "ICursorElementAccessor"
+                        },
+                        "name": "ICursorElementAccessor",
+                        "package": "@pixel-brewery/cursor-browser"
+                      }
+                    ],
+                    "name": "ICursorAccessorClass",
+                    "package": "@pixel-brewery/cursor-browser"
+                  }
+                }
+              }
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "@pixel-brewery/cursor-browser",
+              "packagePath": "src/interfaces/ICursorFeature.ts",
+              "qualifiedName": "ICursorFeature"
+            },
+            "name": "ICursorFeature",
+            "package": "@pixel-brewery/cursor-browser"
+          }
+        }
+      ]
     }
   ],
   "groups": [
     {
+      "title": "Interfaces",
+      "children": [
+        13
+      ]
+    },
+    {
       "title": "Functions",
       "children": [
+        10,
+        16,
         1,
-        5
+        5,
+        18
       ]
     }
   ],
@@ -351,6 +707,61 @@
       "packageName": "@pixel-brewery/cursor-react",
       "packagePath": "src/hooks/useCursorTarget.ts",
       "qualifiedName": "element"
+    },
+    "10": {
+      "packageName": "@pixel-brewery/cursor-react",
+      "packagePath": "src/providers/CursorProvider.ts",
+      "qualifiedName": "CursorProvider"
+    },
+    "11": {
+      "packageName": "@pixel-brewery/cursor-react",
+      "packagePath": "src/providers/CursorProvider.ts",
+      "qualifiedName": "CursorProvider"
+    },
+    "12": {
+      "packageName": "@pixel-brewery/cursor-react",
+      "packagePath": "src/providers/CursorProvider.ts",
+      "qualifiedName": "__0"
+    },
+    "13": {
+      "packageName": "@pixel-brewery/cursor-react",
+      "packagePath": "src/providers/ICursorProviderProps.ts",
+      "qualifiedName": "ICursorProviderProps"
+    },
+    "14": {
+      "packageName": "@pixel-brewery/cursor-react",
+      "packagePath": "src/providers/ICursorProviderProps.ts",
+      "qualifiedName": "ICursorProviderProps.features"
+    },
+    "15": {
+      "packageName": "@pixel-brewery/cursor-react",
+      "packagePath": "src/providers/ICursorProviderProps.ts",
+      "qualifiedName": "ICursorProviderProps.children"
+    },
+    "16": {
+      "packageName": "@pixel-brewery/cursor-react",
+      "packagePath": "src/hooks/useCursorAccessorRegistry.ts",
+      "qualifiedName": "useCursorAccessorRegistry"
+    },
+    "17": {
+      "packageName": "@pixel-brewery/cursor-react",
+      "packagePath": "src/hooks/useCursorAccessorRegistry.ts",
+      "qualifiedName": "useCursorAccessorRegistry"
+    },
+    "18": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/withCursorAccessors.ts",
+      "qualifiedName": "withCursorAccessors"
+    },
+    "19": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/withCursorAccessors.ts",
+      "qualifiedName": "withCursorAccessors"
+    },
+    "20": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/withCursorAccessors.ts",
+      "qualifiedName": "accessors"
     }
   },
   "files": {

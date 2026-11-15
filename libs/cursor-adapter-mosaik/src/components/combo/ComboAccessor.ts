@@ -1,0 +1,112 @@
+// Generated from the Mosaik Custom Elements Manifest. Edit the Nx executor instead.
+
+// #region Imports
+
+import { Accessor } from '../../cdk/accessors/Accessor.js';
+import { ElementAccessor } from '../../cdk/accessors/ElementAccessor.js';
+
+// #endregion
+
+/**
+ * Cursor accessor for the `mosaik-combo` Web Component.
+ *
+ * @public
+ */
+@Accessor({
+    tagName: 'mosaik-combo',
+    properties: [
+        'appearance',
+        'changed',
+        'cleared',
+        'connected',
+        'controlValue',
+        'dir',
+        'disabled',
+        'disconnected',
+        'dropDownDistance',
+        'dropDownHeight',
+        'dropDownMaxHeight',
+        'dropDownMaxWidth',
+        'dropDownPlacement',
+        'dropDownSkidding',
+        'dropDownStaysOpen',
+        'dropDownStrategy',
+        'dropDownWidth',
+        'hasItems',
+        'intl',
+        'invalid',
+        'isClearable',
+        'isDropDownOpen',
+        'items',
+        'itemsChanged',
+        'label',
+        'lang',
+        'placeholder',
+        'required',
+        'selectedIndex',
+        'selectedItem',
+        'selectedItems',
+        'selectionChanged',
+        'selectionMode',
+        'showScrollButtons',
+        'showScrollbar',
+        'size',
+        'textAlign',
+        'themeName',
+        'value',
+        'variant',
+        'virtualized',
+    ],
+    readOnlyProperties: [
+        'changed',
+        'cleared',
+        'connected',
+        'controlValue',
+        'disconnected',
+        'hasItems',
+        'items',
+        'itemsChanged',
+        'selectedIndex',
+        'selectedItem',
+        'selectedItems',
+        'selectionChanged',
+    ],
+    methods: [
+        'addEventListener',
+        'adoptStyle',
+        'assignToSlot',
+        'checkValidity',
+        'clear',
+        'close',
+        'deselect',
+        'emit',
+        'getScrollableElement',
+        'getSlotAssignments',
+        'getSlotAssignmentsOf',
+        'getSlotContent',
+        'hasSlot',
+        'hasSlotContent',
+        'off',
+        'on',
+        'onSlotChanges',
+        'open',
+        'requestUpdate',
+        'reset',
+        'resetSelection',
+        'select',
+        'selectFirst',
+        'selectLast',
+        'selectNext',
+        'selectPrevious',
+        'toggle',
+    ],
+    events: [
+        'changed',
+        'cleared',
+        'connected',
+        'disconnected',
+        'itemsChanged',
+        'selectionChanged',
+    ],
+})
+export class ComboAccessor extends ElementAccessor {}

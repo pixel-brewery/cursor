@@ -19,6 +19,7 @@ export class PointerOverlay {
 
     private readonly _element: HTMLElement;
     private readonly _markers = new Map<string, IPointerMarker>();
+    private _assistantLayer: HTMLElement | undefined;
     private _style: keyof typeof pointerStyles = 'pill';
 
     // #endregion
@@ -81,17 +82,23 @@ export class PointerOverlay {
      *
      * @param key - The marker key scoped to this overlay.
      * @param visual - The projected marker appearance and position.
+     * @param topLayer - Whether the assistant must appear over a popover or modal dialog.
      *
      * @internal
      */
-    public paint(key: string, visual: IPointerVisual): void {
+    public paint(key: string, visual: IPointerVisual, topLayer = false): void {
         let marker = this._markers.get(key);
         if (!marker) {
             marker = this.createMarker();
             this._markers.set(key, marker);
-            this._element.append(marker.root);
         }
 
+        const container =
+            key === 'assistant' && topLayer
+                ? (this.attachAssistantLayer() ?? this._element)
+                : this._element;
+        if (marker.root.parentElement !== container) container.append(marker.root);
+        if (key === 'assistant' && !topLayer) this.removeAssistantLayer();
         this.updateMarker(marker, visual);
     }
 
@@ -105,6 +112,7 @@ export class PointerOverlay {
     public remove(key: string): void {
         this._markers.get(key)?.root.remove();
         this._markers.delete(key);
+        if (key === 'assistant') this.removeAssistantLayer();
     }
 
     /**
@@ -127,7 +135,38 @@ export class PointerOverlay {
      */
     public dispose(): void {
         this._markers.clear();
+        this.removeAssistantLayer();
         this._element.remove();
+    }
+
+    private attachAssistantLayer(): HTMLElement | undefined {
+        if (this._assistantLayer) return this._assistantLayer;
+        const layer = this._document.createElement('div');
+        if (typeof layer.showPopover !== 'function') return undefined;
+
+        layer.popover = 'manual';
+        layer.inert = true;
+        Object.assign(layer.style, {
+            position: 'fixed',
+            inset: '0',
+            width: 'auto',
+            height: 'auto',
+            margin: '0',
+            border: '0',
+            padding: '0',
+            background: 'transparent',
+            overflow: 'hidden',
+            pointerEvents: 'none',
+        });
+        this._element.append(layer);
+        layer.showPopover();
+        this._assistantLayer = layer;
+        return layer;
+    }
+
+    private removeAssistantLayer(): void {
+        this._assistantLayer?.remove();
+        this._assistantLayer = undefined;
     }
 
     /**
@@ -238,6 +277,7 @@ export class PointerOverlay {
         root.dataset.cursorKind = visual.kind;
         root.toggleAttribute('data-cursor-local', visual.local === true);
         root.toggleAttribute('data-cursor-arrived', visual.arrived === true);
+        root.toggleAttribute('data-cursor-guided-element', visual.guided === true);
         if (visual.targetId === undefined) {
             delete root.dataset.cursorTarget;
         } else {

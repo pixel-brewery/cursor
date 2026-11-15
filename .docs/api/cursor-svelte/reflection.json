@@ -9,13 +9,13 @@
     "summary": [
       {
         "kind": "text",
-        "text": "Svelte actions for attaching a Cursor surface and registering rendered targets."
+        "text": "Svelte context and actions for configuring Cursor and registering rendered targets."
       }
     ]
   },
   "children": [
     {
-      "id": 12,
+      "id": 15,
       "name": "cursorSurface",
       "variant": "declaration",
       "kind": 32,
@@ -78,7 +78,7 @@
           },
           {
             "type": "reference",
-            "target": 1,
+            "target": 4,
             "name": "ICursorBindingOptions",
             "package": "@pixel-brewery/cursor-svelte"
           }
@@ -90,7 +90,7 @@
       "defaultValue": "..."
     },
     {
-      "id": 13,
+      "id": 16,
       "name": "cursorTarget",
       "variant": "declaration",
       "kind": 32,
@@ -137,7 +137,7 @@
           },
           {
             "type": "reference",
-            "target": 9,
+            "target": 12,
             "name": "ICursorTargetOptions",
             "package": "@pixel-brewery/cursor-svelte"
           }
@@ -149,7 +149,7 @@
       "defaultValue": "..."
     },
     {
-      "id": 1,
+      "id": 4,
       "name": "ICursorBindingOptions",
       "variant": "declaration",
       "kind": 256,
@@ -193,7 +193,7 @@
       },
       "children": [
         {
-          "id": 8,
+          "id": 11,
           "name": "allowSurfaceProjection",
           "variant": "declaration",
           "kind": 1024,
@@ -233,7 +233,7 @@
           }
         },
         {
-          "id": 6,
+          "id": 9,
           "name": "controller",
           "variant": "declaration",
           "kind": 1024,
@@ -267,7 +267,7 @@
           }
         },
         {
-          "id": 2,
+          "id": 5,
           "name": "onAttachment",
           "variant": "declaration",
           "kind": 1024,
@@ -293,21 +293,21 @@
           "type": {
             "type": "reflection",
             "declaration": {
-              "id": 3,
+              "id": 6,
               "name": "__type",
               "variant": "declaration",
               "kind": 65536,
               "flags": {},
               "signatures": [
                 {
-                  "id": 4,
+                  "id": 7,
                   "name": "__type",
                   "variant": "signature",
                   "kind": 4096,
                   "flags": {},
                   "parameters": [
                     {
-                      "id": 5,
+                      "id": 8,
                       "name": "attachment",
                       "variant": "param",
                       "kind": 32768,
@@ -359,7 +359,7 @@
           }
         },
         {
-          "id": 7,
+          "id": 10,
           "name": "showLocalPointer",
           "variant": "declaration",
           "kind": 1024,
@@ -403,10 +403,10 @@
         {
           "title": "Properties",
           "children": [
-            8,
-            6,
-            2,
-            7
+            11,
+            9,
+            5,
+            10
           ]
         }
       ],
@@ -440,7 +440,7 @@
       ]
     },
     {
-      "id": 9,
+      "id": 12,
       "name": "ICursorTargetOptions",
       "variant": "declaration",
       "kind": 256,
@@ -457,7 +457,7 @@
       },
       "children": [
         {
-          "id": 10,
+          "id": 13,
           "name": "surface",
           "variant": "declaration",
           "kind": 1024,
@@ -493,7 +493,7 @@
           }
         },
         {
-          "id": 11,
+          "id": 14,
           "name": "targetId",
           "variant": "declaration",
           "kind": 1024,
@@ -518,9 +518,249 @@
         {
           "title": "Properties",
           "children": [
-            10,
-            11
+            13,
+            14
           ]
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "name": "provideCursor",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {
+        "isPublic": true
+      },
+      "signatures": [
+        {
+          "id": 18,
+          "name": "provideCursor",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {
+            "isPublic": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Configures the accessor registry shared by the current Svelte component's descendants.\nCall during component initialization with the features for this subtree."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@returns",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "The registry provided to the subtree."
+                  }
+                ]
+              }
+            ]
+          },
+          "parameters": [
+            {
+              "id": 19,
+              "name": "features",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {
+                "isRest": true
+              },
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Cursor features to install in the registry."
+                  }
+                ]
+              },
+              "type": {
+                "type": "typeOperator",
+                "operator": "readonly",
+                "target": {
+                  "type": "array",
+                  "elementType": {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "@pixel-brewery/cursor-browser",
+                      "packagePath": "src/interfaces/ICursorFeature.ts",
+                      "qualifiedName": "ICursorFeature"
+                    },
+                    "name": "ICursorFeature",
+                    "package": "@pixel-brewery/cursor-browser"
+                  }
+                }
+              }
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "@pixel-brewery/cursor-browser",
+              "packagePath": "src/services/CursorAccessorRegistry.ts",
+              "qualifiedName": "CursorAccessorRegistry"
+            },
+            "name": "CursorAccessorRegistry",
+            "package": "@pixel-brewery/cursor-browser"
+          }
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "name": "useCursorAccessorRegistry",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {
+        "isPublic": true
+      },
+      "signatures": [
+        {
+          "id": 21,
+          "name": "useCursorAccessorRegistry",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {
+            "isPublic": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Resolves the nearest accessor registry during Svelte component initialization."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@returns",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "The registry configured for this subtree."
+                  }
+                ]
+              },
+              {
+                "tag": "@throws",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "If the subtree is missing a Cursor provider."
+                  }
+                ]
+              }
+            ]
+          },
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "@pixel-brewery/cursor-browser",
+              "packagePath": "src/services/CursorAccessorRegistry.ts",
+              "qualifiedName": "CursorAccessorRegistry"
+            },
+            "name": "CursorAccessorRegistry",
+            "package": "@pixel-brewery/cursor-browser"
+          }
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "withCursorAccessors",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {
+        "isPublic": true
+      },
+      "signatures": [
+        {
+          "id": 2,
+          "name": "withCursorAccessors",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {
+            "isPublic": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Selects the accessor classes to register in a Cursor application."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@returns",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "A feature accepted by a Cursor registry or framework provider."
+                  }
+                ]
+              }
+            ]
+          },
+          "parameters": [
+            {
+              "id": 3,
+              "name": "accessors",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {
+                "isRest": true
+              },
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "The individual accessor classes imported by the application."
+                  }
+                ]
+              },
+              "type": {
+                "type": "typeOperator",
+                "operator": "readonly",
+                "target": {
+                  "type": "array",
+                  "elementType": {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "@pixel-brewery/cursor-browser",
+                      "packagePath": "src/interfaces/ICursorAccessorClass.ts",
+                      "qualifiedName": "ICursorAccessorClass"
+                    },
+                    "typeArguments": [
+                      {
+                        "type": "reference",
+                        "target": {
+                          "packageName": "@pixel-brewery/cursor-browser",
+                          "packagePath": "src/interfaces/ICursorElementAccessor.ts",
+                          "qualifiedName": "ICursorElementAccessor"
+                        },
+                        "name": "ICursorElementAccessor",
+                        "package": "@pixel-brewery/cursor-browser"
+                      }
+                    ],
+                    "name": "ICursorAccessorClass",
+                    "package": "@pixel-brewery/cursor-browser"
+                  }
+                }
+              }
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "@pixel-brewery/cursor-browser",
+              "packagePath": "src/interfaces/ICursorFeature.ts",
+              "qualifiedName": "ICursorFeature"
+            },
+            "name": "ICursorFeature",
+            "package": "@pixel-brewery/cursor-browser"
+          }
         }
       ]
     }
@@ -529,15 +769,23 @@
     {
       "title": "Interfaces",
       "children": [
-        1,
-        9
+        4,
+        12
       ]
     },
     {
       "title": "Variables",
       "children": [
-        12,
-        13
+        15,
+        16
+      ]
+    },
+    {
+      "title": "Functions",
+      "children": [
+        17,
+        20,
+        1
       ]
     }
   ],
@@ -549,69 +797,109 @@
       "qualifiedName": ""
     },
     "1": {
-      "packageName": "@pixel-brewery/cursor-svelte",
-      "packagePath": "src/interfaces/ICursorBindingOptions.ts",
-      "qualifiedName": "ICursorBindingOptions"
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/withCursorAccessors.ts",
+      "qualifiedName": "withCursorAccessors"
     },
     "2": {
-      "packageName": "@pixel-brewery/cursor-svelte",
-      "packagePath": "src/interfaces/ICursorBindingOptions.ts",
-      "qualifiedName": "ICursorBindingOptions.onAttachment"
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/withCursorAccessors.ts",
+      "qualifiedName": "withCursorAccessors"
     },
     "3": {
-      "packageName": "@pixel-brewery/cursor-svelte",
-      "packagePath": "src/interfaces/ICursorBindingOptions.ts",
-      "qualifiedName": "__type"
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/withCursorAccessors.ts",
+      "qualifiedName": "accessors"
     },
     "4": {
       "packageName": "@pixel-brewery/cursor-svelte",
       "packagePath": "src/interfaces/ICursorBindingOptions.ts",
-      "qualifiedName": "__type"
+      "qualifiedName": "ICursorBindingOptions"
     },
     "5": {
       "packageName": "@pixel-brewery/cursor-svelte",
       "packagePath": "src/interfaces/ICursorBindingOptions.ts",
-      "qualifiedName": "attachment"
+      "qualifiedName": "ICursorBindingOptions.onAttachment"
     },
     "6": {
+      "packageName": "@pixel-brewery/cursor-svelte",
+      "packagePath": "src/interfaces/ICursorBindingOptions.ts",
+      "qualifiedName": "__type"
+    },
+    "7": {
+      "packageName": "@pixel-brewery/cursor-svelte",
+      "packagePath": "src/interfaces/ICursorBindingOptions.ts",
+      "qualifiedName": "__type"
+    },
+    "8": {
+      "packageName": "@pixel-brewery/cursor-svelte",
+      "packagePath": "src/interfaces/ICursorBindingOptions.ts",
+      "qualifiedName": "attachment"
+    },
+    "9": {
       "packageName": "@pixel-brewery/cursor-browser",
       "packagePath": "src/interfaces/ICursorSurfaceOptions.ts",
       "qualifiedName": "controller"
     },
-    "7": {
+    "10": {
       "packageName": "@pixel-brewery/cursor-browser",
       "packagePath": "src/interfaces/ICursorSurfaceOptions.ts",
       "qualifiedName": "showLocalPointer"
     },
-    "8": {
+    "11": {
       "packageName": "@pixel-brewery/cursor-browser",
       "packagePath": "src/interfaces/ICursorSurfaceOptions.ts",
       "qualifiedName": "allowSurfaceProjection"
     },
-    "9": {
+    "12": {
       "packageName": "@pixel-brewery/cursor-svelte",
       "packagePath": "src/interfaces/ICursorTargetOptions.ts",
       "qualifiedName": "ICursorTargetOptions"
     },
-    "10": {
+    "13": {
       "packageName": "@pixel-brewery/cursor-svelte",
       "packagePath": "src/interfaces/ICursorTargetOptions.ts",
       "qualifiedName": "ICursorTargetOptions.surface"
     },
-    "11": {
+    "14": {
       "packageName": "@pixel-brewery/cursor-svelte",
       "packagePath": "src/interfaces/ICursorTargetOptions.ts",
       "qualifiedName": "ICursorTargetOptions.targetId"
     },
-    "12": {
+    "15": {
       "packageName": "@pixel-brewery/cursor-svelte",
       "packagePath": "src/actions/cursorSurface.ts",
       "qualifiedName": "cursorSurface"
     },
-    "13": {
+    "16": {
       "packageName": "@pixel-brewery/cursor-svelte",
       "packagePath": "src/actions/cursorTarget.ts",
       "qualifiedName": "cursorTarget"
+    },
+    "17": {
+      "packageName": "@pixel-brewery/cursor-svelte",
+      "packagePath": "src/context/provideCursor.ts",
+      "qualifiedName": "provideCursor"
+    },
+    "18": {
+      "packageName": "@pixel-brewery/cursor-svelte",
+      "packagePath": "src/context/provideCursor.ts",
+      "qualifiedName": "provideCursor"
+    },
+    "19": {
+      "packageName": "@pixel-brewery/cursor-svelte",
+      "packagePath": "src/context/provideCursor.ts",
+      "qualifiedName": "features"
+    },
+    "20": {
+      "packageName": "@pixel-brewery/cursor-svelte",
+      "packagePath": "src/context/useCursorAccessorRegistry.ts",
+      "qualifiedName": "useCursorAccessorRegistry"
+    },
+    "21": {
+      "packageName": "@pixel-brewery/cursor-svelte",
+      "packagePath": "src/context/useCursorAccessorRegistry.ts",
+      "qualifiedName": "useCursorAccessorRegistry"
     }
   },
   "files": {

@@ -2,15 +2,19 @@ import assert from 'node:assert/strict';
 import { mkdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import type { ChatMessageElement } from '@pixel-brewery/mosaik-elements-foundation';
+import type { ChatMessageElement, TabElement } from '@pixel-brewery/mosaik-elements-foundation';
 import { _electron as electron, type Locator, type Page, type WebSocketRoute } from 'playwright';
 import {
+    checkDemoCheckboxPrompt,
     cycleStylePrompt,
     expect,
+    groupDemoTablePrompt,
     live,
     openPrompt,
     replies,
+    selectDemoRegionPrompt,
     showPrompt,
+    sortDemoTablePrompt,
     squareStylePrompt,
     test,
     unrelatedPrompt,
@@ -22,7 +26,8 @@ const localHuman = '[data-cursor-kind="human"][data-cursor-local]';
 const remoteHuman = '[data-cursor-kind="human"]:not([data-cursor-local])';
 const assistant = '[data-cursor-kind="assistant"]';
 const arrived = `${assistant}[data-cursor-target="settings"][data-cursor-arrived]`;
-const arrivedAtStyle = `${assistant}[data-cursor-target="cursor-style"][data-cursor-arrived]`;
+const styleArrival = `${assistant}[data-cursor-target="cursor-style"][data-cursor-arrived]`;
+const arrivedAtStyle = `${styleArrival}:not([data-cursor-guided-element])`;
 
 function observe(page: Page, errors: string[]): void {
     page.on('pageerror', (error) => errors.push(error.stack ?? error.message));
@@ -134,12 +139,56 @@ async function changeStyleFromChat(
     prompt: string,
     style: 'square' | 'square-outline',
 ): Promise<void> {
+    const select = page.getByTestId('cursor-style');
+    await expect(select).toHaveJSProperty('isDropDownOpen', false);
+    const option = page.getByTestId(`cursor-style-${style}`);
+    const activation = await option.evaluateHandle((item, guidedPointerSelector) => {
+        const selectElement = item.closest('mosaik-select');
+        if (!selectElement) throw new Error('The style option is missing its select');
+        const observed = {
+            menuVisibleInFrame: false,
+            menuVisibleAtClick: false,
+            valueBeforeClick: selectElement.value,
+            tipDistanceAtClick: Infinity,
+        };
+        const menuVisible = () => selectElement.isDropDownOpen &&
+            !!selectElement.shadowRoot?.querySelector(':popover-open') &&
+            item.checkVisibility({ visibilityProperty: true });
+        let frame = requestAnimationFrame(function observeMenu() {
+            observed.menuVisibleInFrame = menuVisible();
+            if (!observed.menuVisibleInFrame) frame = requestAnimationFrame(observeMenu);
+        });
+        // Record the visible pointer before the select handles the click and closes the menu.
+        item.addEventListener('click', () => {
+            cancelAnimationFrame(frame);
+            observed.menuVisibleAtClick = menuVisible();
+            observed.valueBeforeClick = selectElement.value;
+            const pointer = document.querySelector(guidedPointerSelector);
+            if (!pointer?.checkVisibility() || !pointer.closest(':popover-open')) return;
+            const optionBox = item.getBoundingClientRect();
+            const pointerBox = pointer.getBoundingClientRect();
+            observed.tipDistanceAtClick = Math.hypot(
+                pointerBox.x - optionBox.x - optionBox.width / 2,
+                pointerBox.y - optionBox.y - optionBox.height / 2,
+            );
+        }, { capture: true, once: true });
+        return observed;
+    }, `${styleArrival}[data-cursor-guided-element]`);
+
     await sendChat(page, prompt);
     await expectReply(page, index, prompt);
     await expect(page.getByTestId('settings-panel')).toBeVisible();
     await expect(page.getByTestId('settings-panel')).toHaveAttribute('data-open-count', '1');
     await expect(page.getByTestId('surface')).toHaveAttribute('data-cursor-style', style);
-    await expect(page.getByTestId('cursor-style')).toHaveJSProperty('value', style);
+    await expect(select).toHaveJSProperty('value', style);
+    await expect(select).toHaveJSProperty('isDropDownOpen', false);
+    await expect(option).toBeHidden();
+    const observed = await activation.jsonValue();
+    await activation.dispose();
+    expect(observed.menuVisibleInFrame).toBe(true);
+    expect(observed.menuVisibleAtClick).toBe(true);
+    expect(observed.valueBeforeClick).not.toBe(style);
+    expect(observed.tipDistanceAtClick).toBeLessThan(5);
     const pointer = page.locator(arrivedAtStyle);
     await expect(pointer).toHaveAttribute('data-cursor-style', style);
     await expectTargetAlignment(page, pointer, 'cursor-style');
@@ -338,6 +387,78 @@ test('a regular chat reply leaves the UI actions untouched', async ({ page, refe
     await expect(page.locator(assistant)).toHaveCount(0);
     await expect(page.getByTestId('settings-panel')).toBeHidden();
     expect(reference.completions?.prompts).toEqual([unrelatedPrompt]);
+});
+
+test('chat reveals inactive demo tabs before using their Mosaik controls', async ({
+    page,
+    reference,
+}) => {
+    test.skip(live, 'The model fixture deterministically selects the four demo actions.');
+    await page.goto(reference.origin);
+    await expectParticipants(page, 1);
+
+    const tabs = page.getByTestId('demo-tabs');
+    const table = page.getByTestId('demo-table');
+    const region = page.getByTestId('demo-region');
+    const checkbox = page.getByTestId('demo-checkbox');
+    const selectedTab = () =>
+        tabs.evaluate((element) => (element as TabElement).selectedItem?.value);
+
+    await expect.poll(selectedTab).toBe('selection');
+    await expect(table).toBeHidden();
+    await expect(table).toHaveJSProperty('sortExpressions', []);
+    await expect(region).toHaveJSProperty('value', 'north');
+
+    const sortStart = await table.evaluateHandle((element, pointerSelector) => {
+        const observed: { selectedTab?: unknown; pointerArrived: boolean } = { pointerArrived: false };
+        element.addEventListener(
+            'dataTableBeforeSortChange',
+            () => {
+                observed.selectedTab = element.closest('mosaik-tab')?.selectedItem?.value;
+                observed.pointerArrived =
+                    document.querySelector(pointerSelector)?.checkVisibility() ?? false;
+            },
+            { once: true },
+        );
+        return observed;
+    }, `${assistant}[data-cursor-target="demo-table"][data-cursor-arrived]`);
+
+    await sendChat(page, sortDemoTablePrompt);
+    await expectReply(page, 0, sortDemoTablePrompt);
+    await expect.poll(selectedTab).toBe('table');
+    await expect(table).toBeVisible();
+    await expect(table).toHaveJSProperty('sortExpressions', [
+        { sortKey: 'revenue', sortDirection: 'desc' },
+    ]);
+    expect(await sortStart.jsonValue()).toEqual({ selectedTab: 'table', pointerArrived: true });
+    await sortStart.dispose();
+
+    await expect(table).toHaveJSProperty('groupBy', []);
+    await sendChat(page, groupDemoTablePrompt);
+    await expectReply(page, 1, groupDemoTablePrompt);
+    await expect.poll(selectedTab).toBe('table');
+    await expect(table).toHaveJSProperty('groupBy', ['region']);
+
+    await expect(region).toBeHidden();
+    await sendChat(page, selectDemoRegionPrompt);
+    await expectReply(page, 2, selectDemoRegionPrompt);
+    await expect.poll(selectedTab).toBe('selection');
+    await expect(region).toBeVisible();
+    await expect(region).toHaveJSProperty('value', 'south');
+
+    await expect(checkbox).toBeHidden();
+    await expect(checkbox).toHaveJSProperty('isChecked', false);
+    await sendChat(page, checkDemoCheckboxPrompt);
+    await expectReply(page, 3, checkDemoCheckboxPrompt);
+    await expect.poll(selectedTab).toBe('options');
+    await expect(checkbox).toBeVisible();
+    await expect(checkbox).toHaveJSProperty('isChecked', true);
+    expect(reference.completions?.prompts).toEqual([
+        sortDemoTablePrompt,
+        groupDemoTablePrompt,
+        selectDemoRegionPrompt,
+        checkDemoCheckboxPrompt,
+    ]);
 });
 
 test('cancelling an in-flight chat request aborts the model connection and keeps the draft available', async ({

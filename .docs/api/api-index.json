@@ -3,6 +3,59 @@
   "linkBase": ".docs/",
   "packages": [
     {
+      "name": "@pixel-brewery/cursor-adapter-mosaik",
+      "version": "0.0.0",
+      "entryPoints": [
+        {
+          "importPath": "@pixel-brewery/cursor-adapter-mosaik",
+          "markdown": "packages/cursor-adapter-mosaik/api/index.md",
+          "reflection": "api/cursor-adapter-mosaik/reflection.json",
+          "exports": [
+            {
+              "name": "Accessor",
+              "kind": "Function",
+              "link": "packages/cursor-adapter-mosaik/api/functions/Accessor.md"
+            },
+            {
+              "name": "ElementAccessor",
+              "kind": "Class",
+              "link": "packages/cursor-adapter-mosaik/api/classes/ElementAccessor.md"
+            },
+            {
+              "name": "IAccessorDefinition",
+              "kind": "Interface",
+              "link": "packages/cursor-adapter-mosaik/api/interfaces/IAccessorDefinition.md"
+            },
+            {
+              "name": "IMosaikElementAccess",
+              "kind": "Interface",
+              "link": "packages/cursor-adapter-mosaik/api/interfaces/IMosaikElementAccess.md"
+            },
+            {
+              "name": "IOptionDropdown",
+              "kind": "Interface",
+              "link": "packages/cursor-adapter-mosaik/api/interfaces/IOptionDropdown.md"
+            },
+            {
+              "name": "ISelectableOption",
+              "kind": "Interface",
+              "link": "packages/cursor-adapter-mosaik/api/interfaces/ISelectableOption.md"
+            },
+            {
+              "name": "OptionSelection",
+              "kind": "Type Alias",
+              "link": "packages/cursor-adapter-mosaik/api/type-aliases/OptionSelection.md"
+            },
+            {
+              "name": "selectOption",
+              "kind": "Function",
+              "link": "packages/cursor-adapter-mosaik/api/functions/selectOption.md"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "@pixel-brewery/cursor-angular",
       "version": "0.0.0",
       "entryPoints": [
@@ -12,6 +65,11 @@
           "reflection": "api/cursor-angular/reflection.json",
           "exports": [
             {
+              "name": "CursorAccessorRegistry",
+              "kind": "Class",
+              "link": "packages/cursor-angular/api/classes/CursorAccessorRegistry.md"
+            },
+            {
               "name": "CursorSurfaceDirective",
               "kind": "Class",
               "link": "packages/cursor-angular/api/classes/CursorSurfaceDirective.md"
@@ -20,6 +78,16 @@
               "name": "CursorTargetDirective",
               "kind": "Class",
               "link": "packages/cursor-angular/api/classes/CursorTargetDirective.md"
+            },
+            {
+              "name": "provideCursor",
+              "kind": "Function",
+              "link": "packages/cursor-angular/api/functions/provideCursor.md"
+            },
+            {
+              "name": "withCursorAccessors",
+              "kind": "Function",
+              "link": "packages/cursor-angular/api/functions/withCursorAccessors.md"
             }
           ]
         }
@@ -40,9 +108,29 @@
               "link": "packages/cursor-browser/api/functions/attachCursorSurface.md"
             },
             {
+              "name": "CursorAccessorRegistry",
+              "kind": "Class",
+              "link": "packages/cursor-browser/api/classes/CursorAccessorRegistry.md"
+            },
+            {
               "name": "cursorPalette",
               "kind": "Variable",
               "link": "packages/cursor-browser/api/variables/cursorPalette.md"
+            },
+            {
+              "name": "ICursorAccessorClass",
+              "kind": "Interface",
+              "link": "packages/cursor-browser/api/interfaces/ICursorAccessorClass.md"
+            },
+            {
+              "name": "ICursorElementAccessor",
+              "kind": "Interface",
+              "link": "packages/cursor-browser/api/interfaces/ICursorElementAccessor.md"
+            },
+            {
+              "name": "ICursorFeature",
+              "kind": "Interface",
+              "link": "packages/cursor-browser/api/interfaces/ICursorFeature.md"
             },
             {
               "name": "ICursorSurface",
@@ -53,6 +141,11 @@
               "name": "ICursorSurfaceOptions",
               "kind": "Interface",
               "link": "packages/cursor-browser/api/interfaces/ICursorSurfaceOptions.md"
+            },
+            {
+              "name": "withCursorAccessors",
+              "kind": "Function",
+              "link": "packages/cursor-browser/api/functions/withCursorAccessors.md"
             }
           ]
         }
@@ -146,6 +239,21 @@
           "reflection": "api/cursor-react/reflection.json",
           "exports": [
             {
+              "name": "CursorProvider",
+              "kind": "Function",
+              "link": "packages/cursor-react/api/functions/CursorProvider.md"
+            },
+            {
+              "name": "ICursorProviderProps",
+              "kind": "Interface",
+              "link": "packages/cursor-react/api/interfaces/ICursorProviderProps.md"
+            },
+            {
+              "name": "useCursorAccessorRegistry",
+              "kind": "Function",
+              "link": "packages/cursor-react/api/functions/useCursorAccessorRegistry.md"
+            },
+            {
               "name": "useCursorSurface",
               "kind": "Function",
               "link": "packages/cursor-react/api/functions/useCursorSurface.md"
@@ -154,6 +262,11 @@
               "name": "useCursorTarget",
               "kind": "Function",
               "link": "packages/cursor-react/api/functions/useCursorTarget.md"
+            },
+            {
+              "name": "withCursorAccessors",
+              "kind": "Function",
+              "link": "packages/cursor-react/api/functions/withCursorAccessors.md"
             }
           ]
         }
@@ -187,6 +300,21 @@
               "name": "ICursorTargetOptions",
               "kind": "Interface",
               "link": "packages/cursor-svelte/api/interfaces/ICursorTargetOptions.md"
+            },
+            {
+              "name": "provideCursor",
+              "kind": "Function",
+              "link": "packages/cursor-svelte/api/functions/provideCursor.md"
+            },
+            {
+              "name": "useCursorAccessorRegistry",
+              "kind": "Function",
+              "link": "packages/cursor-svelte/api/functions/useCursorAccessorRegistry.md"
+            },
+            {
+              "name": "withCursorAccessors",
+              "kind": "Function",
+              "link": "packages/cursor-svelte/api/functions/withCursorAccessors.md"
             }
           ]
         }
@@ -202,6 +330,26 @@
           "reflection": "api/cursor-vue/reflection.json",
           "exports": [
             {
+              "name": "CursorProvider",
+              "kind": "Variable",
+              "link": "packages/cursor-vue/api/variables/CursorProvider.md"
+            },
+            {
+              "name": "ICursorProviderProps",
+              "kind": "Interface",
+              "link": "packages/cursor-vue/api/interfaces/ICursorProviderProps.md"
+            },
+            {
+              "name": "provideCursor",
+              "kind": "Function",
+              "link": "packages/cursor-vue/api/functions/provideCursor.md"
+            },
+            {
+              "name": "useCursorAccessorRegistry",
+              "kind": "Function",
+              "link": "packages/cursor-vue/api/functions/useCursorAccessorRegistry.md"
+            },
+            {
               "name": "useCursorSurface",
               "kind": "Function",
               "link": "packages/cursor-vue/api/functions/useCursorSurface.md"
@@ -210,6 +358,11 @@
               "name": "useCursorTarget",
               "kind": "Function",
               "link": "packages/cursor-vue/api/functions/useCursorTarget.md"
+            },
+            {
+              "name": "withCursorAccessors",
+              "kind": "Function",
+              "link": "packages/cursor-vue/api/functions/withCursorAccessors.md"
             }
           ]
         }

@@ -1,0 +1,2784 @@
+{
+  "schemaVersion": "2.0",
+  "id": 0,
+  "name": "@pixel-brewery/cursor-adapter-mosaik",
+  "variant": "project",
+  "kind": 1,
+  "flags": {},
+  "comment": {
+    "summary": [
+      {
+        "kind": "text",
+        "text": "Guided actions for Mosaik Foundation elements."
+      }
+    ]
+  },
+  "children": [
+    {
+      "id": 1,
+      "name": "Accessor",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {
+        "isPublic": true
+      },
+      "signatures": [
+        {
+          "id": 2,
+          "name": "Accessor",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {
+            "isPublic": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Associates a class with its custom element tag and public member declarations."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@returns",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "A class decorator that attaches the definition to the accessor class."
+                  }
+                ]
+              }
+            ]
+          },
+          "parameters": [
+            {
+              "id": 3,
+              "name": "definition",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "The tag and public members of the element that the class accepts."
+                  }
+                ]
+              },
+              "type": {
+                "type": "reference",
+                "target": 54,
+                "name": "IAccessorDefinition",
+                "package": "@pixel-brewery/cursor-adapter-mosaik"
+              }
+            }
+          ],
+          "type": {
+            "type": "reflection",
+            "declaration": {
+              "id": 4,
+              "name": "__type",
+              "variant": "declaration",
+              "kind": 65536,
+              "flags": {},
+              "signatures": [
+                {
+                  "id": 5,
+                  "name": "__type",
+                  "variant": "signature",
+                  "kind": 4096,
+                  "flags": {},
+                  "parameters": [
+                    {
+                      "id": 6,
+                      "name": "value",
+                      "variant": "param",
+                      "kind": 32768,
+                      "flags": {},
+                      "type": {
+                        "type": "query",
+                        "queryType": {
+                          "type": "reference",
+                          "target": 8,
+                          "name": "ElementAccessor",
+                          "package": "@pixel-brewery/cursor-adapter-mosaik"
+                        }
+                      }
+                    },
+                    {
+                      "id": 7,
+                      "name": "context",
+                      "variant": "param",
+                      "kind": 32768,
+                      "flags": {},
+                      "type": {
+                        "type": "reference",
+                        "target": {
+                          "packageName": "typescript",
+                          "packagePath": "lib/lib.decorators.d.ts",
+                          "qualifiedName": "ClassDecoratorContext"
+                        },
+                        "typeArguments": [
+                          {
+                            "type": "query",
+                            "queryType": {
+                              "type": "reference",
+                              "target": 8,
+                              "name": "ElementAccessor",
+                              "package": "@pixel-brewery/cursor-adapter-mosaik"
+                            }
+                          }
+                        ],
+                        "name": "ClassDecoratorContext",
+                        "package": "typescript"
+                      }
+                    }
+                  ],
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "void"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "ElementAccessor",
+      "variant": "declaration",
+      "kind": 128,
+      "flags": {
+        "isPublic": true,
+        "isAbstract": true
+      },
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Provides guided operations on one mounted custom element."
+          }
+        ],
+        "blockTags": [
+          {
+            "tag": "@remarks",
+            "content": [
+              {
+                "kind": "text",
+                "text": "Decorate each concrete class with "
+              },
+              {
+                "kind": "code",
+                "text": "`@Accessor`"
+              },
+              {
+                "kind": "text",
+                "text": " to declare which element and members it accepts."
+              }
+            ]
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 41,
+          "name": "activate",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {
+            "isPublic": true
+          },
+          "signatures": [
+            {
+              "id": 42,
+              "name": "activate",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Guide to and click an actionable part of the component."
+                  }
+                ]
+              },
+              "parameters": [
+                {
+                  "id": 43,
+                  "name": "surface",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Active cursor surface."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "@pixel-brewery/cursor-browser",
+                      "packagePath": "src/interfaces/ICursorSurface.ts",
+                      "qualifiedName": "ICursorSurface"
+                    },
+                    "name": "ICursorSurface",
+                    "package": "@pixel-brewery/cursor-browser"
+                  }
+                },
+                {
+                  "id": 44,
+                  "name": "signal",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Guided action cancellation."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "typescript",
+                      "packagePath": "lib/lib.dom.d.ts",
+                      "qualifiedName": "AbortSignal"
+                    },
+                    "name": "AbortSignal",
+                    "package": "typescript"
+                  }
+                },
+                {
+                  "id": 45,
+                  "name": "target",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {
+                    "isOptional": true
+                  },
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Optional explicit element inside the component when it has multiple controls."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "typescript",
+                      "packagePath": "lib/lib.dom.d.ts",
+                      "qualifiedName": "HTMLElement"
+                    },
+                    "name": "HTMLElement",
+                    "package": "typescript"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "typescript",
+                  "packagePath": "lib/lib.es5.d.ts",
+                  "qualifiedName": "Promise"
+                },
+                "typeArguments": [
+                  {
+                    "type": "intrinsic",
+                    "name": "void"
+                  }
+                ],
+                "name": "Promise",
+                "package": "typescript"
+              },
+              "implementationOf": {
+                "type": "reference",
+                "target": 79,
+                "name": "IMosaikElementAccess.activate"
+              }
+            }
+          ],
+          "implementationOf": {
+            "type": "reference",
+            "target": 78,
+            "name": "IMosaikElementAccess.activate"
+          }
+        },
+        {
+          "id": 11,
+          "name": "bind",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {
+            "isPublic": true,
+            "isStatic": true
+          },
+          "signatures": [
+            {
+              "id": 12,
+              "name": "bind",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Binds this accessor class to an element mounted by the host framework."
+                  }
+                ],
+                "blockTags": [
+                  {
+                    "tag": "@returns",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "An instance of the concrete accessor class."
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "@throws",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "If the class is undecorated or the element is disconnected or has the wrong tag."
+                      }
+                    ]
+                  }
+                ]
+              },
+              "typeParameters": [
+                {
+                  "id": 13,
+                  "name": "TAccessor",
+                  "variant": "typeParam",
+                  "kind": 131072,
+                  "flags": {},
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "The concrete accessor class used by the caller."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "reference",
+                    "target": 8,
+                    "name": "ElementAccessor",
+                    "package": "@pixel-brewery/cursor-adapter-mosaik"
+                  }
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 14,
+                  "name": "this",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "reflection",
+                    "declaration": {
+                      "id": 15,
+                      "name": "__type",
+                      "variant": "declaration",
+                      "kind": 512,
+                      "flags": {},
+                      "signatures": [
+                        {
+                          "id": 16,
+                          "name": "this",
+                          "variant": "signature",
+                          "kind": 16384,
+                          "flags": {},
+                          "parameters": [
+                            {
+                              "id": 17,
+                              "name": "element",
+                              "variant": "param",
+                              "kind": 32768,
+                              "flags": {},
+                              "type": {
+                                "type": "reference",
+                                "target": {
+                                  "packageName": "typescript",
+                                  "packagePath": "lib/lib.dom.d.ts",
+                                  "qualifiedName": "HTMLElement"
+                                },
+                                "name": "HTMLElement",
+                                "package": "typescript"
+                              }
+                            }
+                          ],
+                          "type": {
+                            "type": "reference",
+                            "target": 13,
+                            "name": "TAccessor",
+                            "package": "@pixel-brewery/cursor-adapter-mosaik",
+                            "refersToTypeParameter": true
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "id": 18,
+                  "name": "element",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "The mounted native custom element."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "typescript",
+                      "packagePath": "lib/lib.dom.d.ts",
+                      "qualifiedName": "HTMLElement"
+                    },
+                    "name": "HTMLElement",
+                    "package": "typescript"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": 13,
+                "name": "TAccessor",
+                "package": "@pixel-brewery/cursor-adapter-mosaik",
+                "refersToTypeParameter": true
+              }
+            }
+          ]
+        },
+        {
+          "id": 19,
+          "name": "constructor",
+          "variant": "declaration",
+          "kind": 512,
+          "flags": {
+            "isPublic": true
+          },
+          "signatures": [
+            {
+              "id": 20,
+              "name": "ElementAccessor",
+              "variant": "signature",
+              "kind": 16384,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Creates an accessor for the mounted element."
+                  }
+                ],
+                "blockTags": [
+                  {
+                    "tag": "@throws",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "If the class is undecorated or the element is disconnected or has the wrong tag."
+                      }
+                    ]
+                  }
+                ]
+              },
+              "parameters": [
+                {
+                  "id": 21,
+                  "name": "element",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "The native element supplied by the host framework."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "typescript",
+                      "packagePath": "lib/lib.dom.d.ts",
+                      "qualifiedName": "HTMLElement"
+                    },
+                    "name": "HTMLElement",
+                    "package": "typescript"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": 8,
+                "name": "ElementAccessor",
+                "package": "@pixel-brewery/cursor-adapter-mosaik"
+              }
+            }
+          ]
+        },
+        {
+          "id": 22,
+          "name": "element",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isProtected": true,
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "The element managed by this instance."
+              }
+            ]
+          },
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "typescript",
+              "packagePath": "lib/lib.dom.d.ts",
+              "qualifiedName": "HTMLElement"
+            },
+            "name": "HTMLElement",
+            "package": "typescript"
+          }
+        },
+        {
+          "id": 31,
+          "name": "invoke",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {
+            "isPublic": true
+          },
+          "signatures": [
+            {
+              "id": 32,
+              "name": "invoke",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Call a public method."
+                  }
+                ],
+                "blockTags": [
+                  {
+                    "tag": "@returns",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "The component's result, which may be a promise."
+                      }
+                    ]
+                  }
+                ]
+              },
+              "parameters": [
+                {
+                  "id": 33,
+                  "name": "method",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Manifest method name."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                },
+                {
+                  "id": 34,
+                  "name": "args",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {
+                    "isRest": true
+                  },
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Method arguments."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "array",
+                    "elementType": {
+                      "type": "intrinsic",
+                      "name": "unknown"
+                    }
+                  }
+                }
+              ],
+              "type": {
+                "type": "intrinsic",
+                "name": "unknown"
+              },
+              "implementationOf": {
+                "type": "reference",
+                "target": 69,
+                "name": "IMosaikElementAccess.invoke"
+              }
+            }
+          ],
+          "implementationOf": {
+            "type": "reference",
+            "target": 68,
+            "name": "IMosaikElementAccess.invoke"
+          }
+        },
+        {
+          "id": 35,
+          "name": "observe",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {
+            "isPublic": true
+          },
+          "signatures": [
+            {
+              "id": 36,
+              "name": "observe",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Observe a declared component event."
+                  }
+                ],
+                "blockTags": [
+                  {
+                    "tag": "@returns",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "A function that removes the listener."
+                      }
+                    ]
+                  }
+                ]
+              },
+              "parameters": [
+                {
+                  "id": 37,
+                  "name": "event",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Manifest event name."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                },
+                {
+                  "id": 38,
+                  "name": "listener",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Host listener."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "typescript",
+                      "packagePath": "lib/lib.dom.d.ts",
+                      "qualifiedName": "EventListener"
+                    },
+                    "name": "EventListener",
+                    "package": "typescript"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reflection",
+                "declaration": {
+                  "id": 39,
+                  "name": "__type",
+                  "variant": "declaration",
+                  "kind": 65536,
+                  "flags": {},
+                  "signatures": [
+                    {
+                      "id": 40,
+                      "name": "__type",
+                      "variant": "signature",
+                      "kind": 4096,
+                      "flags": {},
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "void"
+                      }
+                    }
+                  ]
+                }
+              },
+              "implementationOf": {
+                "type": "reference",
+                "target": 73,
+                "name": "IMosaikElementAccess.observe"
+              }
+            }
+          ],
+          "implementationOf": {
+            "type": "reference",
+            "target": 72,
+            "name": "IMosaikElementAccess.observe"
+          }
+        },
+        {
+          "id": 24,
+          "name": "read",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {
+            "isPublic": true
+          },
+          "signatures": [
+            {
+              "id": 25,
+              "name": "read",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Read a public property declared by the component."
+                  }
+                ],
+                "blockTags": [
+                  {
+                    "tag": "@returns",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "The current value."
+                      }
+                    ]
+                  }
+                ]
+              },
+              "parameters": [
+                {
+                  "id": 26,
+                  "name": "property",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Manifest property name."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                }
+              ],
+              "type": {
+                "type": "intrinsic",
+                "name": "unknown"
+              },
+              "implementationOf": {
+                "type": "reference",
+                "target": 62,
+                "name": "IMosaikElementAccess.read"
+              }
+            }
+          ],
+          "implementationOf": {
+            "type": "reference",
+            "target": 61,
+            "name": "IMosaikElementAccess.read"
+          }
+        },
+        {
+          "id": 9,
+          "name": "tagName",
+          "variant": "declaration",
+          "kind": 262144,
+          "flags": {
+            "isPublic": true,
+            "isStatic": true
+          },
+          "getSignature": {
+            "id": 10,
+            "name": "tagName",
+            "variant": "signature",
+            "kind": 524288,
+            "flags": {},
+            "comment": {
+              "summary": [
+                {
+                  "kind": "text",
+                  "text": "The tag of the mounted element accepted by this accessor class."
+                }
+              ]
+            },
+            "type": {
+              "type": "intrinsic",
+              "name": "string"
+            }
+          }
+        },
+        {
+          "id": 27,
+          "name": "write",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {
+            "isPublic": true
+          },
+          "signatures": [
+            {
+              "id": 28,
+              "name": "write",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Set a writable public property."
+                  }
+                ]
+              },
+              "parameters": [
+                {
+                  "id": 29,
+                  "name": "property",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Manifest property name."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                },
+                {
+                  "id": 30,
+                  "name": "value",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Value accepted by the component."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "unknown"
+                  }
+                }
+              ],
+              "type": {
+                "type": "intrinsic",
+                "name": "void"
+              },
+              "implementationOf": {
+                "type": "reference",
+                "target": 65,
+                "name": "IMosaikElementAccess.write"
+              }
+            }
+          ],
+          "implementationOf": {
+            "type": "reference",
+            "target": 64,
+            "name": "IMosaikElementAccess.write"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Constructors",
+          "children": [
+            19
+          ]
+        },
+        {
+          "title": "Properties",
+          "children": [
+            22
+          ]
+        },
+        {
+          "title": "Accessors",
+          "children": [
+            9
+          ]
+        },
+        {
+          "title": "Methods",
+          "children": [
+            41,
+            11,
+            31,
+            35,
+            24,
+            27
+          ]
+        }
+      ],
+      "implementedTypes": [
+        {
+          "type": "reference",
+          "target": 60,
+          "name": "IMosaikElementAccess",
+          "package": "@pixel-brewery/cursor-adapter-mosaik"
+        }
+      ]
+    },
+    {
+      "id": 54,
+      "name": "IAccessorDefinition",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {
+        "isPublic": true
+      },
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "The custom element tag and the public members available to a decorated accessor."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 59,
+          "name": "events",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "The event names the accessor can observe."
+              }
+            ]
+          },
+          "type": {
+            "type": "typeOperator",
+            "operator": "readonly",
+            "target": {
+              "type": "array",
+              "elementType": {
+                "type": "intrinsic",
+                "name": "string"
+              }
+            }
+          }
+        },
+        {
+          "id": 58,
+          "name": "methods",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "The public method names the accessor can invoke."
+              }
+            ]
+          },
+          "type": {
+            "type": "typeOperator",
+            "operator": "readonly",
+            "target": {
+              "type": "array",
+              "elementType": {
+                "type": "intrinsic",
+                "name": "string"
+              }
+            }
+          }
+        },
+        {
+          "id": 56,
+          "name": "properties",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "The public property names the accessor can read."
+              }
+            ]
+          },
+          "type": {
+            "type": "typeOperator",
+            "operator": "readonly",
+            "target": {
+              "type": "array",
+              "elementType": {
+                "type": "intrinsic",
+                "name": "string"
+              }
+            }
+          }
+        },
+        {
+          "id": 57,
+          "name": "readOnlyProperties",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "The subset of public properties that the accessor cannot write."
+              }
+            ]
+          },
+          "type": {
+            "type": "typeOperator",
+            "operator": "readonly",
+            "target": {
+              "type": "array",
+              "elementType": {
+                "type": "intrinsic",
+                "name": "string"
+              }
+            }
+          }
+        },
+        {
+          "id": 55,
+          "name": "tagName",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "The tag of the custom element accepted by the accessor."
+              }
+            ]
+          },
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            59,
+            58,
+            56,
+            57,
+            55
+          ]
+        }
+      ]
+    },
+    {
+      "id": 60,
+      "name": "IMosaikElementAccess",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {
+        "isPublic": true
+      },
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Operations on one live Mosaik element. The host decides which operations it authorizes."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 78,
+          "name": "activate",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "signatures": [
+            {
+              "id": 79,
+              "name": "activate",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Guide to and click an actionable part of the component."
+                  }
+                ]
+              },
+              "parameters": [
+                {
+                  "id": 80,
+                  "name": "surface",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Active cursor surface."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "@pixel-brewery/cursor-browser",
+                      "packagePath": "src/interfaces/ICursorSurface.ts",
+                      "qualifiedName": "ICursorSurface"
+                    },
+                    "name": "ICursorSurface",
+                    "package": "@pixel-brewery/cursor-browser"
+                  }
+                },
+                {
+                  "id": 81,
+                  "name": "signal",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Guided action cancellation."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "typescript",
+                      "packagePath": "lib/lib.dom.d.ts",
+                      "qualifiedName": "AbortSignal"
+                    },
+                    "name": "AbortSignal",
+                    "package": "typescript"
+                  }
+                },
+                {
+                  "id": 82,
+                  "name": "target",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {
+                    "isOptional": true
+                  },
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Optional explicit element inside the component when it has multiple controls."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "typescript",
+                      "packagePath": "lib/lib.dom.d.ts",
+                      "qualifiedName": "HTMLElement"
+                    },
+                    "name": "HTMLElement",
+                    "package": "typescript"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "typescript",
+                  "packagePath": "lib/lib.es5.d.ts",
+                  "qualifiedName": "Promise"
+                },
+                "typeArguments": [
+                  {
+                    "type": "intrinsic",
+                    "name": "void"
+                  }
+                ],
+                "name": "Promise",
+                "package": "typescript"
+              }
+            }
+          ]
+        },
+        {
+          "id": 68,
+          "name": "invoke",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "signatures": [
+            {
+              "id": 69,
+              "name": "invoke",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Call a public method."
+                  }
+                ],
+                "blockTags": [
+                  {
+                    "tag": "@returns",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "The component's result, which may be a promise."
+                      }
+                    ]
+                  }
+                ]
+              },
+              "parameters": [
+                {
+                  "id": 70,
+                  "name": "method",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Manifest method name."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                },
+                {
+                  "id": 71,
+                  "name": "args",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {
+                    "isRest": true
+                  },
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Method arguments."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "array",
+                    "elementType": {
+                      "type": "intrinsic",
+                      "name": "unknown"
+                    }
+                  }
+                }
+              ],
+              "type": {
+                "type": "intrinsic",
+                "name": "unknown"
+              }
+            }
+          ]
+        },
+        {
+          "id": 72,
+          "name": "observe",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "signatures": [
+            {
+              "id": 73,
+              "name": "observe",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Observe a declared component event."
+                  }
+                ],
+                "blockTags": [
+                  {
+                    "tag": "@returns",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "A function that removes the listener."
+                      }
+                    ]
+                  }
+                ]
+              },
+              "parameters": [
+                {
+                  "id": 74,
+                  "name": "event",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Manifest event name."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                },
+                {
+                  "id": 75,
+                  "name": "listener",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Host listener."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "typescript",
+                      "packagePath": "lib/lib.dom.d.ts",
+                      "qualifiedName": "EventListener"
+                    },
+                    "name": "EventListener",
+                    "package": "typescript"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reflection",
+                "declaration": {
+                  "id": 76,
+                  "name": "__type",
+                  "variant": "declaration",
+                  "kind": 65536,
+                  "flags": {},
+                  "signatures": [
+                    {
+                      "id": 77,
+                      "name": "__type",
+                      "variant": "signature",
+                      "kind": 4096,
+                      "flags": {},
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "void"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": 61,
+          "name": "read",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "signatures": [
+            {
+              "id": 62,
+              "name": "read",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Read a public property declared by the component."
+                  }
+                ],
+                "blockTags": [
+                  {
+                    "tag": "@returns",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "The current value."
+                      }
+                    ]
+                  }
+                ]
+              },
+              "parameters": [
+                {
+                  "id": 63,
+                  "name": "property",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Manifest property name."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                }
+              ],
+              "type": {
+                "type": "intrinsic",
+                "name": "unknown"
+              }
+            }
+          ]
+        },
+        {
+          "id": 64,
+          "name": "write",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "signatures": [
+            {
+              "id": 65,
+              "name": "write",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Set a writable public property."
+                  }
+                ]
+              },
+              "parameters": [
+                {
+                  "id": 66,
+                  "name": "property",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Manifest property name."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                },
+                {
+                  "id": 67,
+                  "name": "value",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Value accepted by the component."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "unknown"
+                  }
+                }
+              ],
+              "type": {
+                "type": "intrinsic",
+                "name": "void"
+              }
+            }
+          ]
+        }
+      ],
+      "groups": [
+        {
+          "title": "Methods",
+          "children": [
+            78,
+            68,
+            72,
+            61,
+            64
+          ]
+        }
+      ],
+      "implementedBy": [
+        {
+          "type": "reference",
+          "target": 8,
+          "name": "ElementAccessor"
+        }
+      ]
+    },
+    {
+      "id": 83,
+      "name": "IOptionDropdown",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {
+        "isPublic": true
+      },
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "The native dropdown contract used by the guided option selection action."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 90,
+          "name": "close",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "signatures": [
+            {
+              "id": 91,
+              "name": "close",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Requests that the dropdown close according to the control's policy."
+                  }
+                ]
+              },
+              "type": {
+                "type": "intrinsic",
+                "name": "void"
+              }
+            }
+          ]
+        },
+        {
+          "id": 84,
+          "name": "disabled",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Whether the dropdown cannot be changed."
+              }
+            ]
+          },
+          "type": {
+            "type": "intrinsic",
+            "name": "boolean"
+          }
+        },
+        {
+          "id": 85,
+          "name": "isDropDownOpen",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Whether the dropdown is open."
+              }
+            ]
+          },
+          "type": {
+            "type": "intrinsic",
+            "name": "boolean"
+          }
+        },
+        {
+          "id": 86,
+          "name": "items",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "The options in display order."
+              }
+            ]
+          },
+          "type": {
+            "type": "typeOperator",
+            "operator": "readonly",
+            "target": {
+              "type": "array",
+              "elementType": {
+                "type": "reference",
+                "target": 92,
+                "name": "ISelectableOption",
+                "package": "@pixel-brewery/cursor-adapter-mosaik"
+              }
+            }
+          }
+        },
+        {
+          "id": 88,
+          "name": "open",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "signatures": [
+            {
+              "id": 89,
+              "name": "open",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Opens the dropdown."
+                  }
+                ]
+              },
+              "type": {
+                "type": "intrinsic",
+                "name": "void"
+              }
+            }
+          ]
+        },
+        {
+          "id": 87,
+          "name": "selectedItem",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "The current option used as the starting point for next-option navigation."
+              }
+            ]
+          },
+          "type": {
+            "type": "union",
+            "types": [
+              {
+                "type": "reference",
+                "target": 92,
+                "name": "ISelectableOption",
+                "package": "@pixel-brewery/cursor-adapter-mosaik"
+              },
+              {
+                "type": "literal",
+                "value": null
+              }
+            ]
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            84,
+            85,
+            86,
+            87
+          ]
+        },
+        {
+          "title": "Methods",
+          "children": [
+            90,
+            88
+          ]
+        }
+      ],
+      "extendedTypes": [
+        {
+          "type": "reference",
+          "target": {
+            "packageName": "typescript",
+            "packagePath": "lib/lib.dom.d.ts",
+            "qualifiedName": "HTMLElement"
+          },
+          "name": "HTMLElement",
+          "package": "typescript"
+        }
+      ]
+    },
+    {
+      "id": 92,
+      "name": "ISelectableOption",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {
+        "isPublic": true
+      },
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "A rendered option whose selection state can be verified after activation."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 93,
+          "name": "disabled",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Whether the option cannot be activated."
+              }
+            ]
+          },
+          "type": {
+            "type": "intrinsic",
+            "name": "boolean"
+          }
+        },
+        {
+          "id": 94,
+          "name": "isSelected",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Whether the control currently includes this option in its selection."
+              }
+            ]
+          },
+          "type": {
+            "type": "intrinsic",
+            "name": "boolean"
+          }
+        },
+        {
+          "id": 95,
+          "name": "value",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "The option value published by the control."
+              }
+            ]
+          },
+          "type": {
+            "type": "intrinsic",
+            "name": "unknown"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            93,
+            94,
+            95
+          ]
+        }
+      ],
+      "extendedTypes": [
+        {
+          "type": "reference",
+          "target": {
+            "packageName": "typescript",
+            "packagePath": "lib/lib.dom.d.ts",
+            "qualifiedName": "HTMLElement"
+          },
+          "name": "HTMLElement",
+          "package": "typescript"
+        }
+      ]
+    },
+    {
+      "id": 96,
+      "name": "OptionSelection",
+      "variant": "declaration",
+      "kind": 2097152,
+      "flags": {
+        "isPublic": true
+      },
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Select the next unselected, enabled option in list order or an option by its exact value."
+          }
+        ]
+      },
+      "type": {
+        "type": "union",
+        "types": [
+          {
+            "type": "reflection",
+            "declaration": {
+              "id": 97,
+              "name": "__type",
+              "variant": "declaration",
+              "kind": 65536,
+              "flags": {},
+              "children": [
+                {
+                  "id": 98,
+                  "name": "kind",
+                  "variant": "declaration",
+                  "kind": 1024,
+                  "flags": {
+                    "isReadonly": true
+                  },
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Advance to the next enabled, unselected option, wrapping at the end of the list."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "literal",
+                    "value": "next"
+                  }
+                }
+              ],
+              "groups": [
+                {
+                  "title": "Properties",
+                  "children": [
+                    98
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "type": "reflection",
+            "declaration": {
+              "id": 99,
+              "name": "__type",
+              "variant": "declaration",
+              "kind": 65536,
+              "flags": {},
+              "children": [
+                {
+                  "id": 100,
+                  "name": "kind",
+                  "variant": "declaration",
+                  "kind": 1024,
+                  "flags": {
+                    "isReadonly": true
+                  },
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Select a specific option."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "literal",
+                    "value": "value"
+                  }
+                },
+                {
+                  "id": 101,
+                  "name": "value",
+                  "variant": "declaration",
+                  "kind": 1024,
+                  "flags": {
+                    "isReadonly": true
+                  },
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "The exact value of the option to activate."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                }
+              ],
+              "groups": [
+                {
+                  "title": "Properties",
+                  "children": [
+                    100,
+                    101
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 48,
+      "name": "selectOption",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {
+        "isPublic": true
+      },
+      "signatures": [
+        {
+          "id": 49,
+          "name": "selectOption",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {
+            "isPublic": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Guides the cursor to an option and selects it through the native dropdown interaction."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@remarks",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "Already selected options are left selected. If this action opens the dropdown,\nit requests closure at the end. The control retains its own selection and closing policy."
+                  }
+                ]
+              },
+              {
+                "tag": "@returns",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "A promise that resolves once the option is selected."
+                  }
+                ]
+              },
+              {
+                "tag": "@throws",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "If the dropdown or option is unavailable or the selection cannot be verified."
+                  }
+                ]
+              }
+            ]
+          },
+          "parameters": [
+            {
+              "id": 50,
+              "name": "dropdown",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "A mounted control that exposes the option dropdown contract."
+                  }
+                ]
+              },
+              "type": {
+                "type": "reference",
+                "target": 83,
+                "name": "IOptionDropdown",
+                "package": "@pixel-brewery/cursor-adapter-mosaik"
+              }
+            },
+            {
+              "id": 51,
+              "name": "surface",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "The surface that guides the cursor to the option."
+                  }
+                ]
+              },
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "@pixel-brewery/cursor-browser",
+                  "packagePath": "src/interfaces/ICursorSurface.ts",
+                  "qualifiedName": "ICursorSurface"
+                },
+                "name": "ICursorSurface",
+                "package": "@pixel-brewery/cursor-browser"
+              }
+            },
+            {
+              "id": 52,
+              "name": "selection",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "The requested option by value or list order."
+                  }
+                ]
+              },
+              "type": {
+                "type": "reference",
+                "target": 96,
+                "name": "OptionSelection",
+                "package": "@pixel-brewery/cursor-adapter-mosaik"
+              }
+            },
+            {
+              "id": 53,
+              "name": "signal",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Cancels the action before activation."
+                  }
+                ]
+              },
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "typescript",
+                  "packagePath": "lib/lib.dom.d.ts",
+                  "qualifiedName": "AbortSignal"
+                },
+                "name": "AbortSignal",
+                "package": "typescript"
+              }
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "typescript",
+              "packagePath": "lib/lib.es5.d.ts",
+              "qualifiedName": "Promise"
+            },
+            "typeArguments": [
+              {
+                "type": "intrinsic",
+                "name": "void"
+              }
+            ],
+            "name": "Promise",
+            "package": "typescript"
+          }
+        }
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "title": "Classes",
+      "children": [
+        8
+      ]
+    },
+    {
+      "title": "Interfaces",
+      "children": [
+        54,
+        60,
+        83,
+        92
+      ]
+    },
+    {
+      "title": "Type Aliases",
+      "children": [
+        96
+      ]
+    },
+    {
+      "title": "Functions",
+      "children": [
+        1,
+        48
+      ]
+    }
+  ],
+  "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+  "symbolIdMap": {
+    "0": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/index.ts",
+      "qualifiedName": ""
+    },
+    "1": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/Accessor.ts",
+      "qualifiedName": "Accessor"
+    },
+    "2": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/Accessor.ts",
+      "qualifiedName": "Accessor"
+    },
+    "3": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/Accessor.ts",
+      "qualifiedName": "definition"
+    },
+    "4": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/Accessor.ts",
+      "qualifiedName": "__type"
+    },
+    "5": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/Accessor.ts",
+      "qualifiedName": "__type"
+    },
+    "6": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/Accessor.ts",
+      "qualifiedName": "value"
+    },
+    "7": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/Accessor.ts",
+      "qualifiedName": "context"
+    },
+    "8": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/ElementAccessor.ts",
+      "qualifiedName": "ElementAccessor"
+    },
+    "9": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/ElementAccessor.ts",
+      "qualifiedName": "ElementAccessor.tagName"
+    },
+    "10": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/ElementAccessor.ts",
+      "qualifiedName": "ElementAccessor.tagName"
+    },
+    "11": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/ElementAccessor.ts",
+      "qualifiedName": "ElementAccessor.bind"
+    },
+    "12": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/ElementAccessor.ts",
+      "qualifiedName": "ElementAccessor.bind"
+    },
+    "13": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/ElementAccessor.ts",
+      "qualifiedName": "TAccessor"
+    },
+    "14": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/ElementAccessor.ts",
+      "qualifiedName": "this"
+    },
+    "15": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/ElementAccessor.ts",
+      "qualifiedName": "__type"
+    },
+    "16": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/ElementAccessor.ts",
+      "qualifiedName": "__type"
+    },
+    "17": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/ElementAccessor.ts",
+      "qualifiedName": "element"
+    },
+    "18": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/ElementAccessor.ts",
+      "qualifiedName": "element"
+    },
+    "19": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/ElementAccessor.ts",
+      "qualifiedName": "ElementAccessor.__constructor"
+    },
+    "20": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/ElementAccessor.ts",
+      "qualifiedName": "ElementAccessor"
+    },
+    "21": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/ElementAccessor.ts",
+      "qualifiedName": "element"
+    },
+    "22": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/ElementAccessor.ts",
+      "qualifiedName": "ElementAccessor.element"
+    },
+    "24": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/ElementAccessor.ts",
+      "qualifiedName": "ElementAccessor.read"
+    },
+    "25": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/ElementAccessor.ts",
+      "qualifiedName": "ElementAccessor.read"
+    },
+    "26": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/ElementAccessor.ts",
+      "qualifiedName": "property"
+    },
+    "27": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/ElementAccessor.ts",
+      "qualifiedName": "ElementAccessor.write"
+    },
+    "28": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/ElementAccessor.ts",
+      "qualifiedName": "ElementAccessor.write"
+    },
+    "29": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/ElementAccessor.ts",
+      "qualifiedName": "property"
+    },
+    "30": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/ElementAccessor.ts",
+      "qualifiedName": "value"
+    },
+    "31": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/ElementAccessor.ts",
+      "qualifiedName": "ElementAccessor.invoke"
+    },
+    "32": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/ElementAccessor.ts",
+      "qualifiedName": "ElementAccessor.invoke"
+    },
+    "33": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/ElementAccessor.ts",
+      "qualifiedName": "method"
+    },
+    "34": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/ElementAccessor.ts",
+      "qualifiedName": "args"
+    },
+    "35": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/ElementAccessor.ts",
+      "qualifiedName": "ElementAccessor.observe"
+    },
+    "36": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/ElementAccessor.ts",
+      "qualifiedName": "ElementAccessor.observe"
+    },
+    "37": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/ElementAccessor.ts",
+      "qualifiedName": "event"
+    },
+    "38": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/ElementAccessor.ts",
+      "qualifiedName": "listener"
+    },
+    "39": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/ElementAccessor.ts",
+      "qualifiedName": "__type"
+    },
+    "40": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/ElementAccessor.ts",
+      "qualifiedName": "__type"
+    },
+    "41": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/ElementAccessor.ts",
+      "qualifiedName": "ElementAccessor.activate"
+    },
+    "42": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/ElementAccessor.ts",
+      "qualifiedName": "ElementAccessor.activate"
+    },
+    "43": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/ElementAccessor.ts",
+      "qualifiedName": "surface"
+    },
+    "44": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/ElementAccessor.ts",
+      "qualifiedName": "signal"
+    },
+    "45": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/accessors/ElementAccessor.ts",
+      "qualifiedName": "target"
+    },
+    "48": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/actions/selectOption.ts",
+      "qualifiedName": "selectOption"
+    },
+    "49": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/actions/selectOption.ts",
+      "qualifiedName": "selectOption"
+    },
+    "50": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/actions/selectOption.ts",
+      "qualifiedName": "dropdown"
+    },
+    "51": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/actions/selectOption.ts",
+      "qualifiedName": "surface"
+    },
+    "52": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/actions/selectOption.ts",
+      "qualifiedName": "selection"
+    },
+    "53": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/actions/selectOption.ts",
+      "qualifiedName": "signal"
+    },
+    "54": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IAccessorDefinition.ts",
+      "qualifiedName": "IAccessorDefinition"
+    },
+    "55": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IAccessorDefinition.ts",
+      "qualifiedName": "IAccessorDefinition.tagName"
+    },
+    "56": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IAccessorDefinition.ts",
+      "qualifiedName": "IAccessorDefinition.properties"
+    },
+    "57": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IAccessorDefinition.ts",
+      "qualifiedName": "IAccessorDefinition.readOnlyProperties"
+    },
+    "58": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IAccessorDefinition.ts",
+      "qualifiedName": "IAccessorDefinition.methods"
+    },
+    "59": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IAccessorDefinition.ts",
+      "qualifiedName": "IAccessorDefinition.events"
+    },
+    "60": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IMosaikElementAccess.ts",
+      "qualifiedName": "IMosaikElementAccess"
+    },
+    "61": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IMosaikElementAccess.ts",
+      "qualifiedName": "IMosaikElementAccess.read"
+    },
+    "62": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IMosaikElementAccess.ts",
+      "qualifiedName": "IMosaikElementAccess.read"
+    },
+    "63": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IMosaikElementAccess.ts",
+      "qualifiedName": "property"
+    },
+    "64": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IMosaikElementAccess.ts",
+      "qualifiedName": "IMosaikElementAccess.write"
+    },
+    "65": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IMosaikElementAccess.ts",
+      "qualifiedName": "IMosaikElementAccess.write"
+    },
+    "66": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IMosaikElementAccess.ts",
+      "qualifiedName": "property"
+    },
+    "67": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IMosaikElementAccess.ts",
+      "qualifiedName": "value"
+    },
+    "68": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IMosaikElementAccess.ts",
+      "qualifiedName": "IMosaikElementAccess.invoke"
+    },
+    "69": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IMosaikElementAccess.ts",
+      "qualifiedName": "IMosaikElementAccess.invoke"
+    },
+    "70": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IMosaikElementAccess.ts",
+      "qualifiedName": "method"
+    },
+    "71": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IMosaikElementAccess.ts",
+      "qualifiedName": "args"
+    },
+    "72": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IMosaikElementAccess.ts",
+      "qualifiedName": "IMosaikElementAccess.observe"
+    },
+    "73": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IMosaikElementAccess.ts",
+      "qualifiedName": "IMosaikElementAccess.observe"
+    },
+    "74": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IMosaikElementAccess.ts",
+      "qualifiedName": "event"
+    },
+    "75": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IMosaikElementAccess.ts",
+      "qualifiedName": "listener"
+    },
+    "76": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IMosaikElementAccess.ts",
+      "qualifiedName": "__type"
+    },
+    "77": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IMosaikElementAccess.ts",
+      "qualifiedName": "__type"
+    },
+    "78": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IMosaikElementAccess.ts",
+      "qualifiedName": "IMosaikElementAccess.activate"
+    },
+    "79": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IMosaikElementAccess.ts",
+      "qualifiedName": "IMosaikElementAccess.activate"
+    },
+    "80": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IMosaikElementAccess.ts",
+      "qualifiedName": "surface"
+    },
+    "81": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IMosaikElementAccess.ts",
+      "qualifiedName": "signal"
+    },
+    "82": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IMosaikElementAccess.ts",
+      "qualifiedName": "target"
+    },
+    "83": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IOptionDropdown.ts",
+      "qualifiedName": "IOptionDropdown"
+    },
+    "84": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IOptionDropdown.ts",
+      "qualifiedName": "IOptionDropdown.disabled"
+    },
+    "85": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IOptionDropdown.ts",
+      "qualifiedName": "IOptionDropdown.isDropDownOpen"
+    },
+    "86": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IOptionDropdown.ts",
+      "qualifiedName": "IOptionDropdown.items"
+    },
+    "87": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IOptionDropdown.ts",
+      "qualifiedName": "IOptionDropdown.selectedItem"
+    },
+    "88": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IOptionDropdown.ts",
+      "qualifiedName": "IOptionDropdown.open"
+    },
+    "89": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IOptionDropdown.ts",
+      "qualifiedName": "IOptionDropdown.open"
+    },
+    "90": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IOptionDropdown.ts",
+      "qualifiedName": "IOptionDropdown.close"
+    },
+    "91": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/IOptionDropdown.ts",
+      "qualifiedName": "IOptionDropdown.close"
+    },
+    "92": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/ISelectableOption.ts",
+      "qualifiedName": "ISelectableOption"
+    },
+    "93": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/ISelectableOption.ts",
+      "qualifiedName": "ISelectableOption.disabled"
+    },
+    "94": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/ISelectableOption.ts",
+      "qualifiedName": "ISelectableOption.isSelected"
+    },
+    "95": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/interfaces/ISelectableOption.ts",
+      "qualifiedName": "ISelectableOption.value"
+    },
+    "96": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/OptionSelection.ts",
+      "qualifiedName": "OptionSelection"
+    },
+    "97": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/OptionSelection.ts",
+      "qualifiedName": "__type"
+    },
+    "98": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/OptionSelection.ts",
+      "qualifiedName": "__type.kind"
+    },
+    "99": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/OptionSelection.ts",
+      "qualifiedName": "__type"
+    },
+    "100": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/OptionSelection.ts",
+      "qualifiedName": "__type.kind"
+    },
+    "101": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/cdk/OptionSelection.ts",
+      "qualifiedName": "__type.value"
+    }
+  },
+  "files": {
+    "entries": {
+      "1": "libs/cursor-adapter-mosaik/src/index.ts"
+    },
+    "reflections": {
+      "1": 0
+    }
+  }
+}
