@@ -3,6 +3,7 @@
 import { z } from 'zod';
 import { chatMessageSchema } from './ChatMessage.js';
 import { cursorStyleSchema, type CursorStyle } from './CursorStyle.js';
+import { demoCommands, isDemoAction } from './DemoActions.js';
 
 // #endregion
 
@@ -32,6 +33,7 @@ export const chatReplySchema = z.strictObject({
             (style): `set-cursor-style-${CursorStyle}` => `set-cursor-style-${style}`,
         ),
         'cycle-cursor-style',
+        ...Object.keys(demoCommands).filter(isDemoAction),
     ]),
 });
 

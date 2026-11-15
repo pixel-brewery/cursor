@@ -1,0 +1,20 @@
+{
+    "$schema": "https://json-schema.org/schema",
+    "title": "Mosaik accessor transform",
+    "type": "object",
+    "properties": {
+        "elementModule": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Installed element package that declares its Custom Elements Manifest."
+        },
+        "mode": {
+            "type": "string",
+            "enum": ["write", "check"],
+            "default": "write",
+            "description": "Write the component accessors or verify that the generated modules are current."
+        }
+    },
+    "required": ["elementModule"],
+    "additionalProperties": false
+}

@@ -1,8 +1,17 @@
 import type { ICursorController } from '@pixel-brewery/cursor-core';
-import { useCursorSurface, useCursorTarget } from '@pixel-brewery/cursor-react';
-import { createElement, StrictMode, useState } from 'react';
+import {
+    CursorProvider,
+    useCursorAccessorRegistry,
+    useCursorSurface,
+    useCursorTarget,
+    withCursorAccessors,
+} from '@pixel-brewery/cursor-react';
+import { createElement, StrictMode, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
+import { FixtureButtonAccessor, markFixtureButtonAccessor } from './FixtureButtonAccessor.js';
 import type { IFixture } from './IFixture.js';
+
+const features = [withCursorAccessors(FixtureButtonAccessor)];
 
 function Fixture({
     controller,
@@ -15,8 +24,12 @@ function Fixture({
 }) {
     const [element, setElement] = useState<HTMLElement | null>(null);
     const [button, setButton] = useState<HTMLButtonElement | null>(null);
+    const registry = useCursorAccessorRegistry();
     const surface = useCursorSurface(element, { controller, allowSurfaceProjection });
     useCursorTarget(surface, targetId, button);
+    useEffect(() => {
+        if (button) markFixtureButtonAccessor(registry, button);
+    }, [button, registry]);
 
     return createElement(
         'section',
@@ -35,7 +48,11 @@ export async function mount(node: HTMLElement, initial: ICursorController): Prom
             createElement(
                 StrictMode,
                 null,
-                createElement(Fixture, { controller, targetId, allowSurfaceProjection }),
+                createElement(
+                    CursorProvider,
+                    { features },
+                    createElement(Fixture, { controller, targetId, allowSurfaceProjection }),
+                ),
             ),
         );
     render();

@@ -56,6 +56,11 @@ for (const framework of ['angular', 'react', 'vue', 'svelte']) {
             await expect.poll(() => show(page, 'initial', 'settings')).toBe('shown');
         });
 
+        test('binds a registered accessor to the mounted target through the framework provider', async ({ page }) => {
+            await expect(page.getByTestId('surface').getByRole('button'))
+                .toHaveAttribute('data-cursor-accessor', 'button');
+        });
+
         test('releases registrations after target replacement, controller replacement and unmount', async ({
             page,
         }) => {
