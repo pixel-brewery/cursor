@@ -22,7 +22,8 @@ const localHuman = '[data-cursor-kind="human"][data-cursor-local]';
 const remoteHuman = '[data-cursor-kind="human"]:not([data-cursor-local])';
 const assistant = '[data-cursor-kind="assistant"]';
 const arrived = `${assistant}[data-cursor-target="settings"][data-cursor-arrived]`;
-const arrivedAtStyle = `${assistant}[data-cursor-target="cursor-style"][data-cursor-arrived]`;
+const styleArrival = `${assistant}[data-cursor-target="cursor-style"][data-cursor-arrived]`;
+const arrivedAtStyle = `${styleArrival}:not([data-cursor-guided-element])`;
 
 function observe(page: Page, errors: string[]): void {
     page.on('pageerror', (error) => errors.push(error.stack ?? error.message));
@@ -134,12 +135,56 @@ async function changeStyleFromChat(
     prompt: string,
     style: 'square' | 'square-outline',
 ): Promise<void> {
+    const select = page.getByTestId('cursor-style');
+    await expect(select).toHaveJSProperty('isDropDownOpen', false);
+    const option = page.getByTestId(`cursor-style-${style}`);
+    const activation = await option.evaluateHandle((item, guidedPointerSelector) => {
+        const selectElement = item.closest('mosaik-select');
+        if (!selectElement) throw new Error('The style option is missing its select');
+        const observed = {
+            menuVisibleInFrame: false,
+            menuVisibleAtClick: false,
+            valueBeforeClick: selectElement.value,
+            tipDistanceAtClick: Infinity,
+        };
+        const menuVisible = () => selectElement.isDropDownOpen &&
+            !!selectElement.shadowRoot?.querySelector(':popover-open') &&
+            item.checkVisibility({ visibilityProperty: true });
+        let frame = requestAnimationFrame(function observeMenu() {
+            observed.menuVisibleInFrame = menuVisible();
+            if (!observed.menuVisibleInFrame) frame = requestAnimationFrame(observeMenu);
+        });
+        // Record the visible pointer before the select handles the click and closes the menu.
+        item.addEventListener('click', () => {
+            cancelAnimationFrame(frame);
+            observed.menuVisibleAtClick = menuVisible();
+            observed.valueBeforeClick = selectElement.value;
+            const pointer = document.querySelector(guidedPointerSelector);
+            if (!pointer?.checkVisibility() || !pointer.closest(':popover-open')) return;
+            const optionBox = item.getBoundingClientRect();
+            const pointerBox = pointer.getBoundingClientRect();
+            observed.tipDistanceAtClick = Math.hypot(
+                pointerBox.x - optionBox.x - optionBox.width / 2,
+                pointerBox.y - optionBox.y - optionBox.height / 2,
+            );
+        }, { capture: true, once: true });
+        return observed;
+    }, `${styleArrival}[data-cursor-guided-element]`);
+
     await sendChat(page, prompt);
     await expectReply(page, index, prompt);
     await expect(page.getByTestId('settings-panel')).toBeVisible();
     await expect(page.getByTestId('settings-panel')).toHaveAttribute('data-open-count', '1');
     await expect(page.getByTestId('surface')).toHaveAttribute('data-cursor-style', style);
-    await expect(page.getByTestId('cursor-style')).toHaveJSProperty('value', style);
+    await expect(select).toHaveJSProperty('value', style);
+    await expect(select).toHaveJSProperty('isDropDownOpen', false);
+    await expect(option).toBeHidden();
+    const observed = await activation.jsonValue();
+    await activation.dispose();
+    expect(observed.menuVisibleInFrame).toBe(true);
+    expect(observed.menuVisibleAtClick).toBe(true);
+    expect(observed.valueBeforeClick).not.toBe(style);
+    expect(observed.tipDistanceAtClick).toBeLessThan(5);
     const pointer = page.locator(arrivedAtStyle);
     await expect(pointer).toHaveAttribute('data-cursor-style', style);
     await expectTargetAlignment(page, pointer, 'cursor-style');

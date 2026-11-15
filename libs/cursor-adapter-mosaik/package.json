@@ -1,0 +1,42 @@
+{
+    "name": "@pixel-brewery/cursor-adapter-mosaik",
+    "version": "0.0.0",
+    "private": true,
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+        }
+    },
+    "scripts": {
+        "build": "tsc -b"
+    },
+    "nx": {
+        "name": "cursor-adapter-mosaik",
+        "targets": {
+            "generate": {
+                "executor": "@pixel-brewery/cursor-workspace-tools:mosaik-bindings",
+                "cache": false,
+                "outputs": [
+                    "{projectRoot}/src/generated/mosaikSelect.generated.ts"
+                ],
+                "options": {
+                    "output": "src/generated/mosaikSelect.generated.ts"
+                }
+            },
+            "build": {
+                "dependsOn": [
+                    "^build",
+                    "generate"
+                ]
+            }
+        }
+    },
+    "dependencies": {
+        "@pixel-brewery/cursor-browser": "workspace:^"
+    },
+    "devDependencies": {
+        "@pixel-brewery/mosaik-elements-foundation": "0.1.205"
+    }
+}

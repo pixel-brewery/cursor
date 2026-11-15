@@ -1,0 +1,396 @@
+{
+  "schemaVersion": "2.0",
+  "id": 0,
+  "name": "@pixel-brewery/cursor-adapter-mosaik",
+  "variant": "project",
+  "kind": 1,
+  "flags": {},
+  "comment": {
+    "summary": [
+      {
+        "kind": "text",
+        "text": "Guided actions for Mosaik Foundation elements."
+      }
+    ]
+  },
+  "children": [
+    {
+      "id": 7,
+      "name": "MosaikOptionSelection",
+      "variant": "declaration",
+      "kind": 2097152,
+      "flags": {
+        "isPublic": true
+      },
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Select the next enabled option in list order or an option by its exact value."
+          }
+        ]
+      },
+      "type": {
+        "type": "union",
+        "types": [
+          {
+            "type": "reflection",
+            "declaration": {
+              "id": 8,
+              "name": "__type",
+              "variant": "declaration",
+              "kind": 65536,
+              "flags": {},
+              "children": [
+                {
+                  "id": 9,
+                  "name": "kind",
+                  "variant": "declaration",
+                  "kind": 1024,
+                  "flags": {
+                    "isReadonly": true
+                  },
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Advance to the next enabled option, wrapping at the end of the list."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "literal",
+                    "value": "next"
+                  }
+                }
+              ],
+              "groups": [
+                {
+                  "title": "Properties",
+                  "children": [
+                    9
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "type": "reflection",
+            "declaration": {
+              "id": 10,
+              "name": "__type",
+              "variant": "declaration",
+              "kind": 65536,
+              "flags": {},
+              "children": [
+                {
+                  "id": 11,
+                  "name": "kind",
+                  "variant": "declaration",
+                  "kind": 1024,
+                  "flags": {
+                    "isReadonly": true
+                  },
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "Select a specific option."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "literal",
+                    "value": "value"
+                  }
+                },
+                {
+                  "id": 12,
+                  "name": "value",
+                  "variant": "declaration",
+                  "kind": 1024,
+                  "flags": {
+                    "isReadonly": true
+                  },
+                  "comment": {
+                    "summary": [
+                      {
+                        "kind": "text",
+                        "text": "The exact value of the option to activate."
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                }
+              ],
+              "groups": [
+                {
+                  "title": "Properties",
+                  "children": [
+                    11,
+                    12
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 1,
+      "name": "selectMosaikOption",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {
+        "isPublic": true
+      },
+      "signatures": [
+        {
+          "id": 2,
+          "name": "selectMosaikOption",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {
+            "isPublic": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Opens a Mosaik select and guides the assistant to the option before activating it.\nCall from a host-authorized action registered for the select."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@returns",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "A promise that resolves once the select reports the expected selection."
+                  }
+                ]
+              },
+              {
+                "tag": "@throws",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "When the select or option becomes unavailable or the selection cannot be verified."
+                  }
+                ]
+              }
+            ]
+          },
+          "parameters": [
+            {
+              "id": 3,
+              "name": "surface",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "The active surface that already presented the select."
+                  }
+                ]
+              },
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "@pixel-brewery/cursor-browser",
+                  "packagePath": "src/interfaces/ICursorSurface.ts",
+                  "qualifiedName": "ICursorSurface"
+                },
+                "name": "ICursorSurface",
+                "package": "@pixel-brewery/cursor-browser"
+              }
+            },
+            {
+              "id": 4,
+              "name": "element",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "The mounted Mosaik select."
+                  }
+                ]
+              },
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "typescript",
+                  "packagePath": "lib/lib.dom.d.ts",
+                  "qualifiedName": "HTMLElement"
+                },
+                "name": "HTMLElement",
+                "package": "typescript"
+              }
+            },
+            {
+              "id": 5,
+              "name": "selection",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "The allowed option value or next enabled option."
+                  }
+                ]
+              },
+              "type": {
+                "type": "reference",
+                "target": 7,
+                "name": "MosaikOptionSelection",
+                "package": "@pixel-brewery/cursor-adapter-mosaik"
+              }
+            },
+            {
+              "id": 6,
+              "name": "signal",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Cancels the action before an option can be activated."
+                  }
+                ]
+              },
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "typescript",
+                  "packagePath": "lib/lib.dom.d.ts",
+                  "qualifiedName": "AbortSignal"
+                },
+                "name": "AbortSignal",
+                "package": "typescript"
+              }
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "typescript",
+              "packagePath": "lib/lib.es5.d.ts",
+              "qualifiedName": "Promise"
+            },
+            "typeArguments": [
+              {
+                "type": "intrinsic",
+                "name": "void"
+              }
+            ],
+            "name": "Promise",
+            "package": "typescript"
+          }
+        }
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "title": "Type Aliases",
+      "children": [
+        7
+      ]
+    },
+    {
+      "title": "Functions",
+      "children": [
+        1
+      ]
+    }
+  ],
+  "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+  "symbolIdMap": {
+    "0": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/index.ts",
+      "qualifiedName": ""
+    },
+    "1": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/selectMosaikOption.ts",
+      "qualifiedName": "selectMosaikOption"
+    },
+    "2": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/selectMosaikOption.ts",
+      "qualifiedName": "selectMosaikOption"
+    },
+    "3": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/selectMosaikOption.ts",
+      "qualifiedName": "surface"
+    },
+    "4": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/selectMosaikOption.ts",
+      "qualifiedName": "element"
+    },
+    "5": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/selectMosaikOption.ts",
+      "qualifiedName": "selection"
+    },
+    "6": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/selectMosaikOption.ts",
+      "qualifiedName": "signal"
+    },
+    "7": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/MosaikOptionSelection.ts",
+      "qualifiedName": "MosaikOptionSelection"
+    },
+    "8": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/MosaikOptionSelection.ts",
+      "qualifiedName": "__type"
+    },
+    "9": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/MosaikOptionSelection.ts",
+      "qualifiedName": "__type.kind"
+    },
+    "10": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/MosaikOptionSelection.ts",
+      "qualifiedName": "__type"
+    },
+    "11": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/MosaikOptionSelection.ts",
+      "qualifiedName": "__type.kind"
+    },
+    "12": {
+      "packageName": "@pixel-brewery/cursor-adapter-mosaik",
+      "packagePath": "src/MosaikOptionSelection.ts",
+      "qualifiedName": "__type.value"
+    }
+  },
+  "files": {
+    "entries": {
+      "1": "libs/cursor-adapter-mosaik/src/index.ts"
+    },
+    "reflections": {
+      "1": 0
+    }
+  }
+}

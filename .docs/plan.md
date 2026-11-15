@@ -53,6 +53,8 @@ Use one browser implementation. Framework entry points take the host-created con
 
 The reference view uses Preact and the original Mosaik Soho light theme, with Inter bundled for the browser and Electron. JSX renders Foundation Web Components directly. A Preact effect attaches the cursor renderer and disposes it on disconnect or unmount. The pointer surface has its own bounds, so stacking the chat below it does not change the coordinate space.
 
+The Mosaik component adapter is independent of the view framework. The host registers and authorizes the select action, and the adapter opens the dropdown, guides the pointer to an actual option and activates it. The browser surface supplies element guidance and displays the assistant in the browser top layer while guiding inside a popover. `yarn nx run cursor-adapter-mosaik:generate` reads the installed Foundation Custom Elements Manifest through the workspace executor and emits the adapter's element bindings. The package build runs this target. Mosaik-specific code lives in `libs/cursor-adapter-mosaik`.
+
 The pinned Mosaik MCP catalog 0.1.205 supplied the native guide, tokens, anatomy and options for `recipe-page-header`, `recipe-empty-state-card`, `recipe-ai-assistant`, `recipe-chat-composer` and `recipe-account-settings-panel`, with `template-admin-suite` and `template-ai-chat` as references. The demo uses Badge for participant status, Card and EmptyState for the pointer surface, Chat and ChatPromptBox for the assistant, and Card, Message, Select, Textbox and Passwordbox for the Electron model connection. The existing Cursor mark is displayed by Image. The same Foundation and theme version serves both hosts.
 
 ## Delivery order

@@ -4,6 +4,11 @@
             "implementation": "./src/executors/api-docs/executor",
             "schema": "./src/executors/api-docs/schema.json",
             "description": "Generate or check the Cursor SDK's TypeDoc reference."
+        },
+        "mosaik-bindings": {
+            "implementation": "./src/executors/mosaik-bindings/executor",
+            "schema": "./src/executors/mosaik-bindings/schema.json",
+            "description": "Generate or check Cursor's select bindings for the installed Mosaik component manifest."
         }
     }
 }

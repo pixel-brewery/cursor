@@ -1,0 +1,20 @@
+{
+    "$schema": "https://json-schema.org/schema",
+    "title": "Cursor Mosaik bindings",
+    "type": "object",
+    "properties": {
+        "output": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Path to the generated TypeScript binding relative to the consumer project root."
+        },
+        "mode": {
+            "type": "string",
+            "enum": ["write", "check"],
+            "default": "write",
+            "description": "Write the binding or verify that the generated source is current."
+        }
+    },
+    "required": ["output"],
+    "additionalProperties": false
+}
