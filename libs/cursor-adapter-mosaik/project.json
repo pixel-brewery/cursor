@@ -1,0 +1,20 @@
+{
+    "name": "cursor-adapter-mosaik",
+    "projectType": "library",
+    "targets": {
+        "build": {
+            "dependsOn": ["^build", "generate"]
+        },
+        "generate": {
+            "executor": "@pixel-brewery/nx-tasks:mosaik-accessor-transform",
+            "cache": false,
+            "outputs": ["{projectRoot}/src/components/*/index.ts", "{projectRoot}/src/components/*/*Accessor.ts"],
+            "options": {
+                "elementModule": "@pixel-brewery/mosaik-elements-foundation"
+            },
+            "configurations": {
+                "check": { "mode": "check" }
+            }
+        }
+    }
+}

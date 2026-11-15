@@ -1,9 +1,11 @@
 // #region Imports
 
 import { SelectElementIntl, type ElementEvent, type SelectElement } from '@pixel-brewery/mosaik-elements-foundation';
-import { accessor as buttonAccessor } from '@pixel-brewery/cursor-adapter-mosaik/components/button';
-import { accessor as selectAccessor } from '@pixel-brewery/cursor-adapter-mosaik/components/select';
-import { attachCursorSurface } from '@pixel-brewery/cursor-browser';
+import { selectOption } from '@pixel-brewery/cursor-adapter-mosaik';
+import { ButtonAccessor } from '@pixel-brewery/cursor-adapter-mosaik/components/button';
+import { CheckboxAccessor } from '@pixel-brewery/cursor-adapter-mosaik/components/checkbox';
+import { DataTableAccessor } from '@pixel-brewery/cursor-adapter-mosaik/components/data-table';
+import { attachCursorSurface, CursorAccessorRegistry, withCursorAccessors } from '@pixel-brewery/cursor-browser';
 import { createCursorController, type CursorResult, type ICursorController } from '@pixel-brewery/cursor-core';
 import type { JSX, TargetedEvent } from 'preact';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'preact/hooks';
@@ -14,11 +16,14 @@ import {
     cursorStyleSchema,
     type CursorStyle,
 } from '../../contracts/CursorStyle.js';
+import { isDemoAction } from '../../contracts/DemoActions.js';
 import type { DesktopConnectionBridge, DesktopConnectionState } from '../../contracts/DesktopConnection.js';
 import { referenceViewId } from '../../contracts/referenceViewId.js';
 import { connectReference } from '../transport/connectReference.js';
 import { AssistantChat } from './AssistantChat.js';
+import { DemoControls } from './DemoControls.js';
 import { DesktopConnectionView } from './DesktopConnectionView.js';
+import { authorizeDemoCommand, registerDemoControls } from './registerDemoControls.js';
 
 // #endregion
 
@@ -26,6 +31,7 @@ const settingsTarget = 'settings';
 const openSettingsAction = 'open-settings';
 const styleTarget = 'cursor-style';
 const changeStyleAction = 'set-cursor-style';
+const cursorAccessors = new CursorAccessorRegistry(withCursorAccessors(ButtonAccessor, CheckboxAccessor, DataTableAccessor));
 
 const cursorStyleLabels: Record<CursorStyle, string> = {
     outline: 'Rund mit Kontur',
@@ -58,6 +64,11 @@ export function ReferenceView(props: IReferenceViewProps): JSX.Element {
     const settingsPanel = useRef<HTMLElementTagNameMap['mosaik-card']>(null);
     const styleSelect = useRef<SelectElement>(null);
     const controller = useRef<ICursorController | null>(null);
+    const runDemo = useRef<ReturnType<typeof registerDemoControls> | null>(null);
+    const demoTabs = useRef<HTMLElementTagNameMap['mosaik-tab']>(null);
+    const demoRegion = useRef<HTMLElementTagNameMap['mosaik-select']>(null);
+    const demoTable = useRef<HTMLElementTagNameMap['mosaik-data-table']>(null);
+    const demoCheckbox = useRef<HTMLElementTagNameMap['mosaik-checkbox']>(null);
 
     const [connection, setConnection] = useState<IConnectionStatus>({ label: 'Verbindung wird aufgebaut …' });
     const [cursorReady, setCursorReady] = useState(false);
@@ -91,6 +102,7 @@ export function ReferenceView(props: IReferenceViewProps): JSX.Element {
     ): Promise<CursorResult> => {
         const active = controller.current;
         if (!active) return { status: 'unavailable' };
+        if (isDemoAction(action)) return (await runDemo.current?.(action, signal)) ?? { status: 'unavailable' };
         if (action === 'show-settings') {
             return active.run({ kind: 'show', targetId: settingsTarget }, signal);
         }
@@ -110,7 +122,11 @@ export function ReferenceView(props: IReferenceViewProps): JSX.Element {
         const surfaceElement = surface.current;
         const button = settingsButton.current;
         const select = styleSelect.current;
-        if (!surfaceElement || !button || !select) return;
+        const tabs = demoTabs.current;
+        const region = demoRegion.current;
+        const table = demoTable.current;
+        const checkbox = demoCheckbox.current;
+        if (!surfaceElement || !button || !select || !tabs || !region || !table || !checkbox) return;
 
         let participantLabel = '';
         let release: (() => void) | undefined;
@@ -127,9 +143,11 @@ export function ReferenceView(props: IReferenceViewProps): JSX.Element {
                         if (command.targetId === settingsTarget) {
                             return command.actionId === openSettingsAction && command.input === undefined;
                         }
-                        return command.targetId === styleTarget &&
-                            command.actionId === changeStyleAction &&
-                            cursorStyleChangeSchema.safeParse(command.input).success;
+                        if (command.targetId === styleTarget) {
+                            return command.actionId === changeStyleAction &&
+                                cursorStyleChangeSchema.safeParse(command.input).success;
+                        }
+                        return authorizeDemoCommand(command);
                     },
                 });
                 const attachment = attachCursorSurface({
@@ -139,8 +157,7 @@ export function ReferenceView(props: IReferenceViewProps): JSX.Element {
                 });
                 attachment.registerTarget(settingsTarget, button);
                 attachment.registerTarget(styleTarget, select);
-                const cursorSettings = buttonAccessor.bind(button);
-                const cursorSelect = selectAccessor.bind(select);
+                const cursorSettings = cursorAccessors.bind(button, ButtonAccessor);
                 active.registerAction({
                     id: openSettingsAction,
                     targetId: settingsTarget,
@@ -151,18 +168,21 @@ export function ReferenceView(props: IReferenceViewProps): JSX.Element {
                     targetId: styleTarget,
                     handler(input, signal) {
                         const value = cursorStyleChangeSchema.parse(input);
-                        return cursorSelect.selectOption(
+                        return selectOption(
+                            select,
                             attachment,
                             value === 'next' ? { kind: 'next' } : { kind: 'value', value },
                             signal,
                         );
                     },
                 });
+                runDemo.current = registerDemoControls(active, attachment, cursorAccessors, { tabs, region, table, checkbox });
                 controller.current = active;
                 setCursorReady(true);
 
                 release = () => {
                     controller.current = null;
+                    runDemo.current = null;
                     attachment.dispose();
                     active.dispose();
                 };
@@ -314,6 +334,7 @@ export function ReferenceView(props: IReferenceViewProps): JSX.Element {
                                 </mosaik-card>
                             </mosaik-card-content>
                         </mosaik-card>
+                        <DemoControls tabsRef={demoTabs} regionRef={demoRegion} tableRef={demoTable} checkboxRef={demoCheckbox} />
                     </section>
                     <AssistantChat
                         connected={cursorReady && modelReady}

@@ -1,0 +1,14 @@
+{
+    "executors": {
+        "api-docs": {
+            "implementation": "./src/executors/api-docs/executor",
+            "schema": "./src/executors/api-docs/schema.json",
+            "description": "Generate or check the Cursor SDK's TypeDoc reference."
+        },
+        "mosaik-accessor-transform": {
+            "implementation": "./src/executors/mosaik-accessor-transform/executor",
+            "schema": "./src/executors/mosaik-accessor-transform/schema.json",
+            "description": "Generate or check Cursor accessors for every installed Mosaik component."
+        }
+    }
+}

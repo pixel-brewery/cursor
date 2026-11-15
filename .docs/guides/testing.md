@@ -21,4 +21,4 @@ yarn test:demo
 
 On Linux, use `xvfb-run -a yarn test:demo` when a display server is unavailable. Playwright opens temporary reference relays and fixtures on loopback ports. A provider selected for live testing uses its configured port. Browser tests can select an installed Chromium build through `PLAYWRIGHT_CHROMIUM_EXECUTABLE`. Set `CURSOR_SCREENSHOT_DIR` to save reference captures.
 
-To run one Vitest owner through Nx, use `yarn nx run cursor-core:test`, `yarn nx run @pixel-brewery/cursor-browser:test`, `yarn nx run cursor-reference:test` or `yarn nx run api-docs:test`.
+To run one Vitest owner through Nx, use `yarn nx run cursor-core:test`, `yarn nx run @pixel-brewery/cursor-browser:test`, `yarn nx run cursor-reference:test` or `yarn nx run nx-tasks:test`.

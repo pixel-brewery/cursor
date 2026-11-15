@@ -137,6 +137,20 @@ p {
     max-width: 36ch;
 }
 
+.demo-controls {
+    margin-block-start: calc(var(--mosaik-layout-space) * 2);
+    min-width: 0;
+}
+
+.demo-panel {
+    min-width: 0;
+    padding: calc(var(--mosaik-layout-space) * 2);
+}
+
+.demo-region {
+    width: min(100%, 16rem);
+}
+
 .assistant-chat {
     height: clamp(24rem, 45vh, 27rem);
     min-width: 0;

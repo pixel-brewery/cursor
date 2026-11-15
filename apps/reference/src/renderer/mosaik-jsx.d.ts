@@ -33,6 +33,11 @@ declare module 'preact' {
                 onpromptSubmitted?: MosaikEvent<'mosaik-chat-prompt-box', 'promptSubmitted'>;
                 onstopRequested?: MosaikEvent<'mosaik-chat-prompt-box', 'stopRequested'>;
             };
+            'mosaik-checkbox': MosaikProps<'mosaik-checkbox', 'label'>;
+            'mosaik-data-table': MosaikProps<
+                'mosaik-data-table',
+                'columnDefinitions' | 'groupable' | 'intl' | 'rowKey' | 'sortable' | 'source'
+            >;
             'mosaik-divider': MosaikProps<'mosaik-divider'>;
             'mosaik-empty-state': MosaikProps<'mosaik-empty-state', 'content' | 'header' | 'icon' | 'iconSize'>;
             'mosaik-image': MosaikProps<'mosaik-image', 'alt' | 'fit' | 'height' | 'src' | 'width'>;
@@ -42,6 +47,8 @@ declare module 'preact' {
                 onchanged?: MosaikEvent<'mosaik-select', 'changed'>;
             };
             'mosaik-select-item': MosaikProps<'mosaik-select-item', 'label' | 'value'>;
+            'mosaik-tab': MosaikProps<'mosaik-tab'>;
+            'mosaik-tab-item': MosaikProps<'mosaik-tab-item', 'isSelected' | 'label' | 'value'>;
             'mosaik-text': MosaikProps<'mosaik-text', 'text'>;
             'mosaik-textbox': MosaikProps<'mosaik-textbox', 'autocomplete' | 'disabled' | 'label' | 'maxlength' | 'required' | 'value'>;
         }

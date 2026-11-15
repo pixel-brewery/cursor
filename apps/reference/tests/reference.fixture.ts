@@ -13,6 +13,10 @@ export const openPrompt = 'Öffne die Einstellungen';
 export const unrelatedPrompt = 'Wie viele Tage hat eine Woche?';
 export const squareStylePrompt = 'Mach den Zeiger eckig';
 export const cycleStylePrompt = 'Ändere den Zeigerstil';
+export const sortDemoTablePrompt = 'Sortiere die Tabelle nach Umsatz, den höchsten zuerst.';
+export const groupDemoTablePrompt = 'Gruppiere die Tabelle jetzt nach Region.';
+export const selectDemoRegionPrompt = 'Wähle Süd im Feld Region aus.';
+export const checkDemoCheckboxPrompt = 'Aktiviere die Vorschau.';
 export const replies = new Map<string, ChatReply>([
     [showPrompt, { text: 'Ich zeige dir die Einstellungen.', action: 'show-settings' }],
     [openPrompt, { text: 'Ich öffne die Einstellungen.', action: 'open-settings' }],
@@ -20,6 +24,25 @@ export const replies = new Map<string, ChatReply>([
     [
         squareStylePrompt,
         { text: 'Ich stelle den Zeiger auf Eckig.', action: 'set-cursor-style-square' },
+    ],
+    [
+        sortDemoTablePrompt,
+        {
+            text: 'Ich sortiere die Tabelle absteigend nach Umsatz.',
+            action: 'demo-sort-revenue-desc',
+        },
+    ],
+    [
+        groupDemoTablePrompt,
+        { text: 'Ich gruppiere die Tabelle nach Region.', action: 'demo-group-region' },
+    ],
+    [
+        selectDemoRegionPrompt,
+        { text: 'Ich wähle Süd aus.', action: 'demo-select-south' },
+    ],
+    [
+        checkDemoCheckboxPrompt,
+        { text: 'Ich aktiviere die Vorschau.', action: 'demo-check-checkbox' },
     ],
 ]);
 

@@ -9,13 +9,255 @@
     "summary": [
       {
         "kind": "text",
-        "text": "Vue composables for attaching a Cursor surface and registering template refs."
+        "text": "Vue providers and composables for configuring Cursor and registering template refs."
       }
     ]
   },
   "children": [
     {
-      "id": 1,
+      "id": 4,
+      "name": "CursorProvider",
+      "variant": "declaration",
+      "kind": 32,
+      "flags": {
+        "isPublic": true,
+        "isConst": true
+      },
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Provides an accessor registry to the default slot without adding a DOM wrapper.\nSupply the features when the component is mounted."
+          }
+        ]
+      },
+      "type": {
+        "type": "reference",
+        "target": {
+          "packageName": "@vue/runtime-core",
+          "packagePath": "dist/runtime-core.d.ts",
+          "qualifiedName": "DefineSetupFnComponent"
+        },
+        "typeArguments": [
+          {
+            "type": "reference",
+            "target": 5,
+            "name": "ICursorProviderProps",
+            "package": "@pixel-brewery/cursor-vue"
+          }
+        ],
+        "name": "DefineSetupFnComponent",
+        "package": "@vue/runtime-core"
+      },
+      "defaultValue": "..."
+    },
+    {
+      "id": 5,
+      "name": "ICursorProviderProps",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {
+        "isPublic": true
+      },
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Configuration for the Vue Cursor provider."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 6,
+          "name": "features",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true,
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Features that supply the accessor classes when the provider is mounted."
+              }
+            ]
+          },
+          "type": {
+            "type": "typeOperator",
+            "operator": "readonly",
+            "target": {
+              "type": "array",
+              "elementType": {
+                "type": "reference",
+                "target": {
+                  "packageName": "@pixel-brewery/cursor-browser",
+                  "packagePath": "src/interfaces/ICursorFeature.ts",
+                  "qualifiedName": "ICursorFeature"
+                },
+                "name": "ICursorFeature",
+                "package": "@pixel-brewery/cursor-browser"
+              }
+            }
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "provideCursor",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {
+        "isPublic": true
+      },
+      "signatures": [
+        {
+          "id": 8,
+          "name": "provideCursor",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {
+            "isPublic": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Configures the accessor registry shared by the current Vue component's descendants.\nCall during setup with the features for this subtree."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@returns",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "The registry provided to the subtree."
+                  }
+                ]
+              }
+            ]
+          },
+          "parameters": [
+            {
+              "id": 9,
+              "name": "features",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {
+                "isRest": true
+              },
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Cursor features to install in the registry."
+                  }
+                ]
+              },
+              "type": {
+                "type": "typeOperator",
+                "operator": "readonly",
+                "target": {
+                  "type": "array",
+                  "elementType": {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "@pixel-brewery/cursor-browser",
+                      "packagePath": "src/interfaces/ICursorFeature.ts",
+                      "qualifiedName": "ICursorFeature"
+                    },
+                    "name": "ICursorFeature",
+                    "package": "@pixel-brewery/cursor-browser"
+                  }
+                }
+              }
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "@pixel-brewery/cursor-browser",
+              "packagePath": "src/services/CursorAccessorRegistry.ts",
+              "qualifiedName": "CursorAccessorRegistry"
+            },
+            "name": "CursorAccessorRegistry",
+            "package": "@pixel-brewery/cursor-browser"
+          }
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "name": "useCursorAccessorRegistry",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {
+        "isPublic": true
+      },
+      "signatures": [
+        {
+          "id": 11,
+          "name": "useCursorAccessorRegistry",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {
+            "isPublic": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Resolves the nearest accessor registry during Vue setup."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@returns",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "The registry configured for this subtree."
+                  }
+                ]
+              },
+              {
+                "tag": "@throws",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "If the subtree is missing a Cursor provider."
+                  }
+                ]
+              }
+            ]
+          },
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "@pixel-brewery/cursor-browser",
+              "packagePath": "src/services/CursorAccessorRegistry.ts",
+              "qualifiedName": "CursorAccessorRegistry"
+            },
+            "name": "CursorAccessorRegistry",
+            "package": "@pixel-brewery/cursor-browser"
+          }
+        }
+      ]
+    },
+    {
+      "id": 12,
       "name": "useCursorSurface",
       "variant": "declaration",
       "kind": 64,
@@ -24,7 +266,7 @@
       },
       "signatures": [
         {
-          "id": 2,
+          "id": 13,
           "name": "useCursorSurface",
           "variant": "signature",
           "kind": 4096,
@@ -61,7 +303,7 @@
           },
           "parameters": [
             {
-              "id": 3,
+              "id": 14,
               "name": "element",
               "variant": "param",
               "kind": 32768,
@@ -107,7 +349,7 @@
               }
             },
             {
-              "id": 4,
+              "id": 15,
               "name": "options",
               "variant": "param",
               "kind": 32768,
@@ -207,7 +449,7 @@
       ]
     },
     {
-      "id": 5,
+      "id": 16,
       "name": "useCursorTarget",
       "variant": "declaration",
       "kind": 64,
@@ -216,7 +458,7 @@
       },
       "signatures": [
         {
-          "id": 6,
+          "id": 17,
           "name": "useCursorTarget",
           "variant": "signature",
           "kind": 4096,
@@ -244,7 +486,7 @@
           },
           "parameters": [
             {
-              "id": 7,
+              "id": 18,
               "name": "surface",
               "variant": "param",
               "kind": 32768,
@@ -290,7 +532,7 @@
               }
             },
             {
-              "id": 8,
+              "id": 19,
               "name": "targetId",
               "variant": "param",
               "kind": 32768,
@@ -321,7 +563,7 @@
               }
             },
             {
-              "id": 9,
+              "id": 20,
               "name": "element",
               "variant": "param",
               "kind": 32768,
@@ -373,14 +615,126 @@
           }
         }
       ]
+    },
+    {
+      "id": 1,
+      "name": "withCursorAccessors",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {
+        "isPublic": true
+      },
+      "signatures": [
+        {
+          "id": 2,
+          "name": "withCursorAccessors",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {
+            "isPublic": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Selects the accessor classes to register in a Cursor application."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@returns",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "A feature accepted by a Cursor registry or framework provider."
+                  }
+                ]
+              }
+            ]
+          },
+          "parameters": [
+            {
+              "id": 3,
+              "name": "accessors",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {
+                "isRest": true
+              },
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "The individual accessor classes imported by the application."
+                  }
+                ]
+              },
+              "type": {
+                "type": "typeOperator",
+                "operator": "readonly",
+                "target": {
+                  "type": "array",
+                  "elementType": {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "@pixel-brewery/cursor-browser",
+                      "packagePath": "src/interfaces/ICursorAccessorClass.ts",
+                      "qualifiedName": "ICursorAccessorClass"
+                    },
+                    "typeArguments": [
+                      {
+                        "type": "reference",
+                        "target": {
+                          "packageName": "@pixel-brewery/cursor-browser",
+                          "packagePath": "src/interfaces/ICursorElementAccessor.ts",
+                          "qualifiedName": "ICursorElementAccessor"
+                        },
+                        "name": "ICursorElementAccessor",
+                        "package": "@pixel-brewery/cursor-browser"
+                      }
+                    ],
+                    "name": "ICursorAccessorClass",
+                    "package": "@pixel-brewery/cursor-browser"
+                  }
+                }
+              }
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "@pixel-brewery/cursor-browser",
+              "packagePath": "src/interfaces/ICursorFeature.ts",
+              "qualifiedName": "ICursorFeature"
+            },
+            "name": "ICursorFeature",
+            "package": "@pixel-brewery/cursor-browser"
+          }
+        }
+      ]
     }
   ],
   "groups": [
     {
+      "title": "Interfaces",
+      "children": [
+        5
+      ]
+    },
+    {
+      "title": "Variables",
+      "children": [
+        4
+      ]
+    },
+    {
       "title": "Functions",
       "children": [
-        1,
-        5
+        7,
+        10,
+        12,
+        16,
+        1
       ]
     }
   ],
@@ -392,46 +746,101 @@
       "qualifiedName": ""
     },
     "1": {
-      "packageName": "@pixel-brewery/cursor-vue",
-      "packagePath": "src/composables/useCursorSurface.ts",
-      "qualifiedName": "useCursorSurface"
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/withCursorAccessors.ts",
+      "qualifiedName": "withCursorAccessors"
     },
     "2": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/withCursorAccessors.ts",
+      "qualifiedName": "withCursorAccessors"
+    },
+    "3": {
+      "packageName": "@pixel-brewery/cursor-browser",
+      "packagePath": "src/withCursorAccessors.ts",
+      "qualifiedName": "accessors"
+    },
+    "4": {
+      "packageName": "@pixel-brewery/cursor-vue",
+      "packagePath": "src/context/CursorProvider.ts",
+      "qualifiedName": "CursorProvider"
+    },
+    "5": {
+      "packageName": "@pixel-brewery/cursor-vue",
+      "packagePath": "src/context/ICursorProviderProps.ts",
+      "qualifiedName": "ICursorProviderProps"
+    },
+    "6": {
+      "packageName": "@pixel-brewery/cursor-vue",
+      "packagePath": "src/context/ICursorProviderProps.ts",
+      "qualifiedName": "ICursorProviderProps.features"
+    },
+    "7": {
+      "packageName": "@pixel-brewery/cursor-vue",
+      "packagePath": "src/context/provideCursor.ts",
+      "qualifiedName": "provideCursor"
+    },
+    "8": {
+      "packageName": "@pixel-brewery/cursor-vue",
+      "packagePath": "src/context/provideCursor.ts",
+      "qualifiedName": "provideCursor"
+    },
+    "9": {
+      "packageName": "@pixel-brewery/cursor-vue",
+      "packagePath": "src/context/provideCursor.ts",
+      "qualifiedName": "features"
+    },
+    "10": {
+      "packageName": "@pixel-brewery/cursor-vue",
+      "packagePath": "src/composables/useCursorAccessorRegistry.ts",
+      "qualifiedName": "useCursorAccessorRegistry"
+    },
+    "11": {
+      "packageName": "@pixel-brewery/cursor-vue",
+      "packagePath": "src/composables/useCursorAccessorRegistry.ts",
+      "qualifiedName": "useCursorAccessorRegistry"
+    },
+    "12": {
       "packageName": "@pixel-brewery/cursor-vue",
       "packagePath": "src/composables/useCursorSurface.ts",
       "qualifiedName": "useCursorSurface"
     },
-    "3": {
+    "13": {
+      "packageName": "@pixel-brewery/cursor-vue",
+      "packagePath": "src/composables/useCursorSurface.ts",
+      "qualifiedName": "useCursorSurface"
+    },
+    "14": {
       "packageName": "@pixel-brewery/cursor-vue",
       "packagePath": "src/composables/useCursorSurface.ts",
       "qualifiedName": "element"
     },
-    "4": {
+    "15": {
       "packageName": "@pixel-brewery/cursor-vue",
       "packagePath": "src/composables/useCursorSurface.ts",
       "qualifiedName": "options"
     },
-    "5": {
+    "16": {
       "packageName": "@pixel-brewery/cursor-vue",
       "packagePath": "src/composables/useCursorTarget.ts",
       "qualifiedName": "useCursorTarget"
     },
-    "6": {
+    "17": {
       "packageName": "@pixel-brewery/cursor-vue",
       "packagePath": "src/composables/useCursorTarget.ts",
       "qualifiedName": "useCursorTarget"
     },
-    "7": {
+    "18": {
       "packageName": "@pixel-brewery/cursor-vue",
       "packagePath": "src/composables/useCursorTarget.ts",
       "qualifiedName": "surface"
     },
-    "8": {
+    "19": {
       "packageName": "@pixel-brewery/cursor-vue",
       "packagePath": "src/composables/useCursorTarget.ts",
       "qualifiedName": "targetId"
     },
-    "9": {
+    "20": {
       "packageName": "@pixel-brewery/cursor-vue",
       "packagePath": "src/composables/useCursorTarget.ts",
       "qualifiedName": "element"
