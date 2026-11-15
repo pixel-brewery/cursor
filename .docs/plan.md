@@ -20,7 +20,7 @@ Use the workspace’s Native ESM and strict TypeScript configuration. Framework 
 
 ## Integration contracts
 
-The following contract names describe the planned interfaces. Their implementation belongs to the runtime milestone.
+The core exports these contracts through the package root. The host supplies identity, scope, transport and action authorization.
 
 | Contract            | Data and behavior                                                                                                                                                                                      |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -49,7 +49,7 @@ For the reference application, the deterministic assistant accepts two explicit 
 
 Ship one browser implementation. Each framework entry point accepts the same scope and transport and provides target registration for its component model. Use a directive with destruction handling for Angular, a hook with cleanup for React, a composable with scope disposal for Vue and an action with destroy handling for Svelte. Verify that replacing the surface or its inputs releases the previous registration. Keep all DOM access behind mount so that framework imports can be used during server rendering.
 
-Before designing the reference view, apply the project Designer and consult the configured Mosaik catalog. Verify the component API and theme against the chosen catalog snapshot. Check the actual view for small windows, keyboard use and reduced motion. Keep illustration and branding assets outside the runtime API.
+The reference view uses Mosaik Soho and the native Web Component API. The local 0.1.205 catalog supplied the authoring rules, native framework guide, tokens, component contracts and anatomy. `template-issue-tracker` and `recipe-account-settings-panel` informed the settings layout. The smaller fixture uses Card for its two areas, Button for actions and Message for connection and assistant feedback. These map directly to the installed 0.1.205 foundation and theme packages. Branding assets stay outside the runtime API.
 
 ## Delivery order
 
@@ -57,7 +57,7 @@ Before designing the reference view, apply the project Designer and consult the 
 2. Implement the browser renderer and target registration. Validate input capture, geometry updates and cleanup in the reference surface.
 3. Connect the reference relay and deterministic assistant. Run the two-tab scenario and repeat across browser and Electron using the shared renderer.
 4. Add the four framework adapters. Exercise the same mount, registration, rerender and teardown contract in each framework.
-5. Document observed behavior, public imports and runnable commands. Keep the initial bootstrap status in the README until that verification is available.
+5. Document observed behavior, public imports and runnable commands alongside the [runtime verification guide](README.md#runtime-verification).
 
 ## Acceptance
 

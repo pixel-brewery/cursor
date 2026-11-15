@@ -1,0 +1,20 @@
+{
+    "name": "@pixel-brewery/cursor-core",
+    "version": "0.0.0",
+    "private": true,
+    "type": "module",
+    "sideEffects": false,
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js"
+        }
+    },
+    "nx": {
+        "name": "cursor-core"
+    },
+    "scripts": {
+        "build": "tsc -b",
+        "test": "node --test tests/*.test.mjs"
+    }
+}

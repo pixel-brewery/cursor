@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en" theme="soho" theme-mode="light">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' ws://127.0.0.1:*; font-src 'self'; object-src 'none'; base-uri 'none'" />
+        <title>Cursor reference demo</title>
+    </head>
+    <body>
+        <header class="layout shell-header">
+            <div class="brand">
+                <h1>Cursor demo</h1>
+            </div>
+            <mosaik-button data-testid="another-view" label="Open another view" appearance="outline"></mosaik-button>
+        </header>
+
+        <main class="layout">
+            <section class="intro" aria-label="Connection">
+                <p>Move your pointer in the shared view. Ask the assistant to point to Settings or open it.</p>
+                <mosaik-message id="connection" data-testid="connection-status" appearance="soft" aria-live="polite" header="Connecting…"></mosaik-message>
+            </section>
+
+            <section id="surface" class="surface" aria-label="Shared view" data-testid="surface">
+                <mosaik-card appearance="outline">
+                    <mosaik-card-header>
+                        <mosaik-card-title text="Shared view"></mosaik-card-title>
+                    </mosaik-card-header>
+                    <mosaik-card-content>
+                        <div class="workspace-content" data-testid="pointer-area">
+                            <mosaik-button
+                                id="settings"
+                                data-testid="settings"
+                                label="Settings"
+                                appearance="outline"
+                                aria-controls="settings-panel"
+                                aria-expanded="false"
+                            ></mosaik-button>
+                        </div>
+                        <mosaik-card id="settings-panel" data-testid="settings-panel" appearance="soft" hidden>
+                            <mosaik-card-header>
+                                <mosaik-card-title text="Settings"></mosaik-card-title>
+                            </mosaik-card-header>
+                            <mosaik-card-content text="Pointers are visible in this view."></mosaik-card-content>
+                            <mosaik-card-actions>
+                                <mosaik-button id="close-settings" label="Close settings" appearance="plain"></mosaik-button>
+                            </mosaik-card-actions>
+                        </mosaik-card>
+                    </mosaik-card-content>
+                </mosaik-card>
+
+                <mosaik-card appearance="outline">
+                    <mosaik-card-header>
+                        <mosaik-card-title text="Demo assistant"></mosaik-card-title>
+                    </mosaik-card-header>
+                    <mosaik-card-content>
+                        <div class="actions">
+                            <mosaik-button id="show" data-testid="assistant-show" label="Show settings" appearance="outline" disabled></mosaik-button>
+                            <mosaik-button id="open" data-testid="assistant-open" label="Open settings" variant="primary" appearance="solid" disabled></mosaik-button>
+                        </div>
+                    </mosaik-card-content>
+                    <mosaik-card-footer>
+                        <mosaik-message id="assistant-status" data-testid="assistant-status" appearance="soft" aria-live="polite" header="Choose an assistant action."></mosaik-message>
+                    </mosaik-card-footer>
+                </mosaik-card>
+            </section>
+        </main>
+
+        <script type="module" src="/src/renderer/main.ts"></script>
+    </body>
+</html>

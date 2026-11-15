@@ -16,11 +16,20 @@
         "agents:sync": "node tools/sync-agents.mjs --write",
         "agents:check": "node tools/sync-agents.mjs --check && node tools/check-bootstrap.mjs",
         "agents:mcp-check": "node tools/check-mosaik-mcp.mjs",
-        "typecheck": "tsc --project tsconfig.json --noEmit"
+        "typecheck": "yarn build",
+        "build": "nx run-many -t build --parallel=1",
+        "test": "nx run-many -t test --parallel=1",
+        "demo:web": "nx run cursor-reference:build && yarn workspace @pixel-brewery/cursor-reference serve",
+        "demo:electron": "nx run cursor-reference:build && yarn workspace @pixel-brewery/cursor-reference electron:install && yarn workspace @pixel-brewery/cursor-reference electron:start",
+        "test:demo": "yarn workspace @pixel-brewery/cursor-reference test:acceptance",
+        "test:adapters": "node tools/test-framework-adapters/run.mjs"
     },
     "devDependencies": {
         "@pixel-brewery/mosaik-mcp": "0.1.205",
+        "@types/node": "26.6.6",
         "nx": "24.0.5",
-        "typescript": "6.0.3"
+        "playwright": "1.65.0",
+        "typescript": "6.0.3",
+        "vite": "8.3.8"
     }
 }

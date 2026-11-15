@@ -1,0 +1,29 @@
+{
+    "name": "@pixel-brewery/cursor-angular",
+    "version": "0.0.0",
+    "private": true,
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js"
+        }
+    },
+    "scripts": {
+        "build": "ngc -p tsconfig.json"
+    },
+    "dependencies": {
+        "@pixel-brewery/cursor-browser": "workspace:^"
+    },
+    "peerDependencies": {
+        "@angular/core": "^22.2.6"
+    },
+    "devDependencies": {
+        "@angular/common": "22.2.6",
+        "@angular/compiler": "22.2.6",
+        "@angular/compiler-cli": "22.2.6",
+        "@angular/core": "22.2.6",
+        "@angular/platform-browser": "22.2.6",
+        "rxjs": "7.8.2"
+    }
+}

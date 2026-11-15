@@ -1,0 +1,38 @@
+{
+    "name": "@pixel-brewery/cursor-reference",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "main": "./dist/node/electron.js",
+    "scripts": {
+        "build": "tsc -p tsconfig.json && tsc -p tsconfig.node.json && vite build",
+        "serve": "node dist/node/serve.js",
+        "electron:install": "install-electron",
+        "electron:start": "electron .",
+        "test:acceptance": "node tests/acceptance.mjs"
+    },
+    "dependencies": {
+        "@floating-ui/dom": "1.8.0",
+        "@lit-labs/virtualizer": "2.1.1",
+        "@lit/context": "1.1.6",
+        "@lit/task": "1.0.3",
+        "@pixel-brewery/cursor-browser": "workspace:^",
+        "@pixel-brewery/cursor-core": "workspace:^",
+        "@pixel-brewery/mosaik-elements-foundation": "0.1.205",
+        "@pixel-brewery/mosaik-themes": "0.1.205",
+        "chroma-js": "3.3.0",
+        "lit": "3.3.3",
+        "reflect-metadata": "0.2.2",
+        "vite": "8.3.8",
+        "ws": "8.21.3"
+    },
+    "devDependencies": {
+        "@types/node": "26.6.6",
+        "@types/ws": "8.18.1",
+        "electron": "45.3.2",
+        "typescript": "6.0.3"
+    },
+    "nx": {
+        "name": "cursor-reference"
+    }
+}

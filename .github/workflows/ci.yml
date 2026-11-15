@@ -13,7 +13,7 @@ permissions:
 jobs:
     verify:
         runs-on: ubuntu-latest
-        timeout-minutes: 10
+        timeout-minutes: 15
         steps:
             - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
               with:
@@ -28,7 +28,15 @@ jobs:
                   GITHUB_TOKEN: ${{ github.token }}
             - run: yarn agents:check
             - run: yarn agents:mcp-check
-            - run: yarn typecheck
+            - run: yarn build
+            - run: yarn test
+            - name: Install test renderers
+              run: |
+                  yarn exec playwright install --with-deps chromium
+                  yarn workspace @pixel-brewery/cursor-reference electron:install
+            - run: yarn test:adapters
+            - run: xvfb-run -a yarn test:demo
+            - run: python3 .agents/skills/designer/scripts/check_design.py --app apps/reference
             - name: Verify generated files are current
               run: |
                   yarn agents:sync

@@ -1,0 +1,13 @@
+export { createCursorController } from './CursorController.js';
+export type { CursorCommand } from './CursorCommand.js';
+export type { CursorResult } from './CursorResult.js';
+export type { CursorTransportEvent } from './CursorTransportEvent.js';
+export type { ICursorAction } from './ICursorAction.js';
+export type { ICursorController } from './ICursorController.js';
+export type { ICursorControllerOptions } from './ICursorControllerOptions.js';
+export type { ICursorParticipant } from './ICursorParticipant.js';
+export type { ICursorPosition } from './ICursorPosition.js';
+export type { ICursorTransport } from './ICursorTransport.js';
+export type { IPointer } from './IPointer.js';
+export type { IPointerUpdate } from './IPointerUpdate.js';
+export { parsePointerUpdate } from './parsePointerUpdate.js';
