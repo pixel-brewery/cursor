@@ -23,5 +23,6 @@
         "site/"
       ]
     }
-  ]
+  ],
+  "reviewedCiSha256": "03e340d5a4e69c0a2ed1829ba59370b2d0502571ee84cdec669ea971cc129829"
 }
