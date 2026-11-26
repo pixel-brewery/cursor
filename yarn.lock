@@ -18,15 +18,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ai-sdk/openai-compatible@npm:3.0.90":
-  version: 3.0.90
-  resolution: "@ai-sdk/openai-compatible@npm:3.0.90"
+"@ai-sdk/openai-compatible@npm:3.0.94":
+  version: 3.0.94
+  resolution: "@ai-sdk/openai-compatible@npm:3.0.94"
   dependencies:
-    "@ai-sdk/provider": "npm:4.0.37"
-    "@ai-sdk/provider-utils": "npm:5.0.79"
+    "@ai-sdk/provider": "npm:4.0.39"
+    "@ai-sdk/provider-utils": "npm:5.0.83"
   peerDependencies:
     zod: ^3.25.76 || ^4.1.8
-  checksum: 10c0/a74896d0c71c300e875dd9e701a77e2ce88b2cc722de9c7a66602d3ed3be3ad8a6ba665ab2fefbc36b6995954155f90c97dec0833e4bba9ad02867962fcd3b0d
+  checksum: 10c0/e3ca888abc670fabaeab6f0a32f1287b6e98883d81fefdb6ca5d33da488b1fdf9c54d2771771ec1edefb4e336470b2fa1f3e8c8716328d57def004e5d82cca80
   languageName: node
   linkType: hard
 
@@ -45,12 +45,35 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ai-sdk/provider-utils@npm:5.0.83":
+  version: 5.0.83
+  resolution: "@ai-sdk/provider-utils@npm:5.0.83"
+  dependencies:
+    "@ai-sdk/provider": "npm:4.0.39"
+    "@standard-schema/spec": "npm:^1.1.0"
+    "@workflow/serde": "npm:4.1.0"
+    eventsource-parser: "npm:^3.0.8"
+  peerDependencies:
+    zod: ^3.25.76 || ^4.1.8
+  checksum: 10c0/e3f3a8d2c71e0aa21156523bd79ef8ae98e2ea11a72c98bc9a69d58499de991575f2baee5e25edf935ac613460bbd540c804439d71822ea2e69c03078219a7f2
+  languageName: node
+  linkType: hard
+
 "@ai-sdk/provider@npm:4.0.37":
   version: 4.0.37
   resolution: "@ai-sdk/provider@npm:4.0.37"
   dependencies:
     json-schema: "npm:^0.4.0"
   checksum: 10c0/22f8a0478fbd987f68fb7698363386c9683efb4078c01f9b72dd63183fe45db3bbac84d15e4bfe052ab5bd237a33f74ec674dd14f0daba5375c336030539ec1b
+  languageName: node
+  linkType: hard
+
+"@ai-sdk/provider@npm:4.0.39":
+  version: 4.0.39
+  resolution: "@ai-sdk/provider@npm:4.0.39"
+  dependencies:
+    json-schema: "npm:^0.4.0"
+  checksum: 10c0/295f1c7de00ed5308dc1729253fb20deef40659f3c2b2391d5cab43109352af5752b09ed5a52bea9de3cd96dce29c1af0b86189ccaa93edb103380ab0afb37e3
   languageName: node
   linkType: hard
 
@@ -935,7 +958,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@pixel-brewery/cursor-reference@workspace:apps/reference"
   dependencies:
-    "@ai-sdk/openai-compatible": "npm:3.0.90"
+    "@ai-sdk/openai-compatible": "npm:3.0.94"
     "@floating-ui/dom": "npm:1.8.0"
     "@fontsource-variable/inter": "npm:5.3.0"
     "@lit-labs/virtualizer": "npm:2.1.1"
