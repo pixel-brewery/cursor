@@ -57,3 +57,7 @@ yarn docs:check
 The [testing guide](guides/testing.md) lists the framework and demo Playwright commands, supported renderers, model fixture and live model setup.
 
 To use the reference view interactively, [start the browser model](guides/reference-chat.md#start-the-browser-model) for `yarn demo:web` or [configure a local CLI connection](guides/reference-chat.md#configure-a-local-connection-in-electron) in `yarn demo:electron`. The browser entry point is [the loopback URL](http://127.0.0.1:4317/). Host applications supply their own authenticated transport and action authorization.
+
+## Dependency automation
+
+[Automatic dependency updates](guides/dependabot.md) describes all-version updates, exact-head verification, branch refresh and workflow continuation.
