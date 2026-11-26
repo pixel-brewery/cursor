@@ -1,0 +1,27 @@
+{
+  "repository": "pixel-brewery/cursor",
+  "repositoryId": 1458856973,
+  "workflowFile": "ci.yml",
+  "workflowName": "Verify",
+  "requiredJobs": [
+    "verify"
+  ],
+  "postMergeWorkflows": [
+    {
+      "file": "ci.yml"
+    },
+    {
+      "file": "publish-pages.yml",
+      "paths": [
+        ".github/workflows/publish-pages.yml",
+        ".github/assets/",
+        ".node-version",
+        ".yarnrc.yml",
+        "package.json",
+        "apps/reference/package.json",
+        "yarn.lock",
+        "site/"
+      ]
+    }
+  ]
+}

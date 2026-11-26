@@ -1,7 +1,9 @@
 {
     "name": "nx-tasks",
     "projectType": "library",
-    "tags": ["infra"],
+    "tags": [
+        "infra"
+    ],
     "implicitDependencies": [
         "cursor-adapter-mosaik",
         "cursor-core",
@@ -14,16 +16,31 @@
     "targets": {
         "docs": {
             "executor": "@pixel-brewery/nx-tasks:api-docs",
-            "dependsOn": ["^build"],
+            "dependsOn": [
+                "^build"
+            ],
             "cache": false,
-            "outputs": ["{workspaceRoot}/.docs/api", "{workspaceRoot}/.docs/packages/*/api"],
-            "options": { "mode": "write" }
+            "outputs": [
+                "{workspaceRoot}/.docs/api",
+                "{workspaceRoot}/.docs/packages/*/api"
+            ],
+            "options": {
+                "mode": "write"
+            }
         },
         "docs:check": {
             "executor": "@pixel-brewery/nx-tasks:api-docs",
-            "dependsOn": ["^build"],
+            "dependsOn": [
+                "^build"
+            ],
             "cache": false,
-            "options": { "mode": "check" }
+            "options": {
+                "mode": "check"
+            }
+        },
+        "dependabot-merge": {
+            "executor": "@pixel-brewery/nx-tasks:dependabot-merge",
+            "cache": false
         }
     }
 }
