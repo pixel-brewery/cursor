@@ -25,6 +25,8 @@ test.beforeAll(async () => {
                 'vue',
                 'svelte',
                 'svelte/internal/client',
+                'svelte/internal/disclose-version',
+                'svelte/internal/init-operations',
                 'svelte/store',
             ],
         },
