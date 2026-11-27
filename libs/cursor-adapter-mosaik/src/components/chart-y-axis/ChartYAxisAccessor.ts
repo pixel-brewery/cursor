@@ -30,6 +30,7 @@ import { ElementAccessor } from '../../cdk/accessors/ElementAccessor.js';
         'max',
         'min',
         'position',
+        'stackType',
         'themeName',
         'tickCount',
         'tickFormatter',

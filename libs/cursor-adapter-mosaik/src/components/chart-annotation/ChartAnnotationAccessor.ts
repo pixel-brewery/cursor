@@ -17,6 +17,7 @@ import { ElementAccessor } from '../../cdk/accessors/ElementAccessor.js';
     properties: [
         'category',
         'changed',
+        'chartAnnotationMoved',
         'chartLayer',
         'connected',
         'controlValue',
@@ -25,12 +26,14 @@ import { ElementAccessor } from '../../cdk/accessors/ElementAccessor.js';
         'disconnected',
         'label',
         'lang',
+        'movable',
         'themeName',
         'value',
         'yAxis',
     ],
     readOnlyProperties: [
         'changed',
+        'chartAnnotationMoved',
         'chartLayer',
         'connected',
         'controlValue',
@@ -45,6 +48,6 @@ import { ElementAccessor } from '../../cdk/accessors/ElementAccessor.js';
         'renderChart',
         'requestUpdate',
     ],
-    events: ['changed', 'connected', 'disconnected'],
+    events: ['changed', 'chartAnnotationMoved', 'connected', 'disconnected'],
 })
 export class ChartAnnotationAccessor extends ElementAccessor {}

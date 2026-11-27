@@ -19,6 +19,7 @@ import { ElementAccessor } from '../../cdk/accessors/ElementAccessor.js';
         'changed',
         'connected',
         'controlValue',
+        'density',
         'dir',
         'disconnected',
         'displayMode',
@@ -77,6 +78,7 @@ import { ElementAccessor } from '../../cdk/accessors/ElementAccessor.js';
         'onSlotChanges',
         'refreshView',
         'reorderColumn',
+        'reorderSwimlane',
         'requestUpdate',
         'selectAll',
     ],
@@ -89,6 +91,7 @@ import { ElementAccessor } from '../../cdk/accessors/ElementAccessor.js';
         'flowBoardBeforeItemMove',
         'flowBoardBeforeItemReorder',
         'flowBoardBeforeItemsMove',
+        'flowBoardBeforeSwimlaneReorder',
         'flowBoardColumnReorder',
         'flowBoardDragEnd',
         'flowBoardDragStart',
@@ -98,6 +101,7 @@ import { ElementAccessor } from '../../cdk/accessors/ElementAccessor.js';
         'flowBoardItemReorder',
         'flowBoardItemsMove',
         'flowBoardSelectionChanged',
+        'flowBoardSwimlaneReorder',
     ],
 })
 export class FlowBoardAccessor extends ElementAccessor {}
