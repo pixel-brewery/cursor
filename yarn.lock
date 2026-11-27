@@ -953,7 +953,7 @@ __metadata:
     "@pixel-brewery/synapse-provider-opencode": "npm:0.0.16"
     "@pixel-brewery/synapse-runtime": "npm:0.0.16"
     "@types/node": "npm:26.6.6"
-    "@types/ws": "npm:8.18.1"
+    "@types/ws": "npm:8.18.2"
     ai: "npm:7.0.181"
     chroma-js: "npm:3.3.0"
     electron: "npm:45.4.1"
@@ -962,7 +962,7 @@ __metadata:
     reflect-metadata: "npm:0.2.2"
     typescript: "npm:6.0.3"
     vite: "npm:8.3.8"
-    ws: "npm:8.21.3"
+    ws: "npm:8.23.0"
     zod: "npm:4.6.7"
   languageName: unknown
   linkType: soft
@@ -1541,12 +1541,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/ws@npm:8.18.1":
-  version: 8.18.1
-  resolution: "@types/ws@npm:8.18.1"
+"@types/ws@npm:8.18.2":
+  version: 8.18.2
+  resolution: "@types/ws@npm:8.18.2"
   dependencies:
     "@types/node": "npm:*"
-  checksum: 10c0/61aff1129143fcc4312f083bc9e9e168aa3026b7dd6e70796276dcfb2c8211c4292603f9c4864fae702f2ed86e4abd4d38aa421831c2fd7f856c931a481afbab
+  checksum: 10c0/8cf79499d26df06ffc27109fc86f1400371a5932082a4c1269be3f11e22b9e5a403a4ba2c1a3245d5fae420c270571aa833142a3d7fdce8f6cd24a45c52a98e4
   languageName: node
   linkType: hard
 
@@ -4971,9 +4971,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ws@npm:8.21.3":
-  version: 8.21.3
-  resolution: "ws@npm:8.21.3"
+"ws@npm:8.23.0":
+  version: 8.23.0
+  resolution: "ws@npm:8.23.0"
   peerDependencies:
     bufferutil: ^4.0.1
     utf-8-validate: ">=5.0.2"
@@ -4982,7 +4982,7 @@ __metadata:
       optional: true
     utf-8-validate:
       optional: true
-  checksum: 10c0/7b28dc2863ea0e2cece68d142a3eee90361021b73f750431e6d8076bb7dede5fdfdb75b3d29534b62f411261147b76b1bc80fb5cc63ab0aabd467280e85b22e0
+  checksum: 10c0/1de9b70701c03cdb1b22abd17a1488dc6d22b4dc36a8c32b173d955356ea3634e78aea8ec734a78201dbb34f5a402d9603df32ef267bd477228cd54ae158e2f8
   languageName: node
   linkType: hard
 
