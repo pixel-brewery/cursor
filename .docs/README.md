@@ -60,4 +60,4 @@ To use the reference view interactively, [start the browser model](guides/refere
 
 ## Dependency automation
 
-[Automatic dependency updates](guides/dependabot.md) describes all-version updates, exact-head verification, branch refresh and workflow continuation.
+When every required check of a Dependabot pull request is green, [the auto-merge workflow](../.github/workflows/dependabot-merge.yml) squash-merges it; GitHub still enforces the `main` ruleset. A merge made with the workflow token starts no push workflows, so the same job then dispatches the matching push workflows, such as `ci.yml` and `publish-pages.yml`, with the merge commit as `expected_head_sha`.

@@ -1,9 +1,14 @@
 // #region Imports
-import { configDefaults, defineConfig } from 'vitest/config';
+
+import { defineConfig } from 'vitest/config';
+
 // #endregion
 
 export default defineConfig({
     test: {
-        exclude: [...configDefaults.exclude, '**/createDependabotAutomation.spec.mjs'],
+        root: import.meta.dirname,
+        include: ['src/**/*.spec.ts'],
+        maxWorkers: 1,
+        fileParallelism: false,
     },
 });
