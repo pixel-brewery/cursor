@@ -9,8 +9,8 @@
         "test": "node --test src/executors/dependabot-merge/createDependabotAutomation.spec.mjs && tsc -p tsconfig.json && vitest run"
     },
     "devDependencies": {
-        "@nx/devkit": "24.0.5",
-        "nx": "24.0.5",
+        "@nx/devkit": "24.0.6",
+        "nx": "24.0.6",
         "typedoc": "0.28.20",
         "typedoc-plugin-markdown": "4.14.1",
         "typescript": "6.0.3"

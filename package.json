@@ -31,7 +31,7 @@
         "@pixel-brewery/mosaik-mcp": "0.1.205",
         "@playwright/test": "1.65.0",
         "@types/node": "26.6.6",
-        "nx": "24.0.5",
+        "nx": "24.0.6",
         "playwright": "1.65.0",
         "typescript": "6.0.3",
         "vite": "8.3.8",
