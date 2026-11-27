@@ -28,7 +28,7 @@
         "test:adapters": "nx run framework-adapters:e2e"
     },
     "devDependencies": {
-        "@pixel-brewery/mosaik-mcp": "0.1.205",
+        "@pixel-brewery/mosaik-mcp": "0.1.213",
         "@playwright/test": "1.65.1",
         "@types/node": "26.6.6",
         "nx": "24.0.5",

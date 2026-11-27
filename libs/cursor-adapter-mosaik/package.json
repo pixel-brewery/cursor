@@ -22,6 +22,6 @@
         "@pixel-brewery/cursor-browser": "workspace:^"
     },
     "devDependencies": {
-        "@pixel-brewery/mosaik-elements-foundation": "0.1.205"
+        "@pixel-brewery/mosaik-elements-foundation": "0.1.213"
     }
 }
