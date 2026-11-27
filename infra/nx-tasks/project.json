@@ -37,10 +37,6 @@
             "options": {
                 "mode": "check"
             }
-        },
-        "dependabot-merge": {
-            "executor": "@pixel-brewery/nx-tasks:dependabot-merge",
-            "cache": false
         }
     }
 }

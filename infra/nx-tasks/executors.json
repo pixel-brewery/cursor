@@ -9,11 +9,6 @@
             "implementation": "./src/executors/mosaik-accessor-transform/executor",
             "schema": "./src/executors/mosaik-accessor-transform/schema.json",
             "description": "Generate or check Cursor accessors for every installed Mosaik component."
-        },
-        "dependabot-merge": {
-            "implementation": "./src/executors/dependabot-merge/executor",
-            "schema": "./src/executors/dependabot-merge/schema.json",
-            "description": "Reconcile only verified dependency PRs with their exact source SHA."
         }
     }
 }
