@@ -29,12 +29,12 @@
     },
     "devDependencies": {
         "@pixel-brewery/mosaik-mcp": "0.1.205",
-        "@playwright/test": "1.65.0",
+        "@playwright/test": "1.65.1",
         "@types/node": "26.6.6",
         "nx": "24.0.5",
-        "playwright": "1.65.0",
+        "playwright": "1.65.1",
         "typescript": "6.0.3",
         "vite": "8.3.8",
-        "vitest": "5.1.0"
+        "vitest": "5.1.1"
     }
 }
