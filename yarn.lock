@@ -5,16 +5,16 @@ __metadata:
   version: 10
   cacheKey: 10c0
 
-"@ai-sdk/gateway@npm:4.0.143":
-  version: 4.0.143
-  resolution: "@ai-sdk/gateway@npm:4.0.143"
+"@ai-sdk/gateway@npm:4.0.154":
+  version: 4.0.154
+  resolution: "@ai-sdk/gateway@npm:4.0.154"
   dependencies:
-    "@ai-sdk/provider": "npm:4.0.37"
-    "@ai-sdk/provider-utils": "npm:5.0.79"
+    "@ai-sdk/provider": "npm:4.0.39"
+    "@ai-sdk/provider-utils": "npm:5.0.83"
     "@vercel/oidc": "npm:3.2.0"
   peerDependencies:
     zod: ^3.25.76 || ^4.1.8
-  checksum: 10c0/21a620832f23a851406236ac1a79c374bd716cd84f484d745e1946fb65d9d8208c496156d84d9d648bc6ced2ecbb1bdf4d7e4efe3a020a4c8d04d98fcdea298a
+  checksum: 10c0/94bcb199ec18ba8b3dbe7aef99435c4212d1e9030780d11c4c7364bd66e66fd4f1d702f996ab94ac6aa4e7de2084d979e0ba111c7e46b5f512538eefaa6c08fb
   languageName: node
   linkType: hard
 
@@ -30,21 +30,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ai-sdk/provider-utils@npm:5.0.79":
-  version: 5.0.79
-  resolution: "@ai-sdk/provider-utils@npm:5.0.79"
-  dependencies:
-    "@ai-sdk/provider": "npm:4.0.37"
-    "@standard-schema/spec": "npm:^1.1.0"
-    "@workflow/serde": "npm:4.1.0"
-    eventsource-parser: "npm:^3.0.8"
-    undici: "npm:^7.29.1"
-  peerDependencies:
-    zod: ^3.25.76 || ^4.1.8
-  checksum: 10c0/f4c1dbb871fc4c2545378aa9c8d37120210ba1bb14cdbcc3cb07545cb77e71c2e3bf9f2730112d41b3bd0ad512e1edb6c60d70c07404343df5f17ba14cfeaec6
-  languageName: node
-  linkType: hard
-
 "@ai-sdk/provider-utils@npm:5.0.83":
   version: 5.0.83
   resolution: "@ai-sdk/provider-utils@npm:5.0.83"
@@ -56,15 +41,6 @@ __metadata:
   peerDependencies:
     zod: ^3.25.76 || ^4.1.8
   checksum: 10c0/e3f3a8d2c71e0aa21156523bd79ef8ae98e2ea11a72c98bc9a69d58499de991575f2baee5e25edf935ac613460bbd540c804439d71822ea2e69c03078219a7f2
-  languageName: node
-  linkType: hard
-
-"@ai-sdk/provider@npm:4.0.37":
-  version: 4.0.37
-  resolution: "@ai-sdk/provider@npm:4.0.37"
-  dependencies:
-    json-schema: "npm:^0.4.0"
-  checksum: 10c0/22f8a0478fbd987f68fb7698363386c9683efb4078c01f9b72dd63183fe45db3bbac84d15e4bfe052ab5bd237a33f74ec674dd14f0daba5375c336030539ec1b
   languageName: node
   linkType: hard
 
@@ -978,7 +954,7 @@ __metadata:
     "@pixel-brewery/synapse-runtime": "npm:0.0.16"
     "@types/node": "npm:26.6.6"
     "@types/ws": "npm:8.18.1"
-    ai: "npm:7.0.170"
+    ai: "npm:7.0.181"
     chroma-js: "npm:3.3.0"
     electron: "npm:45.4.1"
     lit: "npm:3.3.3"
@@ -1765,16 +1741,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ai@npm:7.0.170":
-  version: 7.0.170
-  resolution: "ai@npm:7.0.170"
+"ai@npm:7.0.181":
+  version: 7.0.181
+  resolution: "ai@npm:7.0.181"
   dependencies:
-    "@ai-sdk/gateway": "npm:4.0.143"
-    "@ai-sdk/provider": "npm:4.0.37"
-    "@ai-sdk/provider-utils": "npm:5.0.79"
+    "@ai-sdk/gateway": "npm:4.0.154"
+    "@ai-sdk/provider": "npm:4.0.39"
+    "@ai-sdk/provider-utils": "npm:5.0.83"
   peerDependencies:
     zod: ^3.25.76 || ^4.1.8
-  checksum: 10c0/57f35ad405dec8be3464f4a6e1488cc83e1bf7dd2c5f647326273c631dd69e33c1eb3eb0a7189814cad63054d20a943f3d84d245f9a856a464630b7f1ec90337
+  checksum: 10c0/47edff94f1387e491d1112d73db5a496db5c2058cb308b8531c2c7373c1672cd35f007124a98a40d23f15baabf435ad9372a9788682697e72a4b25c5a81396da
   languageName: node
   linkType: hard
 
@@ -4687,7 +4663,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"undici@npm:^7.24.4, undici@npm:^7.29.1":
+"undici@npm:^7.24.4":
   version: 7.30.2
   resolution: "undici@npm:7.30.2"
   checksum: 10c0/806e17f14fb49d2b63be314cf2be68efbe105469118b366d19a3cb6fd6686089220c74c1e8e947e6b337a16ff434c10c3860f3e637db314381c4ce8c071c3daf
