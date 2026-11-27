@@ -35,10 +35,12 @@ import { ElementAccessor } from '../../cdk/accessors/ElementAccessor.js';
         'lang',
         'locale',
         'orientation',
+        'renderer',
         'resolvedLocale',
         'sparkline',
         'themeName',
         'treemapPath',
+        'valueZoomRange',
         'zoomRange',
     ],
     readOnlyProperties: [
@@ -57,6 +59,7 @@ import { ElementAccessor } from '../../cdk/accessors/ElementAccessor.js';
         'frame',
         'resolvedLocale',
         'treemapPath',
+        'valueZoomRange',
         'zoomRange',
     ],
     methods: [
@@ -77,8 +80,10 @@ import { ElementAccessor } from '../../cdk/accessors/ElementAccessor.js';
         'setSeriesVisible',
         'toCsv',
         'toImage',
+        'toPdf',
         'toSvg',
         'zoomTo',
+        'zoomValuesTo',
     ],
     events: [
         'changed',

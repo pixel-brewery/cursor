@@ -104,10 +104,12 @@ import { ElementAccessor } from '../../cdk/accessors/ElementAccessor.js';
         'toggle',
     ],
     events: [
+        'change',
         'changed',
         'cleared',
         'connected',
         'disconnected',
+        'input',
         'itemsChanged',
         'selectionChanged',
     ],

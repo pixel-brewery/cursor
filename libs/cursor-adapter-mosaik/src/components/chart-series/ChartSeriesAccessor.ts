@@ -15,6 +15,7 @@ import { ElementAccessor } from '../../cdk/accessors/ElementAccessor.js';
 @Accessor({
     tagName: 'mosaik-chart-series',
     properties: [
+        'binValue',
         'binWidth',
         'bins',
         'changed',
@@ -29,6 +30,7 @@ import { ElementAccessor } from '../../cdk/accessors/ElementAccessor.js';
         'disconnected',
         'fieldChildren',
         'fieldClose',
+        'fieldColor',
         'fieldHigh',
         'fieldLow',
         'fieldOpen',
@@ -39,8 +41,10 @@ import { ElementAccessor } from '../../cdk/accessors/ElementAccessor.js';
         'fieldY',
         'innerRadius',
         'lang',
+        'markerShape',
         'markers',
         'maxPoints',
+        'minStageWidth',
         'name',
         'pattern',
         'stack',
